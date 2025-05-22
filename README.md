@@ -26,13 +26,19 @@ Una vez clonado el repositorio, se deben seguir los siguientes pasos:
 
 4. Crear archivo .env por medio de copiar el archivo .env.example asignando credenciales de tu base de datos
 
-5. Generar llave única de la aplicación
+5. Correr migración de la base de datos
+
+```bash
+    php artisan migrate:fresh
+```
+
+6. Generar llave única de la aplicación
 
 ```bash
     php artisan key:generate
 ```
 
-6. Correr proyecto
+7. Correr proyecto
 
 ```bash
     composer run dev
