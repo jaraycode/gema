@@ -16,10 +16,11 @@ return new class extends Migration
             $table->string(column: 'email')->unique();
             $table->string(column: 'username')->unique();
             $table->string(column: 'password');
-            $table->string(column: 'firstName');
-            $table->string(column: 'secondName')->nullable();
-            $table->string(column: 'lastName');
-            $table->string(column: 'secondLastName')->nullable();
+            $table->string(column: 'phone_number');
+            $table->string(column: 'first_name');
+            $table->string(column: 'second_name')->nullable();
+            $table->string(column: 'last_name');
+            $table->string(column: 'second_last_name')->nullable();
             $table->timestamp(column: 'delete_at')->nullable()->default(null);
             $table->timestamps();
         });
