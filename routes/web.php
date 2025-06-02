@@ -1,12 +1,11 @@
 <?php
 
-use App\Http\Controllers\Location\LocationController;
-use Illuminate\Support\Facades\Route;
-use Inertia\Inertia;
 
-Route::get('/', function () {
-    return Inertia::render('welcome');
-})->name('home');
+use App\Http\Controllers\Location\LocationController;
+use App\Http\Controllers\Dashboard\DashboardController;
+use Illuminate\Support\Facades\Route;
+
+Route::get('/', [DashboardController::class, 'index'])->name('home');
 
 require __DIR__ . '/locationRoutes.php';
 require __DIR__ . '/settings.php';
