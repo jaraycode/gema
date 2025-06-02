@@ -1,10 +1,26 @@
 'use client';
+import InputError from '@/components/input-error';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { useState } from 'react';
+import { useForm } from '@inertiajs/react';
+import { LoaderCircle } from 'lucide-react';
+import { FormEventHandler, useState } from 'react';
+
+type LoginFormData = {
+    email: string;
+    password: string;
+};
 
 export function LoginForm() {
     const [showPassword, setShowPassword] = useState(false);
+    const { data, setData, post, processing, errors, reset } = useForm<Required<LoginFormData>>({ email: '', password: '' });
+
+    const submit: FormEventHandler = (e) => {
+        e.preventDefault();
+        post(route('login'), {
+            onFinish: () => reset('password'),
+        });
+    };
 
     return (
         <section className="h-screen w-6/12 max-md:ml-0 max-md:w-full">
@@ -19,18 +35,21 @@ export function LoginForm() {
 
                 <p className="mb-10 leading-[36px)] text-black">Por favor ingresa tus datos</p>
 
-                <form className="w-full max-w-md">
+                <form className="w-full max-w-md" onSubmit={submit}>
                     <div className="text-center">
                         <label htmlFor="email" className="block text-xl leading-[36px)] font-medium text-gray-400 max-md:mt-10">
                             Email
                         </label>
                         <input
-                            type="email"
                             id="email"
+                            type="text"
+                            value={data.email}
+                            onChange={(e) => setData('email', e.target.value)}
                             className="mx-auto mt-3 h-[40px] w-5/6 border-0 border-b-2 border-solid border-zinc-600 bg-transparent text-black focus:border-zinc-800 focus:outline-none"
                             aria-label="Email address"
                             placeholder="Ingresa tu email"
                         />
+                        <InputError message={errors.email} />
                     </div>
 
                     <div className="mt-8 mb-2 text-center">
@@ -39,12 +58,15 @@ export function LoginForm() {
                         </label>
                         <div className="relative mx-auto mt-3 w-5/6">
                             <input
-                                type={showPassword ? 'text' : 'password'}
                                 id="password"
+                                type={showPassword ? 'text' : 'password'}
+                                value={data.password}
+                                onChange={(e) => setData('password', e.target.value)}
                                 className="h-[40px] w-full border-0 border-b-2 border-solid border-zinc-600 bg-transparent pr-10 text-black focus:border-zinc-800 focus:outline-none"
                                 aria-label="Password"
                                 placeholder="Ingresa tu contraseña"
                             />
+                            <InputError message={errors.password} />
                             <button
                                 type="button"
                                 onClick={() => setShowPassword(!showPassword)}
@@ -60,8 +82,10 @@ export function LoginForm() {
                     <div className="mt-7">
                         <button
                             type="submit"
+                            disabled={processing}
                             className="mt-6 mb-5 cursor-pointer rounded-[31px] border-2 border-[#1E9483] bg-[#1E9483] p-2 px-10 leading-[36px)] text-white max-md:mt-10 max-md:px-5"
                         >
+                            {processing && <LoaderCircle className="h-4 w-4 animate-spin" />}
                             Iniciar Sesión
                         </button>
                     </div>
