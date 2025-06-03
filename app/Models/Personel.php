@@ -22,6 +22,10 @@ class Personel extends Authenticatable
         'password',
     ];
 
+    protected $casts = [
+        'password' => 'hashed',
+    ];
+
     public function personel(): BelongsToMany
     {
         return $this->belongsToMany(WorkGroup::class);

@@ -3,18 +3,22 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
+use App\Service\Dashboard\DashboardService;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
 class DashboardController extends Controller
 {
+
+    public function __construct(protected DashboardService $dashboardService) {}
+
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $name = 'Jonas';
-        return Inertia::render('dashboard/dashboard', ['name' => $name]);
+        $dashboardProps = $this->dashboardService->getDataDashboard();
+        return Inertia::render('dashboard/dashboard', ['user' => $dashboardProps['user'], 'navMain' => $dashboardProps['navMain'], 'navSecondary' => $dashboardProps['navSecondary']]);
     }
 
     /**

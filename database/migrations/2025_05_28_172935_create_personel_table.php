@@ -21,7 +21,8 @@ return new class extends Migration
             $table->string(column: 'second_name')->nullable();
             $table->string(column: 'last_name');
             $table->string(column: 'second_last_name')->nullable();
-            $table->timestamp(column: 'delete_at')->nullable()->default(null);
+            $table->string(column: 'avatar')->nullable();
+            $table->timestamp(column: 'delete_at')->nullable();
             $table->timestamps();
         });
     }

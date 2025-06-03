@@ -22,6 +22,8 @@ export interface NavItem {
     isActive?: boolean;
 }
 
+export type NavSecondary = Omit<NavItem, 'isActive'>;
+
 export interface SharedData {
     name: string;
     quote: { message: string; author: string };
@@ -32,12 +34,19 @@ export interface SharedData {
 }
 
 export interface User {
+    // TODO: Change type with personel schema
     id: number;
     name: string;
     email: string;
-    avatar?: string;
-    email_verified_at: string | null;
+    phone_number: string;
+    avatar: string;
     created_at: string;
     updated_at: string;
     [key: string]: unknown; // This allows for additional properties...
+}
+
+export interface NavBar {
+    user: User;
+    navMain: NavMain[];
+    navSecondary: NavSecondary[];
 }
