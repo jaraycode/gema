@@ -4,9 +4,12 @@ namespace App\Models;
 
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Personel extends Authenticatable
 {
+    use HasFactory;
     protected $table = 'personel';
     protected $fillable = ['email', 'username', 'password', 'phone_number', 'first_name', 'last_name'];
     protected $primaryKey = 'id';
@@ -19,27 +22,8 @@ class Personel extends Authenticatable
         'password',
     ];
 
-    /**
-     * Checks into the database if the email along with the password exists inside the database, if the user does not exists returns true otherwise returns false.
-     * @param string $username
-     * @param string $password
-     * @return bool
-     */
-    public static function authenticateWithEmail(string $email, string $password): bool
+    public function personel(): BelongsToMany
     {
-        $response = self::where(column: 'email', operator: '=', value: $email)->where(column: 'password', operator: '=', value: Hash::make(value: $password))->first();
-        return !empty($response);
-    }
-
-    /**
-     * Checks into the database if the username along with the password exists inside the database, if the user does not exists returns true otherwise returns false.
-     * @param string $username
-     * @param string $password
-     * @return bool
-     */
-    public static function authenticateWithUsername(string $username, string $password): bool
-    {
-        $response = self::where(column: 'username', operator: '=', value: $username)->where(column: 'password', operator: '=', value: Hash::make(value: $password))->first();
-        return !empty($response);
+        return $this->belongsToMany(WorkGroup::class);
     }
 }
