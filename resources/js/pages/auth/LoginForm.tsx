@@ -85,8 +85,8 @@ export function LoginForm() {
                             disabled={processing}
                             className="mt-6 mb-5 cursor-pointer rounded-[31px] border-2 border-[#1E9483] bg-[#1E9483] p-2 px-10 leading-[36px)] text-white max-md:mt-10 max-md:px-5"
                         >
-                            {processing && <LoaderCircle className="h-4 w-4 animate-spin" />}
                             Iniciar Sesión
+                            {processing && <LoaderCircle className="ml-6 h-4 w-4 animate-spin" />}
                         </button>
                     </div>
                 </form>
