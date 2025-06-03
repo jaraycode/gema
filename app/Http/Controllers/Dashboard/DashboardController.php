@@ -14,7 +14,7 @@ class DashboardController extends Controller
     public function index()
     {
         $name = 'Jonas';
-        return Inertia::render('dashboard', ['name' => $name]);
+        return Inertia::render('dashboard/dashboard', ['name' => $name]);
     }
 
     /**
