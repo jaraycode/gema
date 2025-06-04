@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\Personel;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
 
 class PersonelSeeder extends Seeder
 {
@@ -16,7 +17,7 @@ class PersonelSeeder extends Seeder
             [
                 'email' => 'jonas@gmail.com',
                 'username' => 'jonas',
-                'password' => 'yovita12345',
+                'password' => Hash::make('yovita12345'),
                 'phone_number' => '04121164027',
                 'first_name' => 'Jonas',
                 'last_name' => 'Aray',
