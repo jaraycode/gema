@@ -6,12 +6,10 @@ use Illuminate\Support\Facades\Auth;
 
 class DashboardService
 {
-    /**
-     * Create a new class instance.
-     */
+
     public function __construct()
     {
-        //
+        
     }
 
     public function getDataDashboard(): array
@@ -40,12 +38,17 @@ class DashboardService
                 [
                     'title' => 'Departamento',
                     'href' => '#',
-                    'icon' => 'IconUser',
+                    'icon' => 'IconBuilding',
                 ],
                 [
                     'title' => 'Equipo',
                     'href' => '#',
-                    'icon' => 'IconUser',
+                    'icon' => 'IconAirConditioning',
+                ],
+                [
+                    'title' => 'Ubicacion',
+                    'href' => '#',
+                    'icon' => 'IconMapPin',
                 ],
             ],
             'navSecondary' => [
@@ -55,7 +58,7 @@ class DashboardService
                     'icon' => 'IconHelp',
                 ],
                 [
-                    'title' => 'Settings',
+                    'title' => 'Ajustes',
                     'href' => '#',
                     'icon' => 'IconSettings',
                 ],
