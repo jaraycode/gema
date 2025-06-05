@@ -30,54 +30,54 @@ class LocationSeeder extends Seeder
                 'created_at' => now(),
                 'updated_at' => now()
             ],
-            [
-                'name' => '',
-                'code' => '',
-                'level_min' => 1,
-                'level_max' => 1,
-                'created_at' => now(),
-                'updated_at' => now()
-            ],
-            [
-                'name' => '',
-                'code' => '',
-                'level_min' => 1,
-                'level_max' => 1,
-                'created_at' => now(),
-                'updated_at' => now()
-            ],
-            [
-                'name' => '',
-                'code' => '',
-                'level_min' => 1,
-                'level_max' => 1,
-                'created_at' => now(),
-                'updated_at' => now()
-            ],
-            [
-                'name' => '',
-                'code' => '',
-                'level_min' => 1,
-                'level_max' => 1,
-                'created_at' => now(),
-                'updated_at' => now()
-            ],
-            [
-                'name' => '',
-                'code' => '',
-                'level_min' => 1,
-                'level_max' => 1,
-                'created_at' => now(),
-                'updated_at' => now()
-            ],
-            [
-                'name' => '',
-                'code' => '',
-                'level_min' => 1,
-                'level_max' => 1,
-                'created_at' => now(),
-                'updated_at' => now()
-            ],
+            // [
+            //     'name' => '',
+            //     'code' => '',
+            //     'level_min' => 1,
+            //     'level_max' => 1,
+            //     'created_at' => now(),
+            //     'updated_at' => now()
+            // ],
+            // [
+            //     'name' => '',
+            //     'code' => '',
+            //     'level_min' => 1,
+            //     'level_max' => 1,
+            //     'created_at' => now(),
+            //     'updated_at' => now()
+            // ],
+            // [
+            //     'name' => '',
+            //     'code' => '',
+            //     'level_min' => 1,
+            //     'level_max' => 1,
+            //     'created_at' => now(),
+            //     'updated_at' => now()
+            // ],
+            // [
+            //     'name' => '',
+            //     'code' => '',
+            //     'level_min' => 1,
+            //     'level_max' => 1,
+            //     'created_at' => now(),
+            //     'updated_at' => now()
+            // ],
+            // [
+            //     'name' => '',
+            //     'code' => '',
+            //     'level_min' => 1,
+            //     'level_max' => 1,
+            //     'created_at' => now(),
+            //     'updated_at' => now()
+            // ],
+            // [
+            //     'name' => '',
+            //     'code' => '',
+            //     'level_min' => 1,
+            //     'level_max' => 1,
+            //     'created_at' => now(),
+            //     'updated_at' => now()
+            // ],
         ]);
     }
 }
