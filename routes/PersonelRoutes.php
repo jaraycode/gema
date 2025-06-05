@@ -5,4 +5,3 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::apiResource("personels", PersonelController::class);
-
