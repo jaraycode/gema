@@ -20,7 +20,7 @@ class PersonelController extends Controller
     $dashboardProps = $this->dashboardService->getDataDashboard();
     $personels = Personel::paginate(10);
 
-    return Inertia::render('personel/personel', array_merge($dashboardProps, [
+    return Inertia::render('persona/personel', array_merge($dashboardProps, [
       'personels' => $personels
     ]));
     //return response()->json($personels, 200);
