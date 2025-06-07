@@ -1,7 +1,39 @@
 import { AppSidebar } from '@/components/app-sidebar';
+import { PersonelTable } from '@/components/personel/personel-table';
 import { SiteHeader } from '@/components/site-header';
 import { SidebarInset, SidebarProvider } from '@/components/ui/sidebar';
 import { NavBar } from '@/types';
+
+// Datos de ejemplo
+const personelData = [
+    {
+        id: '1',
+        fecha: '2024-11-01',
+        cedula: '26.385.482',
+        nombre: 'Pedro Jubento',
+        cargo: 'Jefe',
+        departamento: 'SGMREF',
+        telefono: '04147691677',
+    },
+    {
+        id: '2',
+        fecha: '2023-04-10',
+        cedula: '28.385.422',
+        nombre: 'Maria Acosta',
+        cargo: 'Supervisor',
+        departamento: 'SGMREF',
+        telefono: '04147691677',
+    },
+    {
+        id: '3',
+        fecha: '2025-07-16',
+        cedula: '26.385.442',
+        nombre: 'Jero Cruz',
+        cargo: 'Supervisor',
+        departamento: 'SGMREF',
+        telefono: '04147691677',
+    },
+];
 
 export default function PersonelPage(props: NavBar) {
     return (
@@ -21,8 +53,17 @@ export default function PersonelPage(props: NavBar) {
                     <div className="@container/main flex flex-1 flex-col gap-2">
                         <div className="flex flex-col gap-4 py-4 md:gap-6 md:py-6">
                             <div className="px-4 lg:px-6">
-                                <h1 className="text-2xl font-bold text-green-800">Gestión de Personal</h1>
-                                <p className="mt-2 text-gray-600 dark:text-gray-400">Página de administración del personal</p>
+                                <PersonelTable
+                                    data={personelData.map((p) => ({
+                                        id: p.id,
+                                        date: p.fecha,
+                                        cedula: p.cedula,
+                                        name: p.nombre,
+                                        position: p.cargo,
+                                        department: p.departamento,
+                                        phone: p.telefono,
+                                    }))}
+                                />
                             </div>
                         </div>
                     </div>
