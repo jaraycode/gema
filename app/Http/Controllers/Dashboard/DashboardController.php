@@ -15,10 +15,22 @@ class DashboardController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $dashboardProps = $this->dashboardService->getDataDashboard();
-        return Inertia::render('dashboard/dashboard', ['user' => $dashboardProps['user'], 'navMain' => $dashboardProps['navMain'], 'navSecondary' => $dashboardProps['navSecondary']]);
+        $currentPath = $request->path(); // esto da 'dashboard' si usas /dashboard
+        if ($currentPath === '/') {
+            $currentPath = '/';
+        } else {
+            $currentPath = '/' . $currentPath;
+        }
+
+        $dashboardProps = $this->dashboardService->getDataDashboard($currentPath);
+
+        return Inertia::render('dashboard/dashboard', [
+            'user' => $dashboardProps['user'],
+            'navMain' => $dashboardProps['navMain'],
+            'navSecondary' => $dashboardProps['navSecondary'],
+        ]);
     }
 
     /**
