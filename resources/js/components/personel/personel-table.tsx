@@ -50,7 +50,7 @@ export function PersonelTable({ data }: PersonelTableProps) {
                 <CardTitle className="text-2xl">Gestión de Personal</CardTitle>
 
                 {/* Filtros */}
-                <div className="flex w-full flex-nowrap items-center">
+                <div className="flex-grow w-full flex-nowrap items-center justify-between">
                     <PersonelFilters
                         dateRange={dateRange}
                         onDateRangeChange={setDateRange}
@@ -77,8 +77,8 @@ export function PersonelTable({ data }: PersonelTableProps) {
 
             {/* Tabla */}
             <CardContent className="w-full">
-                <div className="w-full rounded-md border p-2">
-                    <Table className="border-separate border-spacing-y-6">
+                <div className="w-full rounded-xl border p-2 p-t-1">
+                    <Table className="border-separate border-spacing-y-6 border-gray-200">
                         <TableHeader>
                             <TableRow>
                                 <TableHead>Fecha</TableHead>
@@ -93,7 +93,7 @@ export function PersonelTable({ data }: PersonelTableProps) {
                         <TableBody>
                             {filteredData.length > 0 ? (
                                 filteredData.map((item) => (
-                                    <TableRow key={item.id}>
+                                    <TableRow key={item.id} className="hover:bg-[#f0f2f5] rounded-xl border-b border-gray-800">
                                         <TableCell>{format(new Date(item.date), 'dd/MM/yyyy')}</TableCell>
                                         <TableCell>{item.cedula}</TableCell>
                                         <TableCell className="font-medium">{item.name}</TableCell>
@@ -101,7 +101,7 @@ export function PersonelTable({ data }: PersonelTableProps) {
                                         <TableCell className="capitalize">{item.department}</TableCell>
                                         <TableCell>{item.phone}</TableCell>
                                         <TableCell>
-                                            <Eye className="h-4 w-4 text-blue-600" />
+                                            <Eye className="h-5 w-5 text-black-100" />
                                         </TableCell>
                                     </TableRow>
                                 ))

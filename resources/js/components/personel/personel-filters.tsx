@@ -16,9 +16,9 @@ export function DateFilter({ label, date, onSelect }: DateFilterProps) {
     return (
         <Popover>
             <PopoverTrigger asChild>
-                <Button variant="outline" className={cn('w-[180px] justify-start text-left font-normal', !date && 'text-muted-foreground')}>
-                    <CalendarIcon className="mr-2 h-4 w-4" />
+                <Button variant="outline" className={cn('w-[180px] justify-between text-left font-normal', !date && 'text-muted-foreground')}>
                     {date ? format(new Date(date), 'dd/MM/yyyy') : label}
+                    <CalendarIcon className="mr-2 h-4 w-4 text-[#cccccc]" />
                 </Button>
             </PopoverTrigger>
             <PopoverContent className="w-auto p-0">
@@ -44,7 +44,7 @@ export function DropdownFilter({ label, options, selected, onSelect }: DropdownF
     return (
         <DropdownMenu>
             <DropdownMenuTrigger asChild>
-                <Button variant="outline" className="w-[180px] justify-start">
+                <Button variant="outline" className="w-[180px] justify-between">
                     {selected.length > 0 ? `${selected.length} seleccionados` : label}
                     <ChevronDown className="ml-2 h-4 w-4" />
                 </Button>
@@ -92,33 +92,63 @@ export function PersonelFilters({
     onDepartmentChange,
 }: PersonelFiltersProps) {
     return (
-        <div className="flex flex-wrap items-center gap-4">
-            <div className="flex items-center gap-2">
-                <span className="text-muted-foreground text-sm">Desde:</span>
-                <DateFilter
-                    label="Seleccionar fecha"
-                    date={dateRange.startDate}
-                    onSelect={(date) => onDateRangeChange({ ...dateRange, startDate: date })}
-                />
+        <div className="flex flex-wrap items-center gap-4 justify-between p-4 bg-white [&_button]:border-none [&_button]:shadow-none [&_button]:bg-transparent m-0">
+
+            {/* <div className="flex items-center gap-2 border rounded-4xl bg-gray">
+                <span className="text-muted-foreground text-sm ml-3 bg-gray">Desde:</span>
+                <div className="rounded-4xl bg-gray">
+                    <DateFilter
+                        label="Seleccionar fecha"
+                        date={dateRange.startDate}
+                        onSelect={(date) => onDateRangeChange({ ...dateRange, startDate: date })}
+                    />
+                </div>
+            </div> */}
+
+            <div className="flex items-center gap-2 border rounded-xl bg-[#e2e2e3] border-none shadow-sm">
+                <span className="text-sm ml-3 w-full h-full text-black font-medium mr-2">Desde:</span>
+                <div className="[&_button]:border [&_button]:shadow-none [&_button]:bg-white [&_button]:border-gray-600">
+                   <div className="dropdown-wrapper text-[#8b8b8b] bg-[#f0f2f5] rounded-r-xl">
+                        <DateFilter
+                        label="Seleccionar fecha"
+                        date={dateRange.startDate}
+                        onSelect={(date) => onDateRangeChange({ ...dateRange, startDate: date })}
+                        />
+                    </div>
+                </div>
             </div>
 
-            <div className="flex items-center gap-2">
-                <span className="text-muted-foreground text-sm">Hasta:</span>
-                <DateFilter
-                    label="Seleccionar fecha"
-                    date={dateRange.endDate}
-                    onSelect={(date) => onDateRangeChange({ ...dateRange, endDate: date })}
-                />
+            <div className="flex items-center gap-2 border rounded-xl bg-[#e2e2e3] border-none shadow-sm">
+                <span className="text-sm ml-3 w-full h-full text-black font-medium mr-2">Hasta:</span>
+                <div className="dropdown-wrapper text-[#8b8b8b] bg-[#f0f2f5] rounded-r-xl">
+                    <DateFilter
+                        label="Seleccionar fecha"
+                        date={dateRange.endDate}
+                        onSelect={(date) => onDateRangeChange({ ...dateRange, endDate: date })}
+                    />
+                </div>
             </div>
 
-            <div className="flex items-center gap-2">
-                <span className="text-muted-foreground text-sm">Cargo:</span>
-                <DropdownFilter label="Todos los cargos" options={position} selected={selectedPosition} onSelect={onPositionChange} />
+            <div className="flex items-center gap-2 border rounded-xl bg-[#e2e2e3] border-none shadow-sm">
+                <span className="text-sm ml-3 w-full h-full text-black font-medium mr-2">Cargo:</span>
+                <div className="dropdown-wrapper text-[#8b8b8b] bg-[#f0f2f5] rounded-r-xl">
+                    <DropdownFilter label="Todos los cargos" options={position} selected={selectedPosition} onSelect={onPositionChange} />
+                </div>
             </div>
 
-            <div className="flex items-center gap-2">
-                <span className="text-muted-foreground text-sm">Equipo:</span>
-                <DropdownFilter label="Todos los equipos" options={department} selected={selectedDepartment} onSelect={onDepartmentChange} />
+            <div className="flex items-center gap-2border rounded-xl bg-[#e2e2e3] border-none shadow-sm">
+                <span className="text-sm ml-3 w-full h-full text-black font-medium mr-2">Equipo:</span>
+                
+                {/* <DropdownFilter label="Todos los equipos" options={department} selected={selectedDepartment} onSelect={onDepartmentChange} /> */}
+
+                <div className="dropdown-wrapper text-[#8b8b8b] bg-[#f0f2f5] rounded-r-xl">
+                    <DropdownFilter
+                        label="Todos los equipos"
+                        options={department}
+                        selected={selectedDepartment}
+                        onSelect={onDepartmentChange}
+                    />
+                </div>
             </div>
         </div>
     );
