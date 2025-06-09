@@ -96,7 +96,7 @@ export function MaintenanceTable({ data }: { data: Equipment[] }) {
           onChange={(e) => setGlobalFilter(e.target.value)}
           className="max-w-sm border border-gray-10 hover:border-gray-10"
         />
-        <button className="flex items-center p-3 bg-[#1E9483] text-white rounded-[20px] ml-auto mr-10 transition duration-200 hover:shadow hover:shadow-[#1E9483] w-28">
+        <button className="flex items-center p-3 bg-[#1E9483] text-white rounded-[20px] ml-auto mr-2 transition duration-200 hover:shadow hover:shadow-[#1E9483] w-28">
           <FontAwesomeIcon icon={faFileExcel} className="mr-2" />
           Exportar
         </button>

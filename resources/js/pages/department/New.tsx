@@ -35,7 +35,7 @@ export default function New(props: NavBar) {
           </Button>
           <h2 className="text-lg font-semibold">Crear Departamento</h2>
         </div>
-        <div className="flex items-center ml-90">
+        <div className="flex items-center ml-76">
           <FontAwesomeIcon icon={faQrcode} className="text-xl mr-3 mt-4" style={{ color: '#2F4157' }} /> {/* Icono de QR */}
           <label className="block mb-2 mt-6 text-left">Código del Departamento</label>
         </div>
@@ -46,9 +46,9 @@ export default function New(props: NavBar) {
           className="border border-gray-300 mx-auto w-1/2 h-12  rounded-[8px]" 
         />
         <div>
-          <div className="flex items-center ml-92"> 
-            <FontAwesomeIcon icon={faBuilding} className="text-xl mr-3 mt-6" style={{ color: '#2F4157' }} />
-            <label className="block mb-2 mt-10 text-left">Nombre del Departamento</label>
+          <div className="flex items-center ml-76"> 
+            <FontAwesomeIcon icon={faBuilding} className="text-xl mr-3 mt-8" style={{ color: '#2F4157' }} />
+            <label className="block  mt-10 text-left">Nombre del Departamento</label>
           </div>
           <Input
             placeholder="Nombre del Departamento"
