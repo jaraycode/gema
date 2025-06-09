@@ -3,7 +3,7 @@
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
-import { LocationModel } from '@/types';
+import { LocationModel, PaginatedData } from '@/types';
 import { faChevronLeft, faChevronRight, faFileExcel } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
@@ -38,7 +38,7 @@ export const columns: ColumnDef<LocationModel>[] = [
     },
 ];
 
-export function LocationTable({ data, pageSize }: { data: LocationModel[]; pageSize: number }) {
+export function LocationTable({ data, per_page }: PaginatedData<LocationModel>) {
     const [sorting, setSorting] = React.useState<SortingState>([]);
     const [globalFilter, setGlobalFilter] = React.useState('');
     const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([]);
@@ -63,7 +63,7 @@ export function LocationTable({ data, pageSize }: { data: LocationModel[]; pageS
         },
         initialState: {
             pagination: {
-                pageSize: pageSize,
+                pageSize: per_page,
             },
         },
     });

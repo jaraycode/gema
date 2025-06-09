@@ -26,7 +26,7 @@ export default function LocationIndex({ data, user, navMain, navSecondary }: Loc
                             <div className="mx-4 grid grid-cols-1 gap-4 md:mx-8">
                                 <div className="rounded-lg bg-white p-4 shadow-md">
                                     <h2 className="mb-2 text-lg font-semibold">Location</h2>
-                                    <LocationTable data={data.data} pageSize={data.per_page} />
+                                    <LocationTable {...data} />
                                 </div>
                             </div>
                         </div>

@@ -75,6 +75,7 @@ export interface PaginatedData<T> {
     from: number;
     last_page: number;
     per_page: number;
+    current_page: number;
     [key: string]: unknown; // This allows for additional properties...
 }
 
