@@ -5,8 +5,7 @@ import { SidebarInset, SidebarProvider } from '@/components/ui/sidebar';
 import { LocationProps } from '@/types';
 import { Head } from '@inertiajs/react';
 
-export default function LocationIndex(props: LocationProps) {
-    console.log(props.data.model, props.data);
+export default function LocationIndex({ data, user, navMain, navSecondary }: LocationProps) {
     return (
         <SidebarProvider
             style={
@@ -17,7 +16,7 @@ export default function LocationIndex(props: LocationProps) {
             }
         >
             <Head title="Ubicación" />
-            <AppSidebar variant="inset" user={props.user} navMain={props.navMain} navSecondary={props.navSecondary} />
+            <AppSidebar variant="inset" user={user} navMain={navMain} navSecondary={navSecondary} />
             <SidebarInset>
                 <SiteHeader />
                 <div className="flex flex-1 flex-col">
@@ -27,7 +26,7 @@ export default function LocationIndex(props: LocationProps) {
                             <div className="mx-4 grid grid-cols-1 gap-4 md:mx-8">
                                 <div className="rounded-lg bg-white p-4 shadow-md">
                                     <h2 className="mb-2 text-lg font-semibold">Location</h2>
-                                    <LocationTable data={props.data.data} pageSize={props.data.per_page} />
+                                    <LocationTable data={data.data} pageSize={data.per_page} />
                                 </div>
                             </div>
                         </div>
