@@ -45,8 +45,45 @@ export interface User {
     [key: string]: unknown; // This allows for additional properties...
 }
 
-export interface NavBar {
+export interface NavUserProps {
+    user: Pick<User, 'name' | 'email' | 'avatar'>;
+}
+
+export interface NavBarProps {
     user: User;
     navMain: NavMain[];
     navSecondary: NavSecondary[];
 }
+
+export interface LocationModel {
+    name: string;
+    code: string;
+    level: number;
+}
+
+export interface Links {
+    url: string;
+    label: string;
+    active: bool;
+}
+
+export interface PaginatedData<T> {
+    data: T[];
+    to: number;
+    links: Links[];
+    total: number;
+    from: number;
+    last_page: number;
+    per_page: number;
+    [key: string]: unknown; // This allows for additional properties...
+}
+
+export interface LocationProps extends NavBarProps {
+    data: PaginatedData<LocationModel>;
+}
+
+export type Equipment = {
+    id: string;
+    date: string;
+    name: string;
+};

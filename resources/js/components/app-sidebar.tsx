@@ -4,16 +4,7 @@ import * as React from 'react';
 import { NavUser } from '@/components/nav-user';
 import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from '@/components/ui/sidebar';
 import { NavBar } from '@/types';
-import {
-    IconDashboard,
-    IconReport,
-    IconUser,
-    IconSettings,
-    IconHelp,
-    IconBuilding,
-    IconAirConditioning,
-    IconMapPin, 
-} from "@tabler/icons-react"
+import { IconAirConditioning, IconBuilding, IconDashboard, IconHelp, IconMapPin, IconReport, IconSettings, IconUser } from '@tabler/icons-react';
 
 type AppSidebarProps = NavBar & React.ComponentProps<typeof Sidebar>;
 
@@ -28,8 +19,8 @@ export function AppSidebar({ user, navMain, navSecondary, ...props }: AppSidebar
         IconHelp: IconHelp,
         IconBuilding: IconBuilding,
         IconAirConditioning: IconAirConditioning,
-        IconMapPin: IconMapPin, 
-    }
+        IconMapPin: IconMapPin,
+    };
 
     return (
         <Sidebar collapsible="offcanvas" {...props}>
@@ -49,7 +40,7 @@ export function AppSidebar({ user, navMain, navSecondary, ...props }: AppSidebar
                         return (
                             <SidebarMenuItem key={item.title}>
                                 <SidebarMenuButton className="py-6" isActive={item.isActive} asChild>
-                                    <a href={item.href}>
+                                    <a href={route(item.href)}>
                                         <Icon className="h-5 w-5" />
                                         <span>{item.title}</span>
                                     </a>
@@ -66,7 +57,7 @@ export function AppSidebar({ user, navMain, navSecondary, ...props }: AppSidebar
                         return (
                             <SidebarMenuItem key={item.title}>
                                 <SidebarMenuButton className="py-6" asChild>
-                                    <a href={item.href}>
+                                    <a href={route(item.href)}>
                                         <Icon className="h-5 w-5" />
                                         <span>{item.title}</span>
                                     </a>
