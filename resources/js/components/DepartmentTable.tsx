@@ -25,7 +25,7 @@ export type Department = {
 
 export const columns: ColumnDef<Department>[] = [
     {
-        accessorKey: 'id', // Cambiado de "codigo" a "id"
+        accessorKey: 'id', 
         header: () => <div className="text-center">Código</div>,
         cell: ({ row }) => <div className="text-center">{row.getValue('id')}</div>,
     },
@@ -86,13 +86,15 @@ export function DepartmentTable({ data }: { data: Department[] }) {
                 </a>
             </div>
             <div className="rounded-md border">
-                <Table className="border-separate border-spacing-y-6 border-gray-200">
+                <Table className="w-full">
                     <TableHeader>
                         {table.getHeaderGroups().map((headerGroup) => (
                             <TableRow key={headerGroup.id}>
                                 {headerGroup.headers.map((header) => (
                                     <TableHead key={header.id}>
-                                        {header.isPlaceholder ? null : flexRender(header.column.columnDef.header, header.getContext())}
+                                        {header.isPlaceholder
+                                            ? null
+                                            : flexRender(header.column.columnDef.header, header.getContext())}
                                     </TableHead>
                                 ))}
                             </TableRow>
@@ -101,9 +103,11 @@ export function DepartmentTable({ data }: { data: Department[] }) {
                     <TableBody>
                         {table.getRowModel().rows?.length ? (
                             table.getRowModel().rows.map((row) => (
-                                <TableRow key={row.id}>
+                                <TableRow key={row.id} className="border-b border-gray-200">
                                     {row.getVisibleCells().map((cell) => (
-                                        <TableCell key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</TableCell>
+                                        <TableCell className='py-5' key={cell.id}>
+                                            {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                                        </TableCell>
                                     ))}
                                 </TableRow>
                             ))
@@ -117,6 +121,7 @@ export function DepartmentTable({ data }: { data: Department[] }) {
                     </TableBody>
                 </Table>
             </div>
+
 
             <div className="flex items-center justify-between py-4">
                 <div className="text-muted-foreground text-sm">{table.getFilteredRowModel().rows.length} fila(s) mostradas.</div>
