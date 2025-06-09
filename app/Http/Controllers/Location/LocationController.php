@@ -5,15 +5,22 @@ namespace App\Http\Controllers\Location;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Core\Location\StoreLocationRequest;
 use App\Http\Requests\Core\Location\UpdateLocationRequest;
+use App\Service\Location\LocationService;
+use Inertia\Response;
+use Inertia\Inertia;
 
 class LocationController extends Controller
 {
+
+    public function __construct(protected LocationService $locationService) {}
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(): Response
     {
-        dd('Ejemplo');
+        $dashboardProps = $this->locationService->getMenu();
+        $dashboardProps['data'] = $this->locationService->getAllLocations();
+        return Inertia::render(component: 'location/locationIndex', props: $dashboardProps);
     }
 
     /**
@@ -21,7 +28,7 @@ class LocationController extends Controller
      */
     public function show(string $id)
     {
-        //
+        return $this->locationService->getLocation(id: intval(value: $id));
     }
 
     /**

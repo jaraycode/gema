@@ -15,8 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string(column: 'name');
             $table->string(column: 'code')->unique();
-            $table->tinyInteger(column: 'level_min');
-            $table->tinyInteger(column: 'level_max');
+            $table->tinyInteger(column: 'level');
             $table->timestamp(column: 'delete_at')->nullable()->default(value: null);
             $table->timestamps();
         });
