@@ -21,7 +21,7 @@ export function DateFilter({ label, date, onSelect }: DateFilterProps) {
                     <CalendarIcon className="mr-2 h-4 w-4 text-[#cccccc]" />
                 </Button>
             </PopoverTrigger>
-            <PopoverContent className="w-auto p-0">
+            <PopoverContent className="w-auto bg-white p-0">
                 <Calendar
                     mode="single"
                     selected={date ? new Date(date) : undefined}
@@ -92,8 +92,7 @@ export function PersonelFilters({
     onDepartmentChange,
 }: PersonelFiltersProps) {
     return (
-        <div className="flex flex-wrap items-center gap-4 justify-between p-4 bg-white [&_button]:border-none [&_button]:shadow-none [&_button]:bg-transparent m-0">
-
+        <div className="m-0 flex flex-wrap items-center justify-between gap-4 bg-white p-4 [&_button]:border-none [&_button]:bg-transparent [&_button]:shadow-none">
             {/* <div className="flex items-center gap-2 border rounded-4xl bg-gray">
                 <span className="text-muted-foreground text-sm ml-3 bg-gray">Desde:</span>
                 <div className="rounded-4xl bg-gray">
@@ -105,22 +104,22 @@ export function PersonelFilters({
                 </div>
             </div> */}
 
-            <div className="flex items-center gap-2 border rounded-xl bg-[#e2e2e3] border-none shadow-sm">
-                <span className="text-sm ml-3 w-full h-full text-black font-medium mr-2">Desde:</span>
-                <div className="[&_button]:border [&_button]:shadow-none [&_button]:bg-white [&_button]:border-gray-600">
-                   <div className="dropdown-wrapper text-[#8b8b8b] bg-[#f0f2f5] rounded-r-xl">
+            <div className="flex items-center gap-2 rounded-xl border border-none bg-[#e2e2e3] shadow-sm">
+                <span className="mr-2 ml-3 h-full w-full text-sm font-medium text-black">Desde:</span>
+                <div className="[&_button]:border [&_button]:border-gray-600 [&_button]:bg-white [&_button]:shadow-none">
+                    <div className="dropdown-wrapper rounded-r-xl bg-[#f0f2f5] text-[#8b8b8b]">
                         <DateFilter
-                        label="Seleccionar fecha"
-                        date={dateRange.startDate}
-                        onSelect={(date) => onDateRangeChange({ ...dateRange, startDate: date })}
+                            label="Seleccionar fecha"
+                            date={dateRange.startDate}
+                            onSelect={(date) => onDateRangeChange({ ...dateRange, startDate: date })}
                         />
                     </div>
                 </div>
             </div>
 
-            <div className="flex items-center gap-2 border rounded-xl bg-[#e2e2e3] border-none shadow-sm">
-                <span className="text-sm ml-3 w-full h-full text-black font-medium mr-2">Hasta:</span>
-                <div className="dropdown-wrapper text-[#8b8b8b] bg-[#f0f2f5] rounded-r-xl">
+            <div className="flex items-center gap-2 rounded-xl border border-none bg-[#e2e2e3] shadow-sm">
+                <span className="mr-2 ml-3 h-full w-full text-sm font-medium text-black">Hasta:</span>
+                <div className="dropdown-wrapper rounded-r-xl bg-[#f0f2f5] text-[#8b8b8b]">
                     <DateFilter
                         label="Seleccionar fecha"
                         date={dateRange.endDate}
@@ -129,25 +128,20 @@ export function PersonelFilters({
                 </div>
             </div>
 
-            <div className="flex items-center gap-2 border rounded-xl bg-[#e2e2e3] border-none shadow-sm">
-                <span className="text-sm ml-3 w-full h-full text-black font-medium mr-2">Cargo:</span>
-                <div className="dropdown-wrapper text-[#8b8b8b] bg-[#f0f2f5] rounded-r-xl">
+            <div className="flex items-center gap-2 rounded-xl border border-none bg-[#e2e2e3] shadow-sm">
+                <span className="mr-2 ml-3 h-full w-full text-sm font-medium text-black">Cargo:</span>
+                <div className="dropdown-wrapper rounded-r-xl bg-[#f0f2f5] text-[#8b8b8b]">
                     <DropdownFilter label="Todos los cargos" options={position} selected={selectedPosition} onSelect={onPositionChange} />
                 </div>
             </div>
 
-            <div className="flex items-center gap-2border rounded-xl bg-[#e2e2e3] border-none shadow-sm">
-                <span className="text-sm ml-3 w-full h-full text-black font-medium mr-2">Equipo:</span>
-                
+            <div className="gap-2border flex items-center rounded-xl border-none bg-[#e2e2e3] shadow-sm">
+                <span className="mr-2 ml-3 h-full w-full text-sm font-medium text-black">Equipo:</span>
+
                 {/* <DropdownFilter label="Todos los equipos" options={department} selected={selectedDepartment} onSelect={onDepartmentChange} /> */}
 
-                <div className="dropdown-wrapper text-[#8b8b8b] bg-[#f0f2f5] rounded-r-xl">
-                    <DropdownFilter
-                        label="Todos los equipos"
-                        options={department}
-                        selected={selectedDepartment}
-                        onSelect={onDepartmentChange}
-                    />
+                <div className="dropdown-wrapper rounded-r-xl bg-[#f0f2f5] text-[#8b8b8b]">
+                    <DropdownFilter label="Todos los equipos" options={department} selected={selectedDepartment} onSelect={onDepartmentChange} />
                 </div>
             </div>
         </div>
