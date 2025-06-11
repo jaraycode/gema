@@ -1,11 +1,13 @@
 import { AppSidebar } from '@/components/app-sidebar';
-import { LocationTable } from '@/components/location-table';
+import { LocationForm } from '@/components/location/forms/store-location-form';
 import { SiteHeader } from '@/components/site-header';
 import { SidebarInset, SidebarProvider } from '@/components/ui/sidebar';
 import { LocationProps } from '@/types';
+import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Head } from '@inertiajs/react';
 
-export default function LocationIndex({ data, user, navMain, navSecondary }: LocationProps) {
+export default function LocationIndex({ user, navMain, navSecondary }: LocationProps) {
     return (
         <SidebarProvider
             style={
@@ -22,13 +24,11 @@ export default function LocationIndex({ data, user, navMain, navSecondary }: Loc
                 <div className="flex flex-1 flex-col">
                     <div className="@container/main flex flex-1 flex-col gap-2">
                         <div className="flex flex-col gap-4 py-4 md:gap-6 md:py-6">
-                            <div className="px-4 lg:px-6"></div>
-                            <div className="mx-4 grid grid-cols-1 gap-4 md:mx-8">
-                                <div className="rounded-lg bg-white p-4 shadow-md">
-                                    <h2 className="mb-2 text-lg font-semibold">Location</h2>
-                                    <LocationTable {...data} />
-                                </div>
-                            </div>
+                            <a href={route('location.index')} className="transition hover:cursor-pointer hover:bg-zinc-200">
+                                <FontAwesomeIcon icon={faChevronLeft} />
+                            </a>
+                            <h1>Formulario para crear una nueva ubicaion</h1>
+                            <LocationForm />
                         </div>
                     </div>
                 </div>

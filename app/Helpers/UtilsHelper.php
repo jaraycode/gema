@@ -17,3 +17,16 @@ if (!function_exists('setActiveRoute')) {
         return $menu;
     }
 }
+
+if (!function_exists('castLevel')) {
+    /**
+     * This function needs the index to then return a name based on the levels of the locations
+     * @param int $index
+     * @return string
+     */
+    function castLevel(int $index): string
+    {
+        $casting = ['Módulo', 'Piso', 'Oficina', 'Equipo'];
+        return $casting[$index];
+    }
+}

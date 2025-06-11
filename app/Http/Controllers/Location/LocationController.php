@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Core\Location\StoreLocationRequest;
 use App\Http\Requests\Core\Location\UpdateLocationRequest;
 use App\Service\Location\LocationService;
+use Exception;
 use Inertia\Response;
 use Inertia\Inertia;
 
@@ -20,7 +21,7 @@ class LocationController extends Controller
     {
         $dashboardProps = $this->locationService->getMenu();
         $dashboardProps['data'] = $this->locationService->getAllLocations();
-        return Inertia::render(component: 'location/locationIndex', props: $dashboardProps);
+        return Inertia::render(component: 'location/location-index', props: $dashboardProps);
     }
 
     /**
@@ -36,15 +37,24 @@ class LocationController extends Controller
      */
     public function create()
     {
-        //
+        $dashboardProps = $this->locationService->getMenu();
+        return Inertia::render(component: 'location/location-create', props: $dashboardProps);
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreLocationRequest $request)
+    public function store(StoreLocationRequest $request): Response
     {
-        //
+        try {
+            $this->locationService->storeLocation(location: $request->toArray());
+            $dashboardProps = $this->locationService->getMenu();
+            $dashboardProps['response'] = ['message' => 'Ubicación creada exitosamente'];
+            return Inertia::render(component: 'location/location-index', props: $dashboardProps);
+        } catch (Exception $e) {
+            $dashboardProps['errors'] = ['message' => $e->getMessage()];
+            return Inertia::render(component: 'location/location-index', props: $dashboardProps);
+        }
     }
 
     /**

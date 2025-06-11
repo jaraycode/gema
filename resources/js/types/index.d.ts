@@ -1,5 +1,7 @@
 import { LucideIcon } from 'lucide-react';
 import type { Config } from 'ziggy-js';
+export * from '@/types/equipment/equipment';
+export * from '@/types/location/location';
 
 export interface Auth {
     user: User;
@@ -34,7 +36,6 @@ export interface SharedData {
 }
 
 export interface User {
-    // TODO: Change type with personel schema
     id: number;
     name: string;
     email: string;
@@ -55,12 +56,6 @@ export interface NavBarProps {
     navSecondary: NavSecondary[];
 }
 
-export interface LocationModel {
-    name: string;
-    code: string;
-    level: number;
-}
-
 export interface Links {
     url: string;
     label: string;
@@ -78,13 +73,3 @@ export interface PaginatedData<T> {
     current_page: number;
     [key: string]: unknown; // This allows for additional properties...
 }
-
-export interface LocationProps extends NavBarProps {
-    data: PaginatedData<LocationModel>;
-}
-
-export type Equipment = {
-    id: string;
-    date: string;
-    name: string;
-};

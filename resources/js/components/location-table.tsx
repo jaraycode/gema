@@ -1,5 +1,3 @@
-'use client';
-
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
@@ -18,7 +16,7 @@ import {
     SortingState,
     useReactTable,
 } from '@tanstack/react-table';
-import * as React from 'react';
+import { useState } from 'react';
 
 export const columns: ColumnDef<LocationModel>[] = [
     {
@@ -36,15 +34,18 @@ export const columns: ColumnDef<LocationModel>[] = [
         header: () => <div>Código</div>,
         cell: ({ row }) => <div>{row.getValue('code')}</div>,
     },
+    {
+        accessorKey: 'level',
+        header: () => <div>Nivel</div>,
+        cell: ({ row }) => <div>{row.getValue('level')}</div>,
+    },
 ];
 
-export function LocationTable({ data, per_page }: PaginatedData<LocationModel>) {
-    const [sorting, setSorting] = React.useState<SortingState>([]);
-    const [globalFilter, setGlobalFilter] = React.useState('');
-    const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([]);
-
+export function LocationTable({ data }: PaginatedData<LocationModel>) {
+    const [sorting, setSorting] = useState<SortingState>([]);
+    const [globalFilter, setGlobalFilter] = useState('');
+    const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
     const globalFilterFn: FilterFnOption<LocationModel> = 'includesString';
-
     const table = useReactTable<LocationModel>({
         data,
         columns,
@@ -63,7 +64,7 @@ export function LocationTable({ data, per_page }: PaginatedData<LocationModel>) 
         },
         initialState: {
             pagination: {
-                pageSize: per_page,
+                pageSize: 10,
             },
         },
     });

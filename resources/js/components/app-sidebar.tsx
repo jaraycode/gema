@@ -3,10 +3,10 @@ import * as React from 'react';
 
 import { NavUser } from '@/components/nav-user';
 import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from '@/components/ui/sidebar';
-import { NavBar } from '@/types';
+import { NavBarProps } from '@/types';
 import { IconAirConditioning, IconBuilding, IconDashboard, IconHelp, IconMapPin, IconReport, IconSettings, IconUser } from '@tabler/icons-react';
 
-type AppSidebarProps = NavBar & React.ComponentProps<typeof Sidebar>;
+type AppSidebarProps = NavBarProps & React.ComponentProps<typeof Sidebar>;
 
 export function AppSidebar({ user, navMain, navSecondary, ...props }: AppSidebarProps) {
     const navUser = { name: user.name, email: user.email, avatar: user.avatar };
@@ -57,7 +57,7 @@ export function AppSidebar({ user, navMain, navSecondary, ...props }: AppSidebar
                         return (
                             <SidebarMenuItem key={item.title}>
                                 <SidebarMenuButton className="py-6" asChild>
-                                    <a href={route(item.href)}>
+                                    <a href={route(item.href)} onClick={(e) => e.preventDefault()}>
                                         <Icon className="h-5 w-5" />
                                         <span>{item.title}</span>
                                     </a>
