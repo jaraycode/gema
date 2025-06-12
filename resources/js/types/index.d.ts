@@ -73,3 +73,11 @@ export interface PaginatedData<T> {
     current_page: number;
     [key: string]: unknown; // This allows for additional properties...
 }
+
+export interface ResponseHandlerProps {
+    flash?: {
+        success?: string;
+        error?: string;
+    };
+    [key: string]: unknown; // This allows for additional properties...
+}

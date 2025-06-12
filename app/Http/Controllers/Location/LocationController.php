@@ -7,6 +7,7 @@ use App\Http\Requests\Core\Location\StoreLocationRequest;
 use App\Http\Requests\Core\Location\UpdateLocationRequest;
 use App\Service\Location\LocationService;
 use Exception;
+use Illuminate\Http\RedirectResponse;
 use Inertia\Response;
 use Inertia\Inertia;
 
@@ -44,17 +45,9 @@ class LocationController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreLocationRequest $request): Response
+    public function store(StoreLocationRequest $request): RedirectResponse
     {
-        try {
-            $this->locationService->storeLocation(location: $request->toArray());
-            $dashboardProps = $this->locationService->getMenu();
-            $dashboardProps['response'] = ['message' => 'Ubicación creada exitosamente'];
-            return Inertia::render(component: 'location/location-index', props: $dashboardProps);
-        } catch (Exception $e) {
-            $dashboardProps['errors'] = ['message' => $e->getMessage()];
-            return Inertia::render(component: 'location/location-index', props: $dashboardProps);
-        }
+        return $this->locationService->storeLocation(location: $request->toArray());
     }
 
     /**

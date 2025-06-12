@@ -6,7 +6,9 @@ use App\Models\Location;
 use App\Repository\Core\SidebarRepository;
 use Exception;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Facades\Log;
 
 class LocationService
 {
@@ -32,11 +34,14 @@ class LocationService
         return Location::find(id: $id)->get();
     }
 
-    public function storeLocation(array $location): void
+    public function storeLocation(array $location): RedirectResponse
     {
         try {
-            Location::create(attributes: $location);
+            $location = Location::create(attributes: $location);
+            if ($location) return redirect()->route(route: 'location.index')->with(key: 'success', value: 'Ubicación creada exitosamente');
+            return redirect()->back()->with(key: 'error', value: 'No se pudo crear la ubicación. Intente nuevamente!');
         } catch (Exception $e) {
+            Log::error(message: 'Creación de ubicación ' . $e->getMessage());
             throw new Exception(message: "Error al guardar ubicación: " . $e->getMessage());
         }
     }
