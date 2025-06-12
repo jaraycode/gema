@@ -78,10 +78,13 @@ export function LocationTable({ data }: PaginatedData<LocationModel>) {
                     onChange={(e) => setGlobalFilter(e.target.value)}
                     className="border-gray-10 hover:border-gray-10 max-w-sm border"
                 />
-                <button className="mr-10 ml-auto flex w-28 items-center rounded-[20px] bg-[#1E9483] p-3 text-white transition duration-200 hover:shadow hover:shadow-[#1E9483]">
+                <a
+                    href={route('location.create')}
+                    className="mr-10 ml-auto flex w-28 items-center rounded-[20px] bg-[#1E9483] p-3 text-white transition duration-200 hover:shadow hover:shadow-[#1E9483]"
+                >
                     <FontAwesomeIcon icon={faFileExcel} className="mr-2" />
-                    Exportar
-                </button>
+                    Nuevo
+                </a>
             </div>
             <div className="rounded-md border">
                 <Table>

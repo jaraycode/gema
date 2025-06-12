@@ -40,9 +40,6 @@ export default function LocationIndex({ data, user, navMain, navSecondary }: Loc
                                         <AlertDescription className="text-white">{flash?.success ?? flash?.error}</AlertDescription>
                                     </Alert>
                                 )}
-                                <a href={route('location.create')}>
-                                    <span>Nuevo</span>
-                                </a>
                                 <div className="rounded-lg bg-white p-4 shadow-md">
                                     <h2 className="mb-2 text-lg font-semibold">Location</h2>
                                     <LocationTable {...data} />
