@@ -7,6 +7,7 @@ use App\Http\Requests\Core\Location\StoreLocationRequest;
 use App\Http\Requests\Core\Location\UpdateLocationRequest;
 use App\Service\Location\LocationService;
 use Exception;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\RedirectResponse;
 use Inertia\Response;
 use Inertia\Inertia;
@@ -30,7 +31,12 @@ class LocationController extends Controller
      */
     public function show(string $id)
     {
-        return $this->locationService->getLocation(id: intval(value: $id));
+        try {
+            $response = $this->locationService->getLocation(id: intval(value: $id));
+            return $response;
+        } catch (Exception $e) {
+            return redirect()->back()->with(key: 'error', value: 'Ubicación no encontrada');
+        }
     }
 
     /**

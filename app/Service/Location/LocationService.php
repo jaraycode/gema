@@ -29,9 +29,15 @@ class LocationService
         });
     }
 
-    public function getLocation(int $id): Collection
+    public function getLocation(int $id)
     {
-        return Location::find(id: $id)->get();
+        $location = Location::find(id: $id);
+
+        if (!$location) {
+            throw new Exception(message: 'Ubicación no encontrada');
+        }
+
+        return $location;
     }
 
     public function storeLocation(array $location): RedirectResponse
