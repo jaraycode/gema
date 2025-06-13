@@ -8,7 +8,6 @@ import { Head, usePage } from '@inertiajs/react';
 import { useEffect, useState } from 'react';
 
 export default function LocationIndex({ data, user, navMain, navSecondary }: LocationProps) {
-    console.log(usePage());
     const { flash } = usePage<ResponseHandlerProps>().props;
     const flashMessage = flash?.error ?? flash?.success;
     const [showAlert, setShowAlert] = useState(flashMessage ? true : false);

@@ -1,13 +1,13 @@
 import { AppSidebar } from '@/components/app-sidebar';
-import { StoreLocationForm } from '@/components/location/forms/store-location-form';
+import { EditLocationForm } from '@/components/location/forms/update-location-form';
 import { SiteHeader } from '@/components/site-header';
 import { SidebarInset, SidebarProvider } from '@/components/ui/sidebar';
-import { LocationProps } from '@/types';
+import { EditLocationProps } from '@/types';
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Head } from '@inertiajs/react';
 
-export default function LocationCreate({ user, navMain, navSecondary }: LocationProps) {
+export default function LocationEdit({ user, navMain, navSecondary, data }: EditLocationProps) {
     return (
         <SidebarProvider
             style={
@@ -28,7 +28,7 @@ export default function LocationCreate({ user, navMain, navSecondary }: Location
                                 <FontAwesomeIcon icon={faChevronLeft} />
                             </a>
                             <h1>Formulario para crear una nueva ubicaion</h1>
-                            <StoreLocationForm />
+                            <EditLocationForm {...data} />
                         </div>
                     </div>
                 </div>

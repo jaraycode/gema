@@ -1,15 +1,16 @@
 'use client';
 import InputError from '@/components/input-error';
 import { LocationFormData } from '@/types';
-import { useForm } from '@inertiajs/react';
+import { useForm, usePage } from '@inertiajs/react';
 import { FormEventHandler } from 'react';
 
-export function StoreLocationForm() {
-    const { data, setData, post, processing, errors, reset } = useForm<Required<LocationFormData>>({ name: '', code: '', level: 1 });
+export function EditLocationForm(props?: LocationFormData) {
+    const { data, setData, put, processing, errors, reset } = useForm<Required<LocationFormData>>(props ?? { name: '', code: '', level: 1 });
+    const id = usePage().url.split('/').slice(-1)[0];
 
     const submit: FormEventHandler = (e) => {
         e.preventDefault();
-        post(route('location.store'), {
+        put(route('location.update', { id: id }), {
             onFinish: () => reset('code'),
         });
     };
@@ -46,6 +47,7 @@ export function StoreLocationForm() {
                             className="h-[40px] w-full border-0 border-b-2 border-solid border-zinc-600 bg-transparent pr-10 text-black focus:border-zinc-800 focus:outline-none"
                             aria-label="Code"
                             placeholder="Ingresa el código"
+                            disabled
                         />
                         <InputError message={errors.code} />
                     </div>
@@ -64,6 +66,7 @@ export function StoreLocationForm() {
                             className="h-[40px] w-full border-0 border-b-2 border-solid border-zinc-600 bg-transparent pr-10 text-black focus:border-zinc-800 focus:outline-none"
                             aria-label="Level"
                             placeholder="Ingresa el nivel"
+                            disabled
                         />
                         <InputError message={errors.level} />
                     </div>

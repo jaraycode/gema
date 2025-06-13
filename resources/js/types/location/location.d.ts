@@ -11,4 +11,8 @@ export interface LocationProps extends NavBarProps {
     data: PaginatedData<LocationModel>;
 }
 
+export interface EditLocationProps extends NavBarProps {
+    data: LocationModel;
+}
+
 export type LocationFormData = Omit<LocationModel, 'id'>;

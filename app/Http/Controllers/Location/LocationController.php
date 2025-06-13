@@ -22,8 +22,7 @@ class LocationController extends Controller
     public function index(): Response
     {
         $dashboardProps = $this->locationService->getMenu();
-        $dashboardProps['data'] = $this->locationService->getAllLocations();
-        return Inertia::render(component: 'location/location-index', props: $dashboardProps);
+        return Inertia::render(component: 'location/location-index', props: array_merge($dashboardProps, ['data' => $this->locationService->getAllLocations()]));
     }
 
     /**
@@ -35,7 +34,7 @@ class LocationController extends Controller
             $response = $this->locationService->getLocation(id: intval(value: $id));
             return $response;
         } catch (Exception $e) {
-            return redirect()->back()->with(key: 'error', value: 'Ubicación no encontrada');
+            return redirect()->back()->with(key: 'error', value: $e->getMessage());
         }
     }
 
@@ -59,9 +58,15 @@ class LocationController extends Controller
     /**
      * Display the form that let's you edit a Location
      */
-    public function edit()
+    public function edit(string $id): RedirectResponse|Response
     {
-        //
+        try {
+            $location = $this->locationService->getLocation(id: intval(value: $id));
+            $dashboardProps = $this->locationService->getMenu();
+            return Inertia::render(component: 'location/location-edit', props: array_merge($dashboardProps, ['data' => $location]));
+        } catch (Exception $e) {
+            return redirect()->back()->with(key: 'error', value: 'Desde edit' . $e->getMessage());
+        }
     }
 
     /**
@@ -69,7 +74,7 @@ class LocationController extends Controller
      */
     public function update(UpdateLocationRequest $request, string $id)
     {
-        //
+        return $this->locationService->updateLocation(location: $request->toArray(), id: $id);
     }
 
     /**

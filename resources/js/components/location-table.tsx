@@ -39,6 +39,15 @@ export const columns: ColumnDef<LocationModel>[] = [
         header: () => <div>Nivel</div>,
         cell: ({ row }) => <div>{row.getValue('level')}</div>,
     },
+    {
+        accessorKey: 'action',
+        header: () => <div>Acciones</div>,
+        cell: ({ row }) => (
+            <a href={route('location.edit', { id: row.getValue('id') })}>
+                <FontAwesomeIcon icon={faFileExcel} />
+            </a>
+        ),
+    },
 ];
 
 export function LocationTable({ data }: PaginatedData<LocationModel>) {
