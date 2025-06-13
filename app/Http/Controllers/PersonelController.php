@@ -26,6 +26,19 @@ class PersonelController extends Controller
     //return response()->json($personels, 200);
   }
 
+  public function create()
+  {
+    $dashboardProps = $this->dashboardService->getDataDashboard();
+
+    return Inertia::render(
+      component: 'persona/create',
+      props: array_merge($dashboardProps, [
+        'departamentos' => ['SGMREF', 'RH', 'Finanzas', 'TI'],
+        'cargos' => ['Jefe', 'Supervisor', 'Analista', 'Asistente'],
+      ])
+    );
+  }
+
 
   /**
    * Store a newly created resource in storage.
