@@ -19,8 +19,8 @@ class PersonelFactory extends Factory
         return [
             "email" => $this->faker->unique()->safeEmail(),
             "username" => $this->faker->unique()->username(),
-            "password" => $this->faker->password(),
-            "phone_number"=> $this->faker->phoneNumber(),
+            "password" => 'password',
+            "phone_number" => $this->faker->phoneNumber(),
             "first_name" => $this->faker->firstName(),
             "second_name" => $this->faker->firstName(),
             "last_name" => $this->faker->lastName(),

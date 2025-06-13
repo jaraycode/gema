@@ -17,8 +17,8 @@ class DashboardController extends Controller
    */
   public function index()
   {
-    $dashboardProps = $this->dashboardService->getDataDashboard();
-    return Inertia::render('dashboard/dashboard', ['user' => $dashboardProps['user'], 'navMain' => $dashboardProps['navMain'], 'navSecondary' => $dashboardProps['navSecondary']]);
+    $dashboardProps = $this->dashboardService->getMenu();
+    return Inertia::render('dashboard/dashboard', $dashboardProps);
   }
 
   /**

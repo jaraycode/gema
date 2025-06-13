@@ -7,14 +7,12 @@ use Illuminate\Foundation\Http\FormRequest;
 class StoreLocationRequest extends FormRequest
 {
 
-    protected $redirect = '';
-
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -26,9 +24,8 @@ class StoreLocationRequest extends FormRequest
     {
         return [
             'name' => ['required', 'string', 'max:50'],
-            'code' => ['required', 'string', 'max:4'],
-            'level_min' => ['required', 'integer'],
-            'level_max' => ['required', 'integer'],
+            'code' => ['required', 'unique:location', 'string', 'max:4'],
+            'level' => ['required', 'integer'],
         ];
     }
 
@@ -45,11 +42,10 @@ class StoreLocationRequest extends FormRequest
             'name.max' => 'El nombre no puede tener más de 50 caracteres',
             'code.required' => 'Es necesario ingresar el código',
             'code.string' => 'El código tiene que ser una cadena de texto',
+            'code.unique' => 'El código ya existe en sistema',
             'code.max' => 'El código no puede tener más de 4 caracteres',
-            'level_min.required' => 'Es necesario ingresar el nivel mínimo',
-            'level_min.integer' => 'El nivel debe ser un valor numérico',
-            'level_max.required' => 'Es necesario ingresar el nivel máximo',
-            'level_max.integer' => 'El nivel debe ser un valor numérico',
+            'level.required' => 'Es necesario ingresar el nivel',
+            'level.integer' => 'El nivel debe ser un valor numérico',
         ];
     }
 }

@@ -3,7 +3,6 @@ import InputError from '@/components/input-error';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useForm } from '@inertiajs/react';
-import { LoaderCircle } from 'lucide-react';
 import { FormEventHandler, useState } from 'react';
 
 type LoginFormData = {
@@ -83,10 +82,9 @@ export function LoginForm() {
                         <button
                             type="submit"
                             disabled={processing}
-                            className="mt-6 mb-5 cursor-pointer rounded-[31px] border-2 border-[#1E9483] bg-[#1E9483] p-2 px-10 leading-[36px)] text-white max-md:mt-10 max-md:px-5"
+                            className="disabled: mt-6 mb-5 cursor-pointer rounded-[31px] border-2 border-[#1E9483] bg-[#1E9483] p-2 px-10 leading-[36px)] text-white transition disabled:cursor-not-allowed disabled:border-[#324d49] disabled:bg-[#324d49] max-md:mt-10 max-md:px-5"
                         >
                             Iniciar Sesión
-                            {processing && <LoaderCircle className="ml-6 h-4 w-4 animate-spin" />}
                         </button>
                     </div>
                 </form>
