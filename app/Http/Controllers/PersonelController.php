@@ -17,7 +17,7 @@ class PersonelController extends Controller
    */
   public function index()
   {
-    $dashboardProps = $this->dashboardService->getDataDashboard();
+    $dashboardProps = $this->dashboardService->getMenu();
     $personels = Personel::paginate(10);
 
     return Inertia::render('persona/personel', array_merge($dashboardProps, [
@@ -28,7 +28,7 @@ class PersonelController extends Controller
 
   public function create()
   {
-    $dashboardProps = $this->dashboardService->getDataDashboard();
+    $dashboardProps = $this->dashboardService->getMenu();
 
     return Inertia::render(
       component: 'persona/create',

@@ -2,7 +2,7 @@ import { AppSidebar } from '@/components/app-sidebar';
 import { PersonelTable } from '@/components/personel/personel-table';
 import { SiteHeader } from '@/components/site-header';
 import { SidebarInset, SidebarProvider } from '@/components/ui/sidebar';
-import { NavBar } from '@/types';
+import { NavBarProps } from '@/types';
 
 // Datos de ejemplo
 const personelData = [
@@ -35,7 +35,7 @@ const personelData = [
     },
 ];
 
-export default function PersonelPage(props: NavBar) {
+export default function PersonelPage(props: NavBarProps) {
     return (
         <SidebarProvider
             style={

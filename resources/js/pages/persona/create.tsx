@@ -2,10 +2,10 @@ import { AppSidebar } from '@/components/app-sidebar';
 import { Createform } from '@/components/personel/create/create-form';
 import { SiteHeader } from '@/components/site-header';
 import { SidebarInset, SidebarProvider } from '@/components/ui/sidebar';
-import { NavBar } from '@/types';
+import { NavBarProps } from '@/types';
 import { useForm } from '@inertiajs/react';
 
-interface CreatePersonelProps extends NavBar {
+interface CreatePersonelProps extends NavBarProps {
     departamentos: string[];
     cargos: string[];
 }
