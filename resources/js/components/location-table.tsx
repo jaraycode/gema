@@ -71,17 +71,28 @@ export function LocationTable({ data }: PaginatedData<LocationModel>) {
 
     return (
         <div className="w-full">
+                <div className="flex items-center justify-between mb-2">
+                    <h2 className="text-lg font-semibold">Ubicacion</h2>
+                    <a className="flex w-48 items-center justify-center rounded-[20px] bg-[#1E9483] p-3 text-white transition duration-200 hover:shadow hover:shadow-[#1E9483]" href={route('location.create')}>
+                        <span className="text-center">Agregar Ubicación</span>
+                    </a>
+                </div>
             <div className="flex items-center py-4">
-                <Input
-                    placeholder="Filtrar por ID, Nombre o Código"
-                    value={globalFilter}
-                    onChange={(e) => setGlobalFilter(e.target.value)}
-                    className="border-gray-10 hover:border-gray-10 max-w-sm border"
-                />
-                <button className="mr-10 ml-auto flex w-28 items-center rounded-[20px] bg-[#1E9483] p-3 text-white transition duration-200 hover:shadow hover:shadow-[#1E9483]">
-                    <FontAwesomeIcon icon={faFileExcel} className="mr-2" />
-                    Exportar
-                </button>
+            <div className="relative w-full max-w-md mb-4">
+        <span className="absolute inset-y-0 left-3 flex items-center text-gray-500">
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-4.35-4.35m0 0A7.5 7.5 0 103 10.5a7.5 7.5 0 0013.15 6.15z" />
+            </svg>
+        </span>
+        <input
+            type="text"
+            placeholder="Buscar Equipo"
+            value={globalFilter}
+            onChange={(e) => setGlobalFilter(e.target.value)}
+            className="w-full pl-10 pr-4 py-2 bg-gray-100 text-gray-700 placeholder-gray-500 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
+        </div>
+        
             </div>
             <div className="rounded-md border">
                 <Table>

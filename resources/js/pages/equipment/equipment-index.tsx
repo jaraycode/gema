@@ -1,11 +1,11 @@
 import { AppSidebar } from '@/components/app-sidebar';
+import { EquipmentTable } from '@/components/equipment-table';
 import { LocationTable } from '@/components/location-table';
 import { SiteHeader } from '@/components/site-header';
 import { SidebarInset, SidebarProvider } from '@/components/ui/sidebar';
-import { LocationProps } from '@/types';
 import { Head } from '@inertiajs/react';
 
-export default function LocationIndex({ data, user, navMain, navSecondary }: LocationProps) {
+export default function EquipmentIndex({ data, user, navMain, navSecondary }: any) {
     return (
         <SidebarProvider
             style={
@@ -25,7 +25,7 @@ export default function LocationIndex({ data, user, navMain, navSecondary }: Loc
                             <div className="px-4 lg:px-6"></div>
                             <div className="mx-4 grid grid-cols-1 gap-4 md:mx-8">
                                 <div className="rounded-lg bg-white p-4 shadow-md">
-                                    <LocationTable {...data} />
+                                    <EquipmentTable {...data} />
                                 </div>
                             </div>
                         </div>

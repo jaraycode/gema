@@ -1,13 +1,13 @@
-'use client';
-
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
+import { PaginatedData } from '@/types';
 import { faChevronLeft, faChevronRight, faFileExcel } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
     ColumnDef,
     ColumnFiltersState,
+    FilterFnOption,
     flexRender,
     getCoreRowModel,
     getFilteredRowModel,
@@ -16,48 +16,37 @@ import {
     SortingState,
     useReactTable,
 } from '@tanstack/react-table';
-import * as React from 'react';
+import { useState } from 'react';
 
-export type Maintenance = {
-    id: string;
-    date: string;
-    name: string;
-};
-
-export const columns: ColumnDef<Maintenance>[] = [
+export const columns: ColumnDef<any>[] = [
     {
         accessorKey: 'id',
-        header: () => <div>ID equipo</div>,
+        header: () => <div>ID ubicación</div>,
         cell: ({ row }) => <div>{row.getValue('id')}</div>,
     },
     {
         accessorKey: 'name',
-        header: () => <div>Nombre del equipo</div>,
+        header: () => <div>Nombre de la ubicación</div>,
         cell: ({ row }) => <div>{row.getValue('name')}</div>,
     },
     {
-        accessorKey: 'date',
-        header: () => <div>Fecha</div>,
-        cell: ({ row }) => <div>{row.getValue('date')}</div>,
+        accessorKey: 'type',
+        header: () => <div>Tipo</div>,
+        cell: ({ row }) => <div>{row.getValue('type')}</div>,
+    },
+    {
+        accessorKey: 'state',
+        header: () => <div>Estado</div>,
+        cell: ({ row }) => <div>{row.getValue('state')}</div>,
     },
 ];
 
-export function MaintenanceTable({ data }: { data: Maintenance[] }) {
-    const [sorting, setSorting] = React.useState<SortingState>([]);
-    const [globalFilter, setGlobalFilter] = React.useState('');
-    const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([]);
-
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const globalFilterFn = (row: any, _columnId: string, filterValue: string) => {
-        const search = filterValue.toLowerCase();
-        return (
-            row.getValue('id')?.toString().toLowerCase().includes(search) ||
-            row.getValue('name')?.toLowerCase().includes(search) ||
-            row.getValue('date')?.toLowerCase().includes(search)
-        );
-    };
-
-    const table = useReactTable({
+export function EquipmentTable({ data }: PaginatedData<any>) {
+    const [sorting, setSorting] = useState<SortingState>([]);
+    const [globalFilter, setGlobalFilter] = useState('');
+    const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
+    const globalFilterFn: FilterFnOption<any> = 'includesString';
+    const table = useReactTable<any>({
         data,
         columns,
         onSortingChange: setSorting,
@@ -75,24 +64,40 @@ export function MaintenanceTable({ data }: { data: Maintenance[] }) {
         },
         initialState: {
             pagination: {
-                pageSize: 5,
+                pageSize: 10,
             },
         },
     });
 
     return (
         <div className="w-full">
-            <div className="flex items-center py-4">
-                <Input
-                    placeholder="Filtrar por ID, Nombre o Fecha"
-                    value={globalFilter}
-                    onChange={(e) => setGlobalFilter(e.target.value)}
-                    className="border-gray-10 hover:border-gray-10 max-w-sm border"
-                />
-                <button className="mr-10 ml-auto flex w-28 items-center rounded-[20px] bg-[#1E9483] p-3 text-white transition duration-200 hover:shadow hover:shadow-[#1E9483]">
-                    <FontAwesomeIcon icon={faFileExcel} className="mr-2" />
-                    Exportar
-                </button>
+            <div className="flex items-center justify-between py-4">
+                <h2 className="text-lg font-semibold mb-2">Equipos</h2>
+
+                <a className="flex w-48 items-center justify-center rounded-[20px] bg-[#1E9483] p-3 text-white transition duration-200 hover:shadow hover:shadow-[#1E9483]" href={route('equipment.create')}>
+                    Agregar Equipo
+                </a>
+
+            </div>
+            <div className="flex space-x-2 mb-4">
+                <button className="btn bg-[#F0F2F5] rounded-[12px] w-40 h-8 hover:shadow-lg transition-shadow" onClick={() => {/* lógica para filtrar todos */}}>Todos</button>
+                <button className="btn bg-[#F0F2F5] rounded-[12px] w-40 h-8 hover:shadow-lg transition-shadow" onClick={() => {/* lógica para filtrar activados */}}>Activados</button>
+                <button className="btn bg-[#F0F2F5] rounded-[12px] w-40 h-8 hover:shadow-lg transition-shadow" onClick={() => {/* lógica para filtrar inactivos */}}>Inactivos</button>
+                <button className="btn bg-[#F0F2F5] rounded-[12px] w-40 h-8 hover:shadow-lg transition-shadow" onClick={() => {/* lógica para filtrar mantenimiento */}}>Mantenimiento</button>
+            </div>
+            <div className="relative w-full max-w-md mb-4">
+            <span className="absolute inset-y-0 left-3 flex items-center text-gray-500">
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-4.35-4.35m0 0A7.5 7.5 0 103 10.5a7.5 7.5 0 0013.15 6.15z" />
+                </svg>
+            </span>
+            <input
+                type="text"
+                placeholder="Buscar Equipo"
+                value={globalFilter}
+                onChange={(e) => setGlobalFilter(e.target.value)}
+                className="w-full pl-10 pr-4 py-2 bg-gray-100 text-gray-700 placeholder-gray-500 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
             </div>
             <div className="rounded-md border">
                 <Table>

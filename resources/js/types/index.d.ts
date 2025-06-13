@@ -1,6 +1,6 @@
 import { LucideIcon } from 'lucide-react';
 import type { Config } from 'ziggy-js';
-export * from '@/types/equipment/equipment';
+export * from '@/types/maintenance/maintenance';
 export * from '@/types/location/location';
 
 export interface Auth {
@@ -73,3 +73,5 @@ export interface PaginatedData<T> {
     current_page: number;
     [key: string]: unknown; // This allows for additional properties...
 }
+
+

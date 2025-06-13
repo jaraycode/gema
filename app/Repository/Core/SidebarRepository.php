@@ -43,12 +43,17 @@ class SidebarRepository
                 ],
                 [
                     'title' => 'Equipo',
-                    'href' => 'home',
+                    'href' => 'equipment.index',
                     'icon' => 'IconAirConditioning',
                 ],
                 [
                     'title' => 'Ubicación',
                     'href' => 'location.index',
+                    'icon' => 'IconMapPin',
+                ],
+                [
+                    'title' => 'Ubicación técnica',
+                    'href' => 'technical-location.index',
                     'icon' => 'IconMapPin',
                 ],
             ],
