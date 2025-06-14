@@ -5,6 +5,7 @@ import { SidebarInset, SidebarProvider } from '@/components/ui/sidebar';
 import { LocationProps } from '@/types';
 import { Head } from '@inertiajs/react';
 
+
 export default function LocationIndex({ data, user, navMain, navSecondary }: LocationProps) {
     return (
         <SidebarProvider

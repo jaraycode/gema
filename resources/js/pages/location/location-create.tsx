@@ -21,17 +21,21 @@ export default function LocationIndex({ user, navMain, navSecondary }: LocationP
             <AppSidebar variant="inset" user={user} navMain={navMain} navSecondary={navSecondary} />
             <SidebarInset>
                 <SiteHeader />
-                <div className="flex flex-1 flex-col">
-                    <div className="@container/main flex flex-1 flex-col gap-2">
-                        <div className="flex flex-col gap-4 py-4 md:gap-6 md:py-6">
-                            <a href={route('location.index')} className="transition hover:cursor-pointer hover:bg-zinc-200">
-                                <FontAwesomeIcon icon={faChevronLeft} />
+          <div className="flex flex-1 flex-col">
+                <div className="@container/main flex flex-1 flex-col gap-2">
+                    <div className="flex flex-col gap-4 py-4 md:gap-6 md:py-6">
+                        <div>
+                            <a href={route('location.index')}>
+                                <FontAwesomeIcon
+                                    icon={faChevronLeft}
+                                    className="transition hover:shadow-sm cursor-pointer"
+                                />
                             </a>
-                            <h1>Formulario para crear una nueva ubicaion</h1>
-                            <LocationForm />
                         </div>
+                        <LocationForm />
                     </div>
                 </div>
+            </div>
             </SidebarInset>
         </SidebarProvider>
     );

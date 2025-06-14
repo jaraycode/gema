@@ -201,9 +201,9 @@ const EquipmentForm: React.FC<CreacionDeEquipoProps> = ({ onCancel, onSubmit }) 
 
             {/* Botones */}
             <div className="flex justify-center items-center border-t border-t-gray-200 h-16 mt-6">
-              <div className="flex flex-col md:flex-row gap-4 w-full max-w-2xl">
+              <div className="flex flex-col md:flex-row gap-4 w-full max-w-2xl mt-12">
                 <button
-                  onClick={handleCancel}
+                  onClick={() => window.location.href = route('equipment.index')}
                   className="h-12 text-base bg-gray-100 rounded-xl text-slate-500 w-full hover:bg-gray-200 transition-colors"
                 >
                   Cancelar
