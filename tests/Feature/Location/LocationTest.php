@@ -24,3 +24,15 @@ test(description: 'Usuario autenticado puede vistualizar una ubicación específ
     $this->post(route(name: 'location.store'), ['name' => 'Módulo 4', 'code' => 'M4', 'level' => 1]);
     $this->get(route(name: 'location.show', parameters: ['id' => '1']))->assertOk();
 });
+
+test(description: 'Usuario autenticado puede visualizar página de editar', closure: function (): void {
+    $this->actingAs($user = Personel::factory()->create());
+    $this->post(route(name: 'location.store'), ['name' => 'Módulo 4', 'code' => 'M4', 'level' => 1]);
+    $this->get(route(name: 'location.edit', parameters: ['id' => '1']))->assertOk();
+});
+
+test(description: 'Usuario autenticado puede actualizar registro de ubicación', closure: function (): void {
+    $this->actingAs($user = Personel::factory()->create());
+    $this->post(route(name: 'location.store'), ['name' => 'Módulo 4', 'code' => 'M4', 'level' => 1]);
+    $this->put(route(name: 'location.update', parameters: ['id' => '1']), ['name' => 'Módulo 3', 'code' => 'M4', 'level' => 1])->assertRedirect(route(name: 'location.index'));
+});
