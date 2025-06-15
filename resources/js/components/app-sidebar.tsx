@@ -4,6 +4,7 @@ import * as React from 'react';
 import { NavUser } from '@/components/nav-user';
 import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from '@/components/ui/sidebar';
 import { NavBarProps } from '@/types';
+import { Link } from '@inertiajs/react';
 import { IconAirConditioning, IconBuilding, IconDashboard, IconHelp, IconMapPin, IconReport, IconSettings, IconUser } from '@tabler/icons-react';
 
 type AppSidebarProps = NavBarProps & React.ComponentProps<typeof Sidebar>;
@@ -40,10 +41,10 @@ export function AppSidebar({ user, navMain, navSecondary, ...props }: AppSidebar
                         return (
                             <SidebarMenuItem key={item.title}>
                                 <SidebarMenuButton className="py-6" isActive={item.isActive} asChild>
-                                    <a href={route(item.href)}>
+                                    <Link href={route(item.href)}>
                                         <Icon className="h-5 w-5" />
                                         <span>{item.title}</span>
-                                    </a>
+                                    </Link>
                                 </SidebarMenuButton>
                             </SidebarMenuItem>
                         );

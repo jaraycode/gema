@@ -4,6 +4,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@
 import { LocationModel, PaginatedData } from '@/types';
 import { faChevronLeft, faChevronRight, faFileExcel } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Link } from '@inertiajs/react';
 import {
     ColumnDef,
     ColumnFiltersState,
@@ -43,9 +44,9 @@ export const columns: ColumnDef<LocationModel>[] = [
         accessorKey: 'action',
         header: () => <div>Acciones</div>,
         cell: ({ row }) => (
-            <a href={route('location.edit', { id: row.getValue('id') })}>
+            <Link href={route('location.edit', { id: row.getValue('id') })}>
                 <FontAwesomeIcon icon={faFileExcel} />
-            </a>
+            </Link>
         ),
     },
 ];
@@ -87,13 +88,13 @@ export function LocationTable({ data }: PaginatedData<LocationModel>) {
                     onChange={(e) => setGlobalFilter(e.target.value)}
                     className="border-gray-10 hover:border-gray-10 max-w-sm border"
                 />
-                <a
+                <Link
                     href={route('location.create')}
                     className="mr-10 ml-auto flex w-28 items-center rounded-[20px] bg-[#1E9483] p-3 text-white transition duration-200 hover:shadow hover:shadow-[#1E9483]"
                 >
                     <FontAwesomeIcon icon={faFileExcel} className="mr-2" />
                     Nuevo
-                </a>
+                </Link>
             </div>
             <div className="rounded-md border">
                 <Table>
