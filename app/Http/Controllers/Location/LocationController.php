@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Location;
 
+use App\Enums\Location\LocationLevel;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Core\Location\StoreLocationRequest;
 use App\Http\Requests\Core\Location\UpdateLocationRequest;
@@ -44,7 +45,7 @@ class LocationController extends Controller
     public function create()
     {
         $dashboardProps = $this->locationService->getMenu();
-        return Inertia::render(component: 'location/location-create', props: $dashboardProps);
+        return Inertia::render(component: 'location/location-create', props: array_merge($dashboardProps, ['level' => LocationLevel::cases()]));
     }
 
     /**
@@ -52,6 +53,7 @@ class LocationController extends Controller
      */
     public function store(StoreLocationRequest $request): RedirectResponse
     {
+        dd($request->toArray());
         return $this->locationService->storeLocation(location: $request->toArray());
     }
 
@@ -63,7 +65,7 @@ class LocationController extends Controller
         try {
             $location = $this->locationService->getLocation(id: intval(value: $id));
             $dashboardProps = $this->locationService->getMenu();
-            return Inertia::render(component: 'location/location-edit', props: array_merge($dashboardProps, ['data' => $location]));
+            return Inertia::render(component: 'location/location-edit', props: array_merge($dashboardProps, ['data' => $location, 'levels' => LocationLevel::cases()]));
         } catch (Exception $e) {
             return redirect()->back()->with(key: 'error', value: 'Desde edit' . $e->getMessage());
         }

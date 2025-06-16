@@ -1,11 +1,13 @@
 'use client';
 import InputError from '@/components/input-error';
-import { LocationFormData } from '@/types';
-import { useForm } from '@inertiajs/react';
+import { LocationStoreFormData } from '@/types';
+import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Link, useForm } from '@inertiajs/react';
 import { FormEventHandler } from 'react';
 
 export function StoreLocationForm() {
-    const { data, setData, post, processing, errors, reset } = useForm<Required<LocationFormData>>({ name: '', code: '', level: 1 });
+    const { data, setData, post, processing, errors, reset } = useForm<Required<LocationStoreFormData>>({ name: '', code: '', level: '' });
 
     const submit: FormEventHandler = (e) => {
         e.preventDefault();
@@ -15,9 +17,12 @@ export function StoreLocationForm() {
     };
 
     return (
-        <section className="min-h-screen items-center justify-center">
-            <form className="w-full max-w-6xl" onSubmit={submit}>
+        <section className="h-full items-center justify-center">
+            <form className="w-full" onSubmit={submit}>
                 {/* Header */}
+                <Link href={route('location.index')} className="ml-10 hover:cursor-pointer">
+                    <FontAwesomeIcon icon={faChevronLeft} />
+                </Link>
                 <div className="flex h-[100px] flex-col items-center justify-center rounded-2xl border-b border-b-gray-200 bg-white text-center">
                     <div className="text-2xl leading-8 font-bold text-neutral-900">Registrar Nueva Ubicación</div>
                     <div className="text-sm leading-5 text-slate-500">Complete la información de la ubicación</div>
@@ -59,14 +64,21 @@ export function StoreLocationForm() {
                         <label htmlFor="level" className="flex items-center gap-2 text-center text-sm font-medium text-neutral-900">
                             Nivel <span className="text-red-500">*</span>
                         </label>
-                        <input
+                        <select
+                            name="level"
                             id="level"
-                            type="number"
                             value={data.level}
-                            onChange={(e) => setData('level', Number(e.target.value))}
+                            onChange={(e) => setData('level', e.target.value)}
                             className="w-full rounded-[8px] border border-zinc-200 bg-white px-2 py-2 text-base text-neutral-900 focus:ring-2 focus:ring-teal-500 focus:outline-none"
-                            placeholder="Ingresa el nivel"
-                        />
+                        >
+                            <option value="" disabled hidden>
+                                Seleccione un nivel
+                            </option>
+                            <option value={1}>Módulo</option>
+                            <option value={2}>Piso</option>
+                            <option value={3}>Área</option>
+                            <option value={4}>Equipo</option>
+                        </select>
                         <InputError message={errors.level} />
                     </div>
                 </div>

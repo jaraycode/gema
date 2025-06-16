@@ -7,6 +7,7 @@ use App\Http\Requests\Core\Location\StoreLocationRequest;
 use App\Http\Requests\Core\Location\UpdateLocationRequest;
 use App\Service\Location\TechnicalLocationService;
 use Exception;
+use Illuminate\Http\Request;
 use Inertia\Response;
 use Inertia\Inertia;
 
