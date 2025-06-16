@@ -16,3 +16,4 @@ require __DIR__ . '/auth.php';
 require __DIR__ . '/PersonelRoutes.php';
 require __DIR__ . '/equipmentRoutes.php';
 require __DIR__ . '/technicalLocationRoutes.php';
+require __DIR__ . '/IncidencesRoutes.php';
