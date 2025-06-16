@@ -1,0 +1,131 @@
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { useForm } from '@inertiajs/react';
+
+interface CreatePersonelFormProps {
+    departamentos: string[];
+    cargos: string[];
+    onSubmit: (formData: any) => void;
+    onCancel: () => void;
+    processing?: boolean;
+}
+
+export function Createform({ departamentos, cargos, onSubmit, onCancel, processing = false }: CreatePersonelFormProps) {
+    const { data, setData } = useForm({
+        nombre: '',
+        cedula: '',
+        telefono: '',
+        email: '',
+        departamento: '',
+        cargo: '',
+    });
+
+    const handleSubmit = (e: React.FormEvent) => {
+        e.preventDefault();
+        onSubmit(data);
+    };
+
+    return (
+        <div className="mx-auto rounded-lg bg-white p-6 text-center shadow-md">
+            <h1 className="mb-4 text-2xl font-bold">Registrar Nuevo Personal</h1>
+            <p className="mb-6 text-gray-600">Complete la información del Personal</p>
+
+            <form onSubmit={handleSubmit} className="space-y-8">
+                <div className="space-y-8">
+                    {/* Primera fila: Nombre y Cédula */}
+                    <div className="grid grid-cols-1 gap-6 gap-y-8 md:grid-cols-2">
+                        <div className="space-y-3">
+                            <Label htmlFor="nombre">Nombre</Label>
+                            <Input
+                                id="nombre"
+                                value={data.nombre}
+                                onChange={(e) => setData('nombre', e.target.value)}
+                                placeholder="Nombre del Personal"
+                                className="mt-1 rounded-lg border border-gray-300 focus:border-gray-300 focus:ring-0 focus:ring-offset-0"
+                            />
+                        </div>
+                        <div className="space-y-3">
+                            <Label htmlFor="cedula">Cédula</Label>
+                            <Input
+                                id="cedula"
+                                value={data.cedula}
+                                onChange={(e) => setData('cedula', e.target.value)}
+                                placeholder="Número de Cédula"
+                                required
+                                className="mt-1 rounded-lg border border-gray-300 focus:border-gray-300 focus:ring-0 focus:ring-offset-0"
+                            />
+                        </div>
+                    </div>
+                    {/* Segunda fila: Correo y Teléfono */}
+                    <div className="grid grid-cols-1 gap-6 gap-y-8 md:grid-cols-2">
+                        <div className="space-y-3">
+                            <Label htmlFor="email">Correo electrónico</Label>
+                            <Input
+                                id="email"
+                                type="email"
+                                value={data.email}
+                                onChange={(e) => setData('email', e.target.value)}
+                                placeholder="Ingresar tu correo Electrónico"
+                                className="mt-1 rounded-lg border border-gray-300 focus:border-gray-300 focus:ring-0 focus:ring-offset-0"
+                            />
+                        </div>
+                        <div className="space-y-3">
+                            <Label htmlFor="telefono">Teléfono</Label>
+                            <Input
+                                id="telefono"
+                                value={data.telefono}
+                                onChange={(e) => setData('telefono', e.target.value)}
+                                placeholder="Teléfono"
+                                required
+                                className="mt-1 rounded-lg border border-gray-300 focus:border-gray-300 focus:ring-0 focus:ring-offset-0"
+                            />
+                        </div>
+                    </div>
+                    {/* Tercera fila: Departamento y Cargo */}
+                    <div className="grid grid-cols-1 gap-6 gap-y-8 md:grid-cols-2">
+                        <div className="space-y-3">
+                            <Label htmlFor="departamento">Departamento</Label>
+                            <Select onValueChange={(value) => setData('departamento', value)} value={data.departamento} required>
+                                <SelectTrigger className="mt-1 rounded-lg border border-gray-300 focus:border-gray-300 focus:ring-0 focus:ring-offset-0">
+                                    <SelectValue placeholder="Seleccionar Departamento" />
+                                </SelectTrigger>
+                                <SelectContent className="rounded-lg bg-white">
+                                    {departamentos.map((depto) => (
+                                        <SelectItem key={depto} value={depto} className="hover:bg-gray-100">
+                                            {depto}
+                                        </SelectItem>
+                                    ))}
+                                </SelectContent>
+                            </Select>
+                        </div>
+                        <div className="space-y-3">
+                            <Label htmlFor="cargo">Cargo</Label>
+                            <Select onValueChange={(value) => setData('cargo', value)} value={data.cargo} required>
+                                <SelectTrigger className="mt-1 rounded-lg border border-gray-300 focus:border-gray-300 focus:ring-0 focus:ring-offset-0">
+                                    <SelectValue placeholder="Seleccionar el cargo" />
+                                </SelectTrigger>
+                                <SelectContent className="rounded-lg bg-white">
+                                    {cargos.map((cargo) => (
+                                        <SelectItem key={cargo} value={cargo} className="hover:bg-gray-100">
+                                            {cargo}
+                                        </SelectItem>
+                                    ))}
+                                </SelectContent>
+                            </Select>
+                        </div>
+                    </div>
+                </div>
+                <div className="mt-8 flex justify-center gap-4">
+                    <Button variant="outline" type="button" onClick={onCancel} className="rounded-lg px-36">
+                        Cancelar
+                    </Button>
+                    <Button type="submit" disabled={processing} className="rounded-lg bg-[#1e9483] px-36 text-white hover:bg-[#1e9483]/90">
+                        Crear Nuevo Personal
+                    </Button>
+                </div>
+            </form>
+        </div>
+    );
+}
