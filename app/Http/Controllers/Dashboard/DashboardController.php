@@ -15,7 +15,7 @@ class DashboardController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         $dashboardProps = $this->dashboardService->getMenu();
         return Inertia::render('dashboard/dashboard', $dashboardProps);
