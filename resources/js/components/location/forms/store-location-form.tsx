@@ -85,13 +85,12 @@ export function StoreLocationForm() {
 
                 {/* Botones */}
                 <div className="mx-auto mt-12 flex w-full max-w-2xl flex-col gap-4 md:flex-row">
-                    <button
-                        type="button"
-                        className="h-10 w-full rounded-xl bg-gray-100 text-base text-slate-500 transition-colors hover:bg-gray-200"
-                        onClick={() => (window.location.href = route('location.index'))}
+                    <Link
+                        className="flex h-10 w-full items-center justify-center rounded-xl bg-gray-100 text-base text-slate-500 transition-colors hover:bg-gray-200"
+                        href={route('location.index')}
                     >
                         Cancelar
-                    </button>
+                    </Link>
                     <button
                         type="submit"
                         className="h-10 w-full rounded-xl bg-teal-600 text-base text-white transition-colors hover:bg-teal-700"
