@@ -3,7 +3,8 @@
 use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\Department\DepartmentController;
 use Illuminate\Support\Facades\Route;
-use Inertia\Inertia;
+
+
 
 Route::middleware('auth')->get('/', [DashboardController::class, 'index'])->name('home');
 Route::middleware('auth')->get('/department', [DepartmentController::class, 'index'])->name('department.index');
