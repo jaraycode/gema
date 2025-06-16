@@ -3,16 +3,26 @@
 namespace App\Http\Controllers\Location;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use App\Http\Requests\Core\Location\StoreLocationRequest;
+use App\Http\Requests\Core\Location\UpdateLocationRequest;
+use App\Service\Location\TechnicalLocationService;
+use Exception;
+use Inertia\Response;
+use Inertia\Inertia;
 
 class TechnicalLocationController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function __construct(protected TechnicalLocationService $technicalLocationService) {}
+    /**
+     * Display a listing of the resource.
+     */
+    public function index(): Response
     {
-        //
+        $dashboardProps = $this->technicalLocationService->getMenu();
+        return Inertia::render(component: 'technical-location/index', props: $dashboardProps);
     }
 
     /**

@@ -1,20 +1,10 @@
 import { AppSidebar } from '@/components/app-sidebar';
 import { LocationTable } from '@/components/location-table';
 import { SiteHeader } from '@/components/site-header';
-import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { SidebarInset, SidebarProvider } from '@/components/ui/sidebar';
-import { LocationProps, ResponseHandlerProps } from '@/types';
-import { Head, usePage } from '@inertiajs/react';
-import { useEffect, useState } from 'react';
+import { Head } from '@inertiajs/react';
 
-export default function LocationIndex({ data, user, navMain, navSecondary }: LocationProps) {
-    const { flash } = usePage<ResponseHandlerProps>().props;
-    const flashMessage = flash?.error ?? flash?.success;
-    const [showAlert, setShowAlert] = useState(flashMessage ? true : false);
-
-    useEffect(() => {
-        setTimeout(() => setShowAlert(false), 3000);
-    }, [setShowAlert]);
+export default function TechnicalLocationIndex({ data, user, navMain, navSecondary }: any) {
     return (
         <SidebarProvider
             style={
@@ -24,7 +14,7 @@ export default function LocationIndex({ data, user, navMain, navSecondary }: Loc
                 } as React.CSSProperties
             }
         >
-            <Head title="Ubicación" />
+            <Head title="Ubicación técnica" />
             <AppSidebar variant="inset" user={user} navMain={navMain} navSecondary={navSecondary} />
             <SidebarInset>
                 <SiteHeader />
@@ -33,14 +23,8 @@ export default function LocationIndex({ data, user, navMain, navSecondary }: Loc
                         <div className="flex flex-col gap-4 py-4 md:gap-6 md:py-6">
                             <div className="px-4 lg:px-6"></div>
                             <div className="mx-4 grid grid-cols-1 gap-4 md:mx-8">
-                                {showAlert && flashMessage && (
-                                    <Alert variant={'default'} className={`${flash?.success ? 'bg-[#1E9483]' : 'bg-red-800'}`}>
-                                        <AlertTitle className="font-bold text-white">{flash?.success ? 'Éxito!' : 'Error!'}</AlertTitle>
-                                        <AlertDescription className="text-white">{flash?.success ?? flash?.error}</AlertDescription>
-                                    </Alert>
-                                )}
                                 <div className="rounded-lg bg-white p-4 shadow-md">
-                                    <LocationTable {...data} />
+                                    Ubicación técnica
                                 </div>
                             </div>
                         </div>
