@@ -82,12 +82,12 @@ export function LocationTable({ data }: PaginatedData<LocationModel>) {
         <div className="w-full">
             <div className="mb-2 flex items-center justify-between">
                 <h2 className="text-lg font-semibold">Ubicacion</h2>
-                <a
+                <Link
                     className="flex w-48 items-center justify-center rounded-[20px] bg-[#1E9483] p-3 text-white transition duration-200 hover:shadow hover:shadow-[#1E9483]"
                     href={route('location.create')}
                 >
                     <span className="text-center">Agregar Ubicación</span>
-                </a>
+                </Link>
             </div>
             <div className="flex items-center py-4">
                 <div className="relative mb-4 w-full max-w-md">
