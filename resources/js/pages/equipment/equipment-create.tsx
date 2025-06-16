@@ -5,7 +5,7 @@ import { SidebarInset, SidebarProvider } from '@/components/ui/sidebar';
 import { LocationProps } from '@/types';
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Head } from '@inertiajs/react';
+import { Head, Link } from '@inertiajs/react';
 
 export default function LocationIndex({ user, navMain, navSecondary }: LocationProps) {
     return (
@@ -22,20 +22,17 @@ export default function LocationIndex({ user, navMain, navSecondary }: LocationP
             <SidebarInset>
                 <SiteHeader />
                 <div className="flex flex-1 flex-col">
-                <div className="@container/main flex flex-1 flex-col gap-2">
-                    <div className="flex flex-col gap-4 py-4 md:gap-6 md:py-6">
-                        <div>
-                            <a href={route('equipment.index')}>
-                                <FontAwesomeIcon
-                                    icon={faChevronLeft}
-                                    className="transition hover:shadow-sm cursor-pointer"
-                                />
-                            </a>
+                    <div className="@container/main flex flex-1 flex-col gap-2">
+                        <div className="flex flex-col gap-4 py-4 md:gap-6 md:py-6">
+                            <div>
+                                <Link href={route('equipment.index')}>
+                                    <FontAwesomeIcon icon={faChevronLeft} className="cursor-pointer transition hover:shadow-sm" />
+                                </Link>
+                            </div>
+                            <EquipmentForm />
                         </div>
-                        <EquipmentForm />
                     </div>
                 </div>
-            </div>
             </SidebarInset>
         </SidebarProvider>
     );
