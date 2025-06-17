@@ -21,10 +21,7 @@ class EquipmentService
 
     public function getAllEquipments(): LengthAwarePaginator
     {
-        return Equipment::paginate(perPage: Equipment::count())->through(callback: function ($value): mixed {
-            $value->level = castLevel(index: $value->level - 1);
-            return $value;
-        });
+        return Equipment::paginate(perPage: Equipment::count());
     }
 
 }

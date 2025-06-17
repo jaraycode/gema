@@ -14,7 +14,7 @@ class DepartmentController extends Controller
     public function index()
     {
         $currentPath = '/' . Request::path(); // Ej: '/department'
-        $dashboardProps = $this->dashboardService->getDataDashboard($currentPath);
+        $dashboardProps = $this->dashboardService->getMenu();
 
         return Inertia::render('department/department', array_merge(
             $dashboardProps,
@@ -27,7 +27,7 @@ class DepartmentController extends Controller
     public function create()
     {
         $currentPath = '/department'; // Establecer el current path a '/department'
-        $dashboardProps = $this->dashboardService->getDataDashboard($currentPath);
+        $dashboardProps = $this->dashboardService->getMenu();
 
         return Inertia::render('department/New', array_merge(
             $dashboardProps,
