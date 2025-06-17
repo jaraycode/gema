@@ -25,6 +25,12 @@ class TechnicalLocationController extends Controller
         return Inertia::render(component: 'technical-location/index', props: $dashboardProps);
     }
 
+    public function create()
+    {
+        $dashboardProps = $this->technicalLocationService->getMenu();
+        return Inertia::render(component: 'technical-location/create', props: $dashboardProps);
+    }
+
     /**
      * Store a newly created resource in storage.
      */

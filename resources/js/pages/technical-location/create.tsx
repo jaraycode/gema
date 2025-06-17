@@ -1,16 +1,14 @@
 import { AppSidebar } from '@/components/app-sidebar';
-import { TechnicalLocationTable } from '@/components/TechnicalLocation-table';
+import { StoreLocationForm } from '@/components/location/forms/store-location-form';
 import { SiteHeader } from '@/components/site-header';
+import TechnicalLocationForm from '@/components/technical-location/form';
 import { SidebarInset, SidebarProvider } from '@/components/ui/sidebar';
-import { Head } from '@inertiajs/react';
+import { LocationProps } from '@/types';
+import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Head, Link } from '@inertiajs/react';
 
-const fakeData = [
-    { id: '1', name: 'Ubicación Técnica 1' },
-    { id: '2', name: 'Ubicación Técnica 2' },
-    { id: '3', name: 'Ubicación Técnica 3' },
-];
-
-export default function TechnicalLocationIndex({ user, navMain, navSecondary }: any) {
+export default function LocationCreate({ user, navMain, navSecondary }: LocationProps) {
     return (
         <SidebarProvider
             style={
@@ -20,17 +18,18 @@ export default function TechnicalLocationIndex({ user, navMain, navSecondary }: 
                 } as React.CSSProperties
             }
         >
-            <Head title="Ubicación técnica" />
+            <Head title="Ubicación" />
             <AppSidebar variant="inset" user={user} navMain={navMain} navSecondary={navSecondary} />
             <SidebarInset>
                 <SiteHeader />
                 <div className="flex flex-1 flex-col">
                     <div className="@container/main flex flex-1 flex-col gap-2">
                         <div className="flex flex-col gap-4 py-4 md:gap-6 md:py-6">
-                            <div className="px-4 lg:px-6"></div>
-                            <div className="mx-4 grid grid-cols-1 gap-4 md:mx-8">
-                                <TechnicalLocationTable data={fakeData} />
-                            </div>
+                            <Link href={route('technical-location.index')} className="transition hover:cursor-pointer hover:bg-zinc-200">
+                                <FontAwesomeIcon icon={faChevronLeft} />
+                            </Link>
+                            <h1>Formulario para crear una nueva ubicaion</h1>
+                            <TechnicalLocationForm />
                         </div>
                     </div>
                 </div>
