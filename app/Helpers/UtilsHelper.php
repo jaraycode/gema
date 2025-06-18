@@ -26,7 +26,20 @@ if (!function_exists('castLevel')) {
      */
     function castLevel(int $index): string
     {
-        $casting = ['Módulo', 'Piso', 'Oficina', 'Equipo'];
+        $casting = ['Módulo', 'Piso', 'Área', 'Equipo'];
+        return $casting[$index];
+    }
+}
+
+if (!function_exists('castLevelTechnicalLocation')) {
+    /**
+     * This function needs the index to then return a name based on the levels of the locations for technical locations
+     * @param int $index
+     * @return string
+     */
+    function castLevelTechnicalLocation(int $index): string
+    {
+        $casting = ['module', 'floor', 'area', 'equipment'];
         return $casting[$index];
     }
 }

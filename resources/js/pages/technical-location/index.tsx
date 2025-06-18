@@ -1,7 +1,8 @@
 import { AppSidebar } from '@/components/app-sidebar';
-import { TechnicalLocationTable } from '@/components/TechnicalLocation-table';
 import { SiteHeader } from '@/components/site-header';
+import { TechnicalLocationTable } from '@/components/TechnicalLocation-table';
 import { SidebarInset, SidebarProvider } from '@/components/ui/sidebar';
+import { TechnicalLocationProps } from '@/types';
 import { Head } from '@inertiajs/react';
 
 const fakeData = [
@@ -10,7 +11,7 @@ const fakeData = [
     { id: '3', name: 'Ubicación Técnica 3' },
 ];
 
-export default function TechnicalLocationIndex({ user, navMain, navSecondary }: any) {
+export default function TechnicalLocationIndex({ user, navMain, navSecondary }: TechnicalLocationProps) {
     return (
         <SidebarProvider
             style={

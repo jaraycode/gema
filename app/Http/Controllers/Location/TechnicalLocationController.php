@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Location;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Core\Location\StoreTechnicalLocationRequest;
 use App\Http\Requests\Core\Location\UpdateTechnicalLocationRequest;
+use App\Models\Location;
 use App\Service\Location\TechnicalLocationService;
 use Exception;
 use Illuminate\Http\RedirectResponse;
@@ -27,10 +28,11 @@ class TechnicalLocationController extends Controller
         return Inertia::render(component: 'technical-location/index', props: $dashboardProps);
     }
 
-    public function create()
+    public function create(): Response
     {
         $dashboardProps = $this->technicalLocationService->getMenu();
-        return Inertia::render(component: 'technical-location/create', props: $dashboardProps);
+        $locations = $this->technicalLocationService->getTechnicalLocationGroupByLevel();
+        return Inertia::render(component: 'technical-location/create', props: array_merge($dashboardProps, ['data' => $locations->groupBy(groupBy: 'level')->toArray()]));
     }
 
     /**
@@ -38,7 +40,6 @@ class TechnicalLocationController extends Controller
      */
     public function store(StoreTechnicalLocationRequest $request): RedirectResponse
     {
-        dd($request);
         return $this->technicalLocationService->storeTechnicalLocation(technicalLocation: $request->validated());
     }
 

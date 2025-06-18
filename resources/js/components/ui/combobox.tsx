@@ -4,14 +4,10 @@ import { Command, CommandInput, CommandList, CommandEmpty, CommandGroup, Command
 import { ChevronsUpDown, Check } from "lucide-react";
 import { useState } from "react";
 import { Button } from '@/components/ui/button';
-
-interface LocationExample {
-    key: number;
-    value: string;
-}
+import { LocationModel } from "@/types";
 
 interface ComboboxProps {
-    locationList: LocationExample[];
+    locationList: LocationModel[];
     data: string | number;
     label: string;
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -24,7 +20,7 @@ export default function Combobox({data, setData, locationList, label}: ComboboxP
         <Popover open={open} onOpenChange={setOpen}>
             <PopoverTrigger asChild>
                 <Button variant="outline" role="combobox" aria-expanded={open} className="w-[200px] justify-between">
-                    {data ? locationList.find((location) => location.key === data)?.value : 'Seleccionar ubicacion...'}
+                    {data ? locationList.find((location) => location.level === data)?.name : 'Seleccionar ubicacion...'}
                     <ChevronsUpDown className="opacity-50" />
                 </Button>
             </PopoverTrigger>
@@ -36,16 +32,16 @@ export default function Combobox({data, setData, locationList, label}: ComboboxP
                         <CommandGroup>
                             {locationList.map((location) => (
                                 <CommandItem
-                                    key={location.key}
-                                    value={`${location.key}_${location.value}`}
+                                    key={location.id}
+                                    value={`${location.level}_${location.name}`}
                                     onSelect={(currentValue) => {
                                         const value = Number(currentValue.split('_')[0]);
                                         setData(label, data === value ? '' : value);
                                         setOpen(false);
                                     }}
                                 >
-                                    <span>{location.value}</span>
-                                    <Check className={cn('ml-auto', data === location.key ? 'opacity-100' : 'opacity-0')} />
+                                    <span>{location.name}</span>
+                                    <Check className={cn('ml-auto', data === location.level ? 'opacity-100' : 'opacity-0')} />
                                 </CommandItem>
                             ))}
                         </CommandGroup>

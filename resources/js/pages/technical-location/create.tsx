@@ -2,12 +2,12 @@ import { AppSidebar } from '@/components/app-sidebar';
 import { SiteHeader } from '@/components/site-header';
 import TechnicalLocationForm from '@/components/technical-location/form';
 import { SidebarInset, SidebarProvider } from '@/components/ui/sidebar';
-import { LocationProps } from '@/types';
+import { TechnicalLocationProps } from '@/types';
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Head, Link } from '@inertiajs/react';
 
-export default function LocationCreate({ user, navMain, navSecondary }: LocationProps) {
+export default function LocationCreate({ user, navMain, navSecondary, data }: TechnicalLocationProps) {
     return (
         <SidebarProvider
             style={
@@ -17,7 +17,7 @@ export default function LocationCreate({ user, navMain, navSecondary }: Location
                 } as React.CSSProperties
             }
         >
-            <Head title="Ubicación" />
+            <Head title="Ubicación técnica" />
             <AppSidebar variant="inset" user={user} navMain={navMain} navSecondary={navSecondary} />
             <SidebarInset>
                 <SiteHeader />
@@ -27,7 +27,7 @@ export default function LocationCreate({ user, navMain, navSecondary }: Location
                             <Link href={route('technical-location.index')} className="transition hover:cursor-pointer hover:bg-zinc-200">
                                 <FontAwesomeIcon icon={faChevronLeft} />
                             </Link>
-                            <TechnicalLocationForm />
+                            <TechnicalLocationForm props={data} />
                         </div>
                     </div>
                 </div>
