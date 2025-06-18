@@ -38,6 +38,7 @@ class TechnicalLocationController extends Controller
      */
     public function store(StoreTechnicalLocationRequest $request): RedirectResponse
     {
+        dd($request);
         return $this->technicalLocationService->storeTechnicalLocation(technicalLocation: $request->validated());
     }
 

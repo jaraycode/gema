@@ -1,10 +1,7 @@
-import { Button } from '@/components/ui/button';
-import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from '@/components/ui/command';
-import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
-import { cn } from '@/lib/utils';
+import Combobox from '@/components/ui/combobox';
 import { Link, useForm } from '@inertiajs/react';
-import { Check, ChevronsUpDown } from 'lucide-react';
 import { FormEventHandler, useState } from 'react';
+import InputError from '../input-error';
 
 interface TechnicalLocationFormData {
     level1: number | string;
@@ -22,7 +19,7 @@ interface LocationExample {
 }
 
 export default function TechnicalLocationForm() {
-    const { data, setData, post, processing } = useForm<Required<TechnicalLocationFormData>>({
+    const { data, setData, post, processing, errors, reset } = useForm<Required<TechnicalLocationFormData>>({
         level1: '',
         level2: '',
         level3: '',
@@ -31,7 +28,6 @@ export default function TechnicalLocationForm() {
         level6: '',
         level7: '',
     });
-    const [open, setOpen] = useState(false);
     const [locationOptions] = useState<LocationExample[]>([
         { key: 1, value: 'ubicacion' },
         { key: 2, value: 'holaj' },
@@ -41,7 +37,9 @@ export default function TechnicalLocationForm() {
 
     const submit: FormEventHandler = (e) => {
         e.preventDefault();
-        post(route('technical-location.store'), {});
+        post(route('technical-location.store'), {
+            onFinish: () => reset('level1'),
+        });
     };
 
     return (
@@ -54,38 +52,27 @@ export default function TechnicalLocationForm() {
                         <div className="text-sm leading-5 text-slate-500">Complete la información de la ubicación</div>
                     </div>
                     <form onSubmit={submit}>
-                        <Popover open={open} onOpenChange={setOpen}>
-                            <PopoverTrigger asChild>
-                                <Button variant="outline" role="combobox" aria-expanded={open} className="w-[200px] justify-between">
-                                    {data.level1 ? locationOptions.find((location) => location.key === data.level1)?.value : 'Select framework...'}
-                                    <ChevronsUpDown className="opacity-50" />
-                                </Button>
-                            </PopoverTrigger>
-                            <PopoverContent className="w-[200px] bg-white p-0">
-                                <Command>
-                                    <CommandInput placeholder="Buscar ubicacion..." className="h-9" />
-                                    <CommandList>
-                                        <CommandEmpty>Ubicacion no encontrada.</CommandEmpty>
-                                        <CommandGroup>
-                                            {locationOptions.map((location) => (
-                                                <CommandItem
-                                                    key={location.key}
-                                                    value={`${location.key}_${location.value}`}
-                                                    onSelect={(currentValue) => {
-                                                        const value = Number(currentValue.split('_')[0]);
-                                                        setData('level1', data.level1 === value ? '' : value);
-                                                        setOpen(false);
-                                                    }}
-                                                >
-                                                    <span>{location.value}</span>
-                                                    <Check className={cn('ml-auto', data.level1 === location.key ? 'opacity-100' : 'opacity-0')} />
-                                                </CommandItem>
-                                            ))}
-                                        </CommandGroup>
-                                    </CommandList>
-                                </Command>
-                            </PopoverContent>
-                        </Popover>
+                        <Combobox data={data.level1} setData={setData} locationList={locationOptions} label={'level1'} />
+                        <InputError message={errors.level1} />
+                        <Combobox data={data.level2} setData={setData} locationList={locationOptions} label={'level2'} />
+                        <InputError message={errors.level2} />
+                        <Combobox data={data.level3} setData={setData} locationList={locationOptions} label={'level3'} />
+                        <InputError message={errors.level3} />
+                        <Combobox data={data.level4} setData={setData} locationList={locationOptions} label={'level4'} />
+                        <InputError message={errors.level4} />
+                        <Combobox data={data.level5} setData={setData} locationList={locationOptions} label={'level5'} />
+                        <InputError message={errors.level5} />
+                        <Combobox data={data.level6} setData={setData} locationList={locationOptions} label={'level6'} />
+                        <InputError message={errors.level6} />
+                        <Combobox data={data.level7} setData={setData} locationList={locationOptions} label={'level7'} />
+                        <InputError message={errors.level7} />
+                        <input type="hidden" value={data.level1} id="level1" />
+                        <input type="hidden" value={data.level2} id="level2" />
+                        <input type="hidden" value={data.level3} id="level3" />
+                        <input type="hidden" value={data.level4} id="level4" />
+                        <input type="hidden" value={data.level5} id="level5" />
+                        <input type="hidden" value={data.level6} id="level6" />
+                        <input type="hidden" value={data.level7} id="level7" />
 
                         {/* Botones */}
                         <div className="mt-6 flex h-16 items-center justify-center border-t border-t-gray-200">
