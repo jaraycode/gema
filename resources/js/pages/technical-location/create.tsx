@@ -1,5 +1,4 @@
 import { AppSidebar } from '@/components/app-sidebar';
-import { StoreLocationForm } from '@/components/location/forms/store-location-form';
 import { SiteHeader } from '@/components/site-header';
 import TechnicalLocationForm from '@/components/technical-location/form';
 import { SidebarInset, SidebarProvider } from '@/components/ui/sidebar';
@@ -28,7 +27,6 @@ export default function LocationCreate({ user, navMain, navSecondary }: Location
                             <Link href={route('technical-location.index')} className="transition hover:cursor-pointer hover:bg-zinc-200">
                                 <FontAwesomeIcon icon={faChevronLeft} />
                             </Link>
-                            <h1>Formulario para crear una nueva ubicaion</h1>
                             <TechnicalLocationForm />
                         </div>
                     </div>

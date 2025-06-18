@@ -3,15 +3,17 @@
 namespace App\Http\Controllers\Location;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Core\Location\StoreLocationRequest;
-use App\Http\Requests\Core\Location\UpdateLocationRequest;
+use App\Http\Requests\Core\Location\StoreTechnicalLocationRequest;
+use App\Http\Requests\Core\Location\UpdateTechnicalLocationRequest;
 use App\Service\Location\TechnicalLocationService;
 use Exception;
+use Illuminate\Http\RedirectResponse;
 use Inertia\Response;
 use Inertia\Inertia;
 
 class TechnicalLocationController extends Controller
 {
+
     /**
      * Display a listing of the resource.
      */
@@ -34,9 +36,9 @@ class TechnicalLocationController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreTechnicalLocationRequest $request): RedirectResponse
     {
-        //
+        return $this->technicalLocationService->storeTechnicalLocation(technicalLocation: $request->validated());
     }
 
     /**
@@ -50,7 +52,7 @@ class TechnicalLocationController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(UpdateTechnicalLocationRequest $request, string $id)
     {
         //
     }

@@ -52,7 +52,7 @@ class LocationController extends Controller
      */
     public function store(StoreLocationRequest $request): RedirectResponse
     {
-        return $this->locationService->storeLocation(location: $request->toArray());
+        return $this->locationService->storeLocation(location: $request->validated());
     }
 
     /**
@@ -65,7 +65,7 @@ class LocationController extends Controller
             $dashboardProps = $this->locationService->getMenu();
             return Inertia::render(component: 'location/location-edit', props: array_merge($dashboardProps, ['data' => $location]));
         } catch (Exception $e) {
-            return redirect()->back()->with(key: 'error', value: 'Desde edit' . $e->getMessage());
+            return redirect()->back()->with(key: 'error', value: $e->getMessage());
         }
     }
 
