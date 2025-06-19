@@ -2,16 +2,10 @@ import { AppSidebar } from '@/components/app-sidebar';
 import { SiteHeader } from '@/components/site-header';
 import { TechnicalLocationTable } from '@/components/TechnicalLocation-table';
 import { SidebarInset, SidebarProvider } from '@/components/ui/sidebar';
-import { TechnicalLocationProps } from '@/types';
+import { TechnicalLocationPaginatedProps } from '@/types';
 import { Head } from '@inertiajs/react';
 
-const fakeData = [
-    { id: '1', name: 'Ubicación Técnica 1' },
-    { id: '2', name: 'Ubicación Técnica 2' },
-    { id: '3', name: 'Ubicación Técnica 3' },
-];
-
-export default function TechnicalLocationIndex({ user, navMain, navSecondary }: TechnicalLocationProps) {
+export default function TechnicalLocationIndex({ user, navMain, navSecondary, data }: TechnicalLocationPaginatedProps) {
     return (
         <SidebarProvider
             style={
@@ -30,7 +24,7 @@ export default function TechnicalLocationIndex({ user, navMain, navSecondary }: 
                         <div className="flex flex-col gap-4 py-4 md:gap-6 md:py-6">
                             <div className="px-4 lg:px-6"></div>
                             <div className="mx-4 grid grid-cols-1 gap-4 md:mx-8">
-                                <TechnicalLocationTable data={fakeData} />
+                                <TechnicalLocationTable data={data.data} />
                             </div>
                         </div>
                     </div>

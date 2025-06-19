@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Core\Location\StoreTechnicalLocationRequest;
 use App\Http\Requests\Core\Location\UpdateTechnicalLocationRequest;
 use App\Models\Location;
+use App\Models\TechnicalLocation;
 use App\Service\Location\TechnicalLocationService;
 use Exception;
 use Illuminate\Http\RedirectResponse;
@@ -19,15 +20,19 @@ class TechnicalLocationController extends Controller
      * Display a listing of the resource.
      */
     public function __construct(protected TechnicalLocationService $technicalLocationService) {}
+
     /**
      * Display a listing of the resource.
      */
     public function index(): Response
     {
         $dashboardProps = $this->technicalLocationService->getMenu();
-        return Inertia::render(component: 'technical-location/index', props: $dashboardProps);
+        $data = $this->technicalLocationService->getAllTechnicalLocationCode();
+        return Inertia::render(component: 'technical-location/index', props: array_merge($dashboardProps, ['data' => $data]));
     }
-
+    /**
+     * Display the form to create a new instance.
+     */
     public function create(): Response
     {
         $dashboardProps = $this->technicalLocationService->getMenu();

@@ -5,7 +5,7 @@ import { FormEventHandler } from 'react';
 import InputError from '../input-error';
 
 export default function TechnicalLocationForm({ props }: { props: TechnicalLocationObject }) {
-    const { data, setData, post, processing, errors, reset } = useForm<Required<TechnicalLocationFormData>>({
+    const { data, setData, post, processing, errors } = useForm<Required<TechnicalLocationFormData>>({
         level1: '',
         level2: '',
         level3: '',
@@ -17,9 +17,7 @@ export default function TechnicalLocationForm({ props }: { props: TechnicalLocat
 
     const submit: FormEventHandler = (e) => {
         e.preventDefault();
-        post(route('technical-location.store'), {
-            onFinish: () => reset('level1'),
-        });
+        post(route('technical-location.store'));
     };
 
     return (
@@ -27,58 +25,52 @@ export default function TechnicalLocationForm({ props }: { props: TechnicalLocat
             <div className="mx-auto flex w-full max-w-6xl flex-col items-start bg-white p-5 pt-0">
                 <div className="relative w-full">
                     {/* Header */}
-                    <div className="flex h-[100px] flex-col items-center justify-center rounded-2xl border-b border-b-gray-200 bg-white mb-5">
+                    <div className="mb-5 flex h-[100px] flex-col items-center justify-center rounded-2xl border-b border-b-gray-200 bg-white">
                         <div className="text-2xl leading-8 font-bold text-neutral-900">Registrar nueva ubicación técnica</div>
                         <div className="text-sm leading-5 text-slate-500">Complete la información de la ubicación técnica</div>
                     </div>
                     <form onSubmit={submit}>
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-10">           
+                        <div className="grid grid-cols-1 gap-10 md:grid-cols-2">
                             <div>
-                                <label className="flex items-center text-sm font-medium text-neutral-900 mb-2">
-                                    módulo <span className="text-red-500">*</span>
+                                <label className="mb-2 flex items-center text-sm font-medium text-neutral-900">
+                                    Módulo <span className="text-red-500">*</span>
                                 </label>
                                 <Combobox data={data.level1} setData={setData} locationList={props.module} label={'level1'} />
                                 <InputError message={errors.level1} />
                             </div>
                             <div>
-                                <label className="flex items-center text-sm font-medium text-neutral-900 mb-2">
+                                <label className="mb-2 flex items-center text-sm font-medium text-neutral-900">
                                     Piso <span className="text-red-500">*</span>
                                 </label>
                                 <Combobox data={data.level2} setData={setData} locationList={props.floor} label={'level2'} />
                                 <InputError message={errors.level2} />
                             </div>
                             <div>
-                                <label className="flex items-center text-sm font-medium text-neutral-900 mb-2">
+                                <label className="mb-2 flex items-center text-sm font-medium text-neutral-900">
                                     Área <span className="text-red-500">*</span>
                                 </label>
                                 <Combobox data={data.level3} setData={setData} locationList={props.area} label={'level3'} />
                                 <InputError message={errors.level3} />
                             </div>
                             <div>
-                                <label className="flex items-center text-sm font-medium text-neutral-900 mb-2">
-                                    Salón/Oficina <span className="text-red-500">*</span>
+                                <label className="mb-2 flex items-center text-sm font-medium text-neutral-900">
+                                    Salón/Oficina/Equipo <span className="text-red-500">*</span>
                                 </label>
                                 <Combobox data={data.level4} setData={setData} locationList={[...props.area, ...props.equipment]} label={'level4'} />
                                 <InputError message={errors.level4} />
                             </div>
                             <div>
-                                <label className="flex items-center text-sm font-medium text-neutral-900 mb-2">
-                                    Nombre del Equipo <span className="text-red-500">*</span>
-                                </label>
+                                <label className="mb-2 flex items-center text-sm font-medium text-neutral-900">Salón/Oficina/Equipo</label>
                                 <Combobox data={data.level5} setData={setData} locationList={[...props.area, ...props.equipment]} label={'level5'} />
                                 <InputError message={errors.level5} />
                             </div>
                             <div>
-                                <label className="flex items-center text-sm font-medium text-neutral-900 mb-2">
-                                    Nombre del Equipo 
-                                </label>
+                                <label className="mb-2 flex items-center text-sm font-medium text-neutral-900">Salón/Oficina/Equipo</label>
                                 <Combobox data={data.level6} setData={setData} locationList={[...props.area, ...props.equipment]} label={'level6'} />
                                 <InputError message={errors.level6} />
                             </div>
                             <div>
-                                <label className="flex items-center text-sm font-medium text-neutral-900 mb-2">
-                                    Nombre del Equipo 
-                                </label>
+                                <label className="mb-2 flex items-center text-sm font-medium text-neutral-900">Salón/Oficina/Equipo</label>
                                 <Combobox data={data.level7} setData={setData} locationList={[...props.area, ...props.equipment]} label={'level7'} />
                                 <InputError message={errors.level7} />
                             </div>

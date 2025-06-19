@@ -1,13 +1,14 @@
 'use client';
 
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
+import { TechnicalLocationModel } from '@/types';
 import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
     ColumnDef,
     ColumnFiltersState,
+    FilterFnOption,
     flexRender,
     getCoreRowModel,
     getFilteredRowModel,
@@ -18,34 +19,24 @@ import {
 } from '@tanstack/react-table';
 import * as React from 'react';
 
-export type TechnicalLocation = {
-    id: string;
-    name: string;
-};
-
-export const columns: ColumnDef<TechnicalLocation>[] = [
+export const columns: ColumnDef<TechnicalLocationModel>[] = [
     {
-        accessorKey: 'id', 
+        accessorKey: 'id',
         header: () => <div className="text-center">Código</div>,
         cell: ({ row }) => <div className="text-center">{row.getValue('id')}</div>,
     },
     {
-        accessorKey: 'name',
+        accessorKey: 'code',
         header: () => <div className="text-center">Nombre</div>,
-        cell: ({ row }) => <div className="text-center">{row.getValue('name')}</div>,
+        cell: ({ row }) => <div className="text-center">{row.getValue('code')}</div>,
     },
 ];
 
-export function TechnicalLocationTable({ data }: { data: TechnicalLocation[] }) {
+export function TechnicalLocationTable({ data }: { data: TechnicalLocationModel[] }) {
     const [sorting, setSorting] = React.useState<SortingState>([]);
     const [globalFilter, setGlobalFilter] = React.useState('');
     const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([]);
-
-    const globalFilterFn = (row: any, _columnId: string, filterValue: string) => {
-        const search = filterValue.toLowerCase();
-        return row.getValue('id')?.toString().toLowerCase().includes(search) || row.getValue('name')?.toLowerCase().includes(search);
-    };
-
+    const globalFilterFn: FilterFnOption<TechnicalLocationModel> = 'includesString';
     const table = useReactTable({
         data,
         columns,
@@ -100,9 +91,7 @@ export function TechnicalLocationTable({ data }: { data: TechnicalLocation[] }) 
                             <TableRow key={headerGroup.id}>
                                 {headerGroup.headers.map((header) => (
                                     <TableHead key={header.id}>
-                                        {header.isPlaceholder
-                                            ? null
-                                            : flexRender(header.column.columnDef.header, header.getContext())}
+                                        {header.isPlaceholder ? null : flexRender(header.column.columnDef.header, header.getContext())}
                                     </TableHead>
                                 ))}
                             </TableRow>
@@ -113,7 +102,7 @@ export function TechnicalLocationTable({ data }: { data: TechnicalLocation[] }) 
                             table.getRowModel().rows.map((row) => (
                                 <TableRow key={row.id} className="border-b border-gray-200">
                                     {row.getVisibleCells().map((cell) => (
-                                        <TableCell className='py-5' key={cell.id}>
+                                        <TableCell className="py-5" key={cell.id}>
                                             {flexRender(cell.column.columnDef.cell, cell.getContext())}
                                         </TableCell>
                                     ))}

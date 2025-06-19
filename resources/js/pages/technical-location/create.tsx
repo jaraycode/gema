@@ -1,13 +1,23 @@
 import { AppSidebar } from '@/components/app-sidebar';
 import { SiteHeader } from '@/components/site-header';
 import TechnicalLocationForm from '@/components/technical-location/form';
+import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { SidebarInset, SidebarProvider } from '@/components/ui/sidebar';
-import { TechnicalLocationProps } from '@/types';
+import { ResponseHandlerProps, TechnicalLocationProps } from '@/types';
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Head, Link } from '@inertiajs/react';
+import { Head, Link, usePage } from '@inertiajs/react';
+import { useEffect, useState } from 'react';
 
 export default function LocationCreate({ user, navMain, navSecondary, data }: TechnicalLocationProps) {
+    const { flash } = usePage<ResponseHandlerProps>().props;
+    const flashMessage = flash?.error ?? flash?.success;
+    const [showAlert, setShowAlert] = useState(flashMessage ? true : false);
+
+    useEffect(() => {
+        setShowAlert(flashMessage ? true : false);
+        setTimeout(() => setShowAlert(false), 3000);
+    }, [setShowAlert, flashMessage]);
     return (
         <SidebarProvider
             style={
@@ -24,9 +34,15 @@ export default function LocationCreate({ user, navMain, navSecondary, data }: Te
                 <div className="flex flex-1 flex-col">
                     <div className="@container/main flex flex-1 flex-col gap-2">
                         <div className="flex flex-col gap-4 py-4 md:gap-6 md:py-6">
-                            <Link href={route('technical-location.index')} className="transition hover:cursor-pointer hover:bg-zinc-200">
+                            <Link href={route('technical-location.index')} className="ml-10 hover:cursor-pointer">
                                 <FontAwesomeIcon icon={faChevronLeft} />
                             </Link>
+                            {showAlert && flashMessage && (
+                                <Alert variant={'default'} className={`${flash?.success ? 'bg-[#1E9483]' : 'bg-red-800'}`}>
+                                    <AlertTitle className="font-bold text-white">{flash?.success ? 'Éxito!' : 'Error!'}</AlertTitle>
+                                    <AlertDescription className="text-white">{flash?.success ?? flash?.error}</AlertDescription>
+                                </Alert>
+                            )}
                             <TechnicalLocationForm props={data} />
                         </div>
                     </div>

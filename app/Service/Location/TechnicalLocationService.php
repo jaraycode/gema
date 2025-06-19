@@ -7,6 +7,7 @@ use App\Models\Location;
 use App\Models\TechnicalLocation;
 use App\Repository\Core\SidebarRepository;
 use Exception;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Log;
@@ -30,6 +31,17 @@ class TechnicalLocationService
         });
     }
 
+    public function getAllTechnicalLocationCode(): LengthAwarePaginator
+    {
+        $technicalLocations = TechnicalLocation::paginate(perPage: TechnicalLocation::count(), columns: ['id', 'level1', 'level2', 'level3', 'level4', 'level5', 'level6', 'level7'])->through(callback: function ($value): array {
+            $valueArray = $value->toArray();
+            $id = $valueArray['id'];
+            unset($valueArray['id']);
+            return ['id' => $id, 'code' => getCodeTechnicalLocation(levels: $valueArray)];
+        });
+        return $technicalLocations;
+    }
+
     public function storeTechnicalLocation(array $technicalLocation): RedirectResponse
     {
         try {
@@ -38,7 +50,7 @@ class TechnicalLocationService
                 if ($reverse) {
                     $level = Location::where('delete_at')->where(column: 'id', operator: '=', value: $reverse)->value('level');
                     if ($level != LocationLevel::EQUIPMENT->value) {
-                        throw new Exception(message: "La ubicación no puede tener como último nivel un área");
+                        return redirect()->back()->with(key: 'error', value: "La ubicación no puede tener como último nivel un área");
                     } else {
                         break;
                     }
