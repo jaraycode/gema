@@ -13,8 +13,9 @@ export default function LocationIndex({ data, user, navMain, navSecondary }: Loc
     const [showAlert, setShowAlert] = useState(flashMessage ? true : false);
 
     useEffect(() => {
+        setShowAlert(flashMessage ? true : false);
         setTimeout(() => setShowAlert(false), 3000);
-    }, [setShowAlert]);
+    }, [setShowAlert, flashMessage]);
     return (
         <SidebarProvider
             style={

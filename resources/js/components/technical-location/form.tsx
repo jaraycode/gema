@@ -1,8 +1,12 @@
 import Combobox from '@/components/ui/combobox';
 import { TechnicalLocationFormData, TechnicalLocationObject } from '@/types';
+import { faQuestion } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Link, useForm } from '@inertiajs/react';
 import { FormEventHandler } from 'react';
 import InputError from '../input-error';
+import { Button } from '../ui/button';
+import { HoverCard, HoverCardContent, HoverCardTrigger } from '../ui/hover-card';
 
 export default function TechnicalLocationForm({ props }: { props: TechnicalLocationObject }) {
     const { data, setData, post, processing, errors } = useForm<Required<TechnicalLocationFormData>>({
@@ -26,7 +30,27 @@ export default function TechnicalLocationForm({ props }: { props: TechnicalLocat
                 <div className="relative w-full">
                     {/* Header */}
                     <div className="mb-5 flex h-[100px] flex-col items-center justify-center rounded-2xl border-b border-b-gray-200 bg-white">
-                        <div className="text-2xl leading-8 font-bold text-neutral-900">Registrar nueva ubicación técnica</div>
+                        <div className="inline-flex text-2xl leading-8 font-bold text-neutral-900">
+                            <h1>Registrar nueva ubicación técnica</h1>
+                            <HoverCard>
+                                <HoverCardTrigger asChild>
+                                    <Button variant="ghost">
+                                        <FontAwesomeIcon icon={faQuestion} className="text-lg" />
+                                    </Button>
+                                </HoverCardTrigger>
+                                <HoverCardContent className="w-80 bg-white">
+                                    <div className="flex justify-between gap-4">
+                                        <div className="space-y-1">
+                                            <h4 className="text-sm font-semibold">Ubicación técnica</h4>
+                                            <p className="text-sm">
+                                                La ubicación técnica es la combinación de las distintas ubicaciones siguiendo la sintaxis
+                                                Módulo-Piso-Area-Equipo. Por Ejemplo: M2-PB-SUM-ACC.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </HoverCardContent>
+                            </HoverCard>
+                        </div>
                         <div className="text-sm leading-5 text-slate-500">Complete la información de la ubicación técnica</div>
                     </div>
                     <form onSubmit={submit}>
