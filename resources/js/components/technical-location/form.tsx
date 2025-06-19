@@ -27,25 +27,62 @@ export default function TechnicalLocationForm({ props }: { props: TechnicalLocat
             <div className="mx-auto flex w-full max-w-6xl flex-col items-start bg-white p-5 pt-0">
                 <div className="relative w-full">
                     {/* Header */}
-                    <div className="flex h-[100px] flex-col items-center justify-center rounded-2xl border-b border-b-gray-200 bg-white">
+                    <div className="flex h-[100px] flex-col items-center justify-center rounded-2xl border-b border-b-gray-200 bg-white mb-5">
                         <div className="text-2xl leading-8 font-bold text-neutral-900">Registrar nueva ubicación técnica</div>
                         <div className="text-sm leading-5 text-slate-500">Complete la información de la ubicación técnica</div>
                     </div>
                     <form onSubmit={submit}>
-                        <Combobox data={data.level1} setData={setData} locationList={props.module} label={'level1'} />
-                        <InputError message={errors.level1} />
-                        <Combobox data={data.level2} setData={setData} locationList={props.floor} label={'level2'} />
-                        <InputError message={errors.level2} />
-                        <Combobox data={data.level3} setData={setData} locationList={props.area} label={'level3'} />
-                        <InputError message={errors.level3} />
-                        <Combobox data={data.level4} setData={setData} locationList={[...props.area, ...props.equipment]} label={'level4'} />
-                        <InputError message={errors.level4} />
-                        <Combobox data={data.level5} setData={setData} locationList={[...props.area, ...props.equipment]} label={'level5'} />
-                        <InputError message={errors.level5} />
-                        <Combobox data={data.level6} setData={setData} locationList={[...props.area, ...props.equipment]} label={'level6'} />
-                        <InputError message={errors.level6} />
-                        <Combobox data={data.level7} setData={setData} locationList={[...props.area, ...props.equipment]} label={'level7'} />
-                        <InputError message={errors.level7} />
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-10">           
+                            <div>
+                                <label className="flex items-center text-sm font-medium text-neutral-900 mb-2">
+                                    módulo <span className="text-red-500">*</span>
+                                </label>
+                                <Combobox data={data.level1} setData={setData} locationList={props.module} label={'level1'} />
+                                <InputError message={errors.level1} />
+                            </div>
+                            <div>
+                                <label className="flex items-center text-sm font-medium text-neutral-900 mb-2">
+                                    Piso <span className="text-red-500">*</span>
+                                </label>
+                                <Combobox data={data.level2} setData={setData} locationList={props.floor} label={'level2'} />
+                                <InputError message={errors.level2} />
+                            </div>
+                            <div>
+                                <label className="flex items-center text-sm font-medium text-neutral-900 mb-2">
+                                    Área <span className="text-red-500">*</span>
+                                </label>
+                                <Combobox data={data.level3} setData={setData} locationList={props.area} label={'level3'} />
+                                <InputError message={errors.level3} />
+                            </div>
+                            <div>
+                                <label className="flex items-center text-sm font-medium text-neutral-900 mb-2">
+                                    Salón/Oficina <span className="text-red-500">*</span>
+                                </label>
+                                <Combobox data={data.level4} setData={setData} locationList={[...props.area, ...props.equipment]} label={'level4'} />
+                                <InputError message={errors.level4} />
+                            </div>
+                            <div>
+                                <label className="flex items-center text-sm font-medium text-neutral-900 mb-2">
+                                    Nombre del Equipo <span className="text-red-500">*</span>
+                                </label>
+                                <Combobox data={data.level5} setData={setData} locationList={[...props.area, ...props.equipment]} label={'level5'} />
+                                <InputError message={errors.level5} />
+                            </div>
+                            <div>
+                                <label className="flex items-center text-sm font-medium text-neutral-900 mb-2">
+                                    Nombre del Equipo 
+                                </label>
+                                <Combobox data={data.level6} setData={setData} locationList={[...props.area, ...props.equipment]} label={'level6'} />
+                                <InputError message={errors.level6} />
+                            </div>
+                            <div>
+                                <label className="flex items-center text-sm font-medium text-neutral-900 mb-2">
+                                    Nombre del Equipo 
+                                </label>
+                                <Combobox data={data.level7} setData={setData} locationList={[...props.area, ...props.equipment]} label={'level7'} />
+                                <InputError message={errors.level7} />
+                            </div>
+                        </div>
 
                         <input type="hidden" value={data.level1} id="level1" />
                         <input type="hidden" value={data.level2} id="level2" />

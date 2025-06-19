@@ -19,8 +19,15 @@ export default function Combobox({data, setData, locationList, label}: ComboboxP
     return (
         <Popover open={open} onOpenChange={setOpen}>
             <PopoverTrigger asChild>
-                <Button variant="outline" role="combobox" aria-expanded={open} className="w-[200px] justify-between">
-                    {data ? locationList.find((location) => location.level === data)?.name : 'Seleccionar ubicacion...'}
+                <Button
+                    role="combobox"
+                    aria-expanded={open}
+                    className={cn(
+                        "w-full px-4 py-6 text-base bg-white rounded-[8px] border border-zinc-200 text-neutral-900 justify-between",
+                        "focus:outline-none focus:ring-2 focus:ring-teal-500"
+                    )}
+                >
+                    {data ? locationList.find((location) => location.id === data)?.name : 'Seleccionar ubicacion...'}
                     <ChevronsUpDown className="opacity-50" />
                 </Button>
             </PopoverTrigger>
@@ -33,7 +40,7 @@ export default function Combobox({data, setData, locationList, label}: ComboboxP
                             {locationList.map((location) => (
                                 <CommandItem
                                     key={location.id}
-                                    value={`${location.level}_${location.name}`}
+                                    value={`${location.id}_${location.name}`}
                                     onSelect={(currentValue) => {
                                         const value = Number(currentValue.split('_')[0]);
                                         setData(label, data === value ? '' : value);
@@ -41,7 +48,7 @@ export default function Combobox({data, setData, locationList, label}: ComboboxP
                                     }}
                                 >
                                     <span>{location.name}</span>
-                                    <Check className={cn('ml-auto', data === location.level ? 'opacity-100' : 'opacity-0')} />
+                                    <Check className={cn('ml-auto', data === location.id ? 'opacity-100' : 'opacity-0')} />
                                 </CommandItem>
                             ))}
                         </CommandGroup>
