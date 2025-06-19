@@ -21,13 +21,12 @@ export default function LocationEdit({ user, navMain, navSecondary, data }: Edit
             <AppSidebar variant="inset" user={user} navMain={navMain} navSecondary={navSecondary} />
             <SidebarInset>
                 <SiteHeader />
-                <div className="flex flex-1 flex-col">
-                    <div className="@container/main flex flex-1 flex-col gap-2">
-                        <div className="flex flex-col gap-4 py-4 md:gap-6 md:py-6">
-                            <Link href={route('location.index')} className="transition hover:cursor-pointer hover:bg-zinc-200">
-                                <FontAwesomeIcon icon={faChevronLeft} />
-                            </Link>
-                            <h1>Formulario para crear una nueva ubicaion</h1>
+                <div >
+                    <div >
+                    <div>
+                                <button onClick={() => window.history.back()} className="transition hover:cursor-pointer">
+                                    <FontAwesomeIcon icon={faChevronLeft} />
+                                </button>
                             <EditLocationForm {...data} />
                         </div>
                     </div>

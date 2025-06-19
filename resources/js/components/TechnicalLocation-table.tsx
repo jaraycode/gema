@@ -3,7 +3,7 @@
 import { Button } from '@/components/ui/button';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { TechnicalLocationModel } from '@/types';
-import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons';
+import { faChevronLeft, faChevronRight, faEye } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
     ColumnDef,
@@ -29,6 +29,15 @@ export const columns: ColumnDef<TechnicalLocationModel>[] = [
         accessorKey: 'code',
         header: () => <div className="text-center">Nombre</div>,
         cell: ({ row }) => <div className="text-center">{row.getValue('code')}</div>,
+    },
+    {
+        accessorKey: 'action',
+        header: () => <div className="text-center">Acciones</div>,
+        cell: ({ row }) => (
+            <div className="text-center">
+                <FontAwesomeIcon icon={faEye} />
+            </div>
+        ),
     },
 ];
 

@@ -70,7 +70,7 @@ export default function TechnicalLocationForm({ props }: { props: TechnicalLocat
                                 <InputError message={errors.level6} />
                             </div>
                             <div>
-                                <label className="mb-2 flex items-center text-sm font-medium text-neutral-900">Salón/Oficina/Equipo</label>
+                                <label className="mb-2 flex items-center text-sm font-medium text-neutral-900">Salón/Oficina/Equipo </label>
                                 <Combobox data={data.level7} setData={setData} locationList={[...props.area, ...props.equipment]} label={'level7'} />
                                 <InputError message={errors.level7} />
                             </div>
