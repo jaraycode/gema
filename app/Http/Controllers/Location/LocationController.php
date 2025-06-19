@@ -72,7 +72,7 @@ class LocationController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateLocationRequest $request, string $id)
+    public function update(UpdateLocationRequest $request, string $id): RedirectResponse
     {
         return $this->locationService->updateLocation(location: $request->toArray(), id: $id);
     }
@@ -80,8 +80,8 @@ class LocationController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(string $id): RedirectResponse
     {
-        //
+        return $this->locationService->destroyLocation(id: $id);
     }
 }

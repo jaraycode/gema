@@ -6,7 +6,6 @@ use App\Models\Location;
 use App\Repository\Core\SidebarRepository;
 use Exception;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Log;
@@ -68,7 +67,7 @@ class LocationService
     public function destroyLocation(string $id): RedirectResponse
     {
         try {
-            $response = Location::where(column: 'id', operator: '=', value: $id)->update(attributes: ['delete_at' => now()]);
+            $response = Location::where(column: 'id', operator: '=', value: $id)->update(['delete_at' => now()]);
             if ($response > 0) return redirect()->route(route: 'location.index')->with(key: 'success', value: 'Ubicación eliminada exitosamente');
             return redirect()->back()->with(key: 'error', value: 'No se pudo eliminar la ubicación. Intente nuevamente!');
         } catch (Exception $e) {
