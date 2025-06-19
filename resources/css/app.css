@@ -66,7 +66,24 @@
     ::backdrop,
     ::file-selector-button {
         border-color: var(--color-gray-200, currentColor);
+    }  
+
+     
+    /* Elimina el outline y sombras en focus */
+    input:focus,
+    select:focus,
+    textarea:focus,
+    .select-trigger:focus {
+        @apply focus:outline-none focus:ring-0 focus:border-gray-400;
+        outline: none !important;
+        border-color: #9CA3AF !important;
     }
+
+    /* Corrige el autofill de Chrome */
+    input:-webkit-autofill {
+        -webkit-box-shadow: 0 0 0 1000px white inset !important;
+    }
+
 }
 
 :root {
