@@ -37,7 +37,11 @@ class TechnicalLocationService
             foreach ($reversedTechnicalLocation as $reverse) {
                 if ($reverse) {
                     $level = Location::where('delete_at')->where(column: 'id', operator: '=', value: $reverse)->value('level');
-                    if ($level != LocationLevel::EQUIPMENT->value) throw new Exception(message: "La ubicación no puede tener como último nivel un área");
+                    if ($level != LocationLevel::EQUIPMENT->value) {
+                        throw new Exception(message: "La ubicación no puede tener como último nivel un área");
+                    } else {
+                        break;
+                    }
                 }
             }
             $response = TechnicalLocation::create(attributes: $technicalLocation);
