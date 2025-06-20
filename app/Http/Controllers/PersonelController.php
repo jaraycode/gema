@@ -65,10 +65,13 @@ class PersonelController extends Controller
   /**
    * Display the specified resource.
    */
-  public function show(string $id)
+  public function show()
   {
-    $personel = Personel::all()->findOrFail($id);
-    return response()->json($personel, 200);
+    /*  $personel = Personel::all()->findOrFail($id);
+    return response()->json($personel, 200); */
+    $dashboardProps = $this->dashboardService->getMenu();
+
+    return Inertia::render('persona/profile', array_merge($dashboardProps, []));
   }
 
   /**
