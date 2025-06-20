@@ -83,17 +83,21 @@ export function MaintenanceTable({ data }: { data: Maintenance[] }) {
     return (
         <div className="w-full">
             <div className="flex items-center py-4">
-                <Input
-                    placeholder="Filtrar por ID, Nombre o Fecha"
-                    value={globalFilter}
-                    onChange={(e) => setGlobalFilter(e.target.value)}
-                    className="border-gray-10 hover:border-gray-10 max-w-sm border"
-                />
-                <button className="mr-10 ml-auto flex w-28 items-center rounded-[20px] bg-[#1E9483] p-3 text-white transition duration-200 hover:shadow hover:shadow-[#1E9483]">
-                    <FontAwesomeIcon icon={faFileExcel} className="mr-2" />
-                    Exportar
-                </button>
+            <div className="relative mb-4 w-full max-w-md">
+            <span className="absolute inset-y-0 left-3 flex items-center text-gray-500">
+                        <svg className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-4.35-4.35m0 0A7.5 7.5 0 103 10.5a7.5 7.5 0 0013.15 6.15z" />
+                        </svg>
+            </span>            
+            <input
+                        type="text"
+                        placeholder="Buscar Mantenimiento..."
+                        value={globalFilter}
+                        onChange={(e) => setGlobalFilter(e.target.value)}
+                        className="w-full rounded-full bg-gray-100 py-2 pr-4 pl-10 text-gray-700 placeholder-gray-500 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                    />
             </div>
+           </div>
             <div className="rounded-md border">
                 <Table>
                     <TableHeader>
@@ -112,13 +116,13 @@ export function MaintenanceTable({ data }: { data: Maintenance[] }) {
                             table.getRowModel().rows.map((row) => (
                                 <TableRow key={row.id}>
                                     {row.getVisibleCells().map((cell) => (
-                                        <TableCell key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</TableCell>
+                                        <TableCell className='py-5' key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</TableCell>
                                     ))}
                                 </TableRow>
                             ))
                         ) : (
                             <TableRow>
-                                <TableCell colSpan={columns.length} className="h-24 text-center">
+                                <TableCell colSpan={columns.length} className="h-24 text-center" >
                                     Sin resultados.
                                 </TableCell>
                             </TableRow>

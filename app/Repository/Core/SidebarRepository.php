@@ -38,7 +38,7 @@ class SidebarRepository
                 ],
                 [
                     'title' => 'Departamento',
-                    'href' => 'home',
+                    'href' => 'department.index',
                     'icon' => 'IconBuilding',
                 ],
                 [

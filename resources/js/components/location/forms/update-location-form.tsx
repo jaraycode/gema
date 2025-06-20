@@ -7,14 +7,12 @@ import { Link, useForm, usePage } from '@inertiajs/react';
 import { FormEventHandler } from 'react';
 
 export function EditLocationForm(props?: LocationFormData) {
-    const { data, setData, put, processing, errors, reset } = useForm<Required<LocationFormData>>(props ?? { name: '', code: '', level: '' });
+    const { data, setData, put, processing, errors } = useForm<Required<LocationFormData>>(props ?? { name: '', code: '', level: '' });
     const id = usePage().url.split('/').slice(-1)[0];
 
     const submit: FormEventHandler = (e) => {
         e.preventDefault();
-        put(route('location.update', { id: id }), {
-            onFinish: () => reset('code'),
-        });
+        put(route('location.update', { id }));
     };
 
     return (
@@ -50,16 +48,21 @@ export function EditLocationForm(props?: LocationFormData) {
                         <label htmlFor="code" className="flex items-center gap-2 text-center text-sm font-medium text-neutral-900">
                             Código <span className="text-red-500">*</span>
                         </label>
-                        <input
-                            id="code"
-                            type="text"
-                            value={data.code}
-                            onChange={(e) => setData('code', e.target.value)}
-                            className="w-full rounded-[8px] border border-zinc-200 bg-zinc-300 px-2 py-2 text-base text-neutral-900 hover:cursor-not-allowed focus:ring-2 focus:ring-teal-500 focus:outline-none"
-                            placeholder="Ingresa el código"
-                            disabled
-                        />
-                        <InputError message={errors.code} />
+                        <div className="flex w-100 flex-col gap-2.5">
+                            <label htmlFor="code" className="flex items-center gap-2 text-center text-sm font-medium text-neutral-900">
+                                Código <span className="text-red-500">*</span>
+                            </label>
+                            <input
+                                id="code"
+                                type="text"
+                                value={data.code}
+                                onChange={(e) => setData('code', e.target.value)}
+                                className="w-full rounded-[8px] border border-zinc-200 bg-zinc-300 px-2 py-2 text-base text-neutral-900 hover:cursor-not-allowed focus:ring-2 focus:ring-teal-500 focus:outline-none"
+                                placeholder="Ingresa el código"
+                                disabled
+                            />
+                            <InputError message={errors.code} />
+                        </div>
                     </div>
 
                     <div className="flex w-100 flex-col gap-2.5">

@@ -27,6 +27,7 @@ return new class extends Migration
             $table->foreign(columns: 'level5')->references(columns: 'id')->on(table: 'location');
             $table->foreign(columns: 'level6')->references(columns: 'id')->on(table: 'location');
             $table->foreign(columns: 'level7')->references(columns: 'id')->on(table: 'location');
+            $table->timestamp('delete_at')->nullable();
             $table->timestamps();
         });
     }

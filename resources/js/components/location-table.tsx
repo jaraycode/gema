@@ -1,7 +1,7 @@
 import { Button } from '@/components/ui/button';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { LocationModel, PaginatedData } from '@/types';
-import { faChevronLeft, faChevronRight, faFileExcel } from '@fortawesome/free-solid-svg-icons';
+import { faChevronLeft, faChevronRight, faPen, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Link } from '@inertiajs/react';
 import {
@@ -43,9 +43,14 @@ export const columns: ColumnDef<LocationModel>[] = [
         accessorKey: 'action',
         header: () => <div>Acciones</div>,
         cell: ({ row }) => (
-            <Link href={route('location.edit', { id: row.getValue('id') })}>
-                <FontAwesomeIcon icon={faFileExcel} />
-            </Link>
+            <div className="flex gap-2">
+                <Link href={route('location.edit', { id: row.getValue('id') })}>
+                    <FontAwesomeIcon icon={faPen} />
+                </Link>
+                <Link href={route('location.destroy', { id: row.getValue('id') })} method="delete" className="hover:cursor-pointer">
+                    <FontAwesomeIcon icon={faTrash} />
+                </Link>
+            </div>
         ),
     },
 ];
@@ -123,7 +128,7 @@ export function LocationTable({ data }: PaginatedData<LocationModel>) {
                             table.getRowModel().rows.map((row) => (
                                 <TableRow key={row.id}>
                                     {row.getVisibleCells().map((cell) => (
-                                        <TableCell key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</TableCell>
+                                        <TableCell className='py-5' key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</TableCell>
                                     ))}
                                 </TableRow>
                             ))

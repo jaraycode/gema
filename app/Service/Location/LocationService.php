@@ -5,7 +5,7 @@ namespace App\Service\Location;
 use App\Models\Location;
 use App\Repository\Core\SidebarRepository;
 use Exception;
-use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Log;
@@ -29,22 +29,22 @@ class LocationService
         });
     }
 
-    public function getLocation(int $id)
+    public function getLocation(int $id): Builder|Location
     {
-        $location = Location::where(column: 'delete_at')->find(id: $id);
+        $response = Location::where(column: 'delete_at')->find(id: $id);
 
-        if (!$location) {
+        if (!$response) {
             throw new Exception(message: 'Ubicación no encontrada');
         }
 
-        return $location;
+        return $response;
     }
 
     public function storeLocation(array $location): RedirectResponse
     {
         try {
-            $location = Location::create(attributes: $location);
-            if ($location) return redirect()->route(route: 'location.index')->with(key: 'success', value: 'Ubicación creada exitosamente');
+            $response = Location::create(attributes: $location);
+            if ($response) return redirect()->route(route: 'location.index')->with(key: 'success', value: 'Ubicación creada exitosamente');
             return redirect()->back()->with(key: 'error', value: 'No se pudo crear la ubicación. Intente nuevamente!');
         } catch (Exception $e) {
             Log::error(message: 'Creación de ubicación ' . $e->getMessage());
@@ -55,8 +55,8 @@ class LocationService
     public function updateLocation(array $location, string $id): RedirectResponse
     {
         try {
-            $location = Location::where(column: 'id', operator: '=', value: $id)->update($location);
-            if ($location > 0) return redirect()->route(route: 'location.index')->with(key: 'success', value: 'Ubicación actualizada exitosamente');
+            $response = Location::where(column: 'id', operator: '=', value: $id)->update($location);
+            if ($response > 0) return redirect()->route(route: 'location.index')->with(key: 'success', value: 'Ubicación actualizada exitosamente');
             return redirect()->back()->with(key: 'error', value: 'No se pudo actualizar la ubicación. Intente nuevamente!');
         } catch (Exception $e) {
             Log::error(message: 'Creación de ubicación ' . $e->getMessage());
@@ -67,8 +67,8 @@ class LocationService
     public function destroyLocation(string $id): RedirectResponse
     {
         try {
-            $location = Location::where(column: 'id', operator: '=', value: $id)->update(attributes: ['delete_at' => now()]);
-            if ($location > 0) return redirect()->route(route: 'location.index')->with(key: 'success', value: 'Ubicación eliminada exitosamente');
+            $response = Location::where(column: 'id', operator: '=', value: $id)->update(['delete_at' => now()]);
+            if ($response > 0) return redirect()->route(route: 'location.index')->with(key: 'success', value: 'Ubicación eliminada exitosamente');
             return redirect()->back()->with(key: 'error', value: 'No se pudo eliminar la ubicación. Intente nuevamente!');
         } catch (Exception $e) {
             Log::error(message: 'Creación de ubicación ' . $e->getMessage());
