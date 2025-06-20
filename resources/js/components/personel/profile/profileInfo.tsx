@@ -19,7 +19,7 @@ export function ProfileInfo({ data }: ProfileInfoProps) {
             <div className="p-10">
                 <div className="mb-8 flex flex-col items-center gap-6">
                     <div className="flex flex-col items-center gap-4">
-                        <h1 className="text-2xl font-bold">Perfil</h1>
+                        <h1 className="text-2xl font-bold">Perfil de Personal</h1>
                         <p className="text-muted-foreground text-md">Información personal del usuario</p>
                     </div>
 

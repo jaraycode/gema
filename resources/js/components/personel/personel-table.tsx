@@ -1,5 +1,6 @@
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
+import { Link } from '@inertiajs/react';
 import { format } from 'date-fns';
 import { Eye } from 'lucide-react';
 import { useMemo, useState } from 'react';
@@ -47,10 +48,18 @@ export function PersonelTable({ data }: PersonelTableProps) {
         <Card className="w-full">
             <CardHeader className="space-y-4">
                 {/* Título */}
-                <CardTitle className="text-2xl">Gestión de Personal</CardTitle>
+                <div className="mb-2 flex items-center justify-between">
+                    <CardTitle className="text-lg font-semibold">Gestión de Personal</CardTitle>
+                    <Link
+                        href="/personel/create"
+                        className="flex w-60 items-center justify-center rounded-[20px] bg-[#1E9483] p-3 text-white transition duration-200 hover:shadow hover:shadow-[#1E9483]"
+                    >
+                        Agregar Personal
+                    </Link>
+                </div>
 
                 {/* Filtros */}
-                <div className="flex-grow w-full flex-nowrap items-center justify-between">
+                <div className="w-full flex-grow flex-nowrap items-center justify-between">
                     <PersonelFilters
                         dateRange={dateRange}
                         onDateRangeChange={setDateRange}
@@ -77,7 +86,7 @@ export function PersonelTable({ data }: PersonelTableProps) {
 
             {/* Tabla */}
             <CardContent className="w-full">
-                <div className="w-full rounded-xl border p-2 p-t-1">
+                <div className="p-t-1 w-full rounded-xl border p-2">
                     <Table className="border-separate border-spacing-y-6 border-gray-200">
                         <TableHeader>
                             <TableRow>
@@ -93,7 +102,7 @@ export function PersonelTable({ data }: PersonelTableProps) {
                         <TableBody>
                             {filteredData.length > 0 ? (
                                 filteredData.map((item) => (
-                                    <TableRow key={item.id} className="hover:bg-[#f0f2f5] rounded-xl border-b border-gray-800">
+                                    <TableRow key={item.id} className="rounded-xl border-b border-gray-800 hover:bg-[#f0f2f5]">
                                         <TableCell>{format(new Date(item.date), 'dd/MM/yyyy')}</TableCell>
                                         <TableCell>{item.cedula}</TableCell>
                                         <TableCell className="font-medium">{item.name}</TableCell>
@@ -101,7 +110,7 @@ export function PersonelTable({ data }: PersonelTableProps) {
                                         <TableCell className="capitalize">{item.department}</TableCell>
                                         <TableCell>{item.phone}</TableCell>
                                         <TableCell>
-                                            <Eye className="h-5 w-5 text-black-100" />
+                                            <Eye className="text-black-100 h-5 w-5" />
                                         </TableCell>
                                     </TableRow>
                                 ))
