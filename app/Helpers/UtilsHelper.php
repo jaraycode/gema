@@ -28,7 +28,7 @@ if (!function_exists(function: 'castLevel')) {
      */
     function castLevel(int $index): string
     {
-        $casting = ['Módulo', 'Piso', 'Área', 'Equipo'];
+        $casting = ['Edificio', 'Piso', 'Oficina', 'Equipo'];
         return $casting[$index];
     }
 }

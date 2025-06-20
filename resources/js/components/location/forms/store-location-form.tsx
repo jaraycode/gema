@@ -74,9 +74,9 @@ export function StoreLocationForm() {
                             <option value="" disabled hidden>
                                 Seleccione un nivel
                             </option>
-                            <option value={1}>Módulo</option>
+                            <option value={1}>Edificio</option>
                             <option value={2}>Piso</option>
-                            <option value={3}>Área</option>
+                            <option value={3}>Oficina</option>
                             <option value={4}>Equipo</option>
                         </select>
                         <InputError message={errors.level} />

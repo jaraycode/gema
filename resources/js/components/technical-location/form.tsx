@@ -44,7 +44,7 @@ export default function TechnicalLocationForm({ props }: { props: TechnicalLocat
                                             <h4 className="text-sm font-semibold">Ubicación técnica</h4>
                                             <p className="text-sm">
                                                 La ubicación técnica es la combinación de las distintas ubicaciones siguiendo la sintaxis
-                                                Módulo-Piso-Area-Equipo. Por Ejemplo: M2-PB-SUM-ACC.
+                                                Edificio-Piso-Oficinas-Equipo. Por Ejemplo: M2-PB-SUM-ACC.
                                             </p>
                                         </div>
                                     </div>
@@ -57,7 +57,7 @@ export default function TechnicalLocationForm({ props }: { props: TechnicalLocat
                         <div className="grid grid-cols-1 gap-10 md:grid-cols-2">
                             <div>
                                 <label className="mb-2 flex items-center text-sm font-medium text-neutral-900">
-                                    Módulo <span className="text-red-500">*</span>
+                                    Edificio <span className="text-red-500">*</span>
                                 </label>
                                 <Combobox data={data.level1} setData={setData} locationList={props.module} label={'level1'} />
                                 <InputError message={errors.level1} />
@@ -71,31 +71,31 @@ export default function TechnicalLocationForm({ props }: { props: TechnicalLocat
                             </div>
                             <div>
                                 <label className="mb-2 flex items-center text-sm font-medium text-neutral-900">
-                                    Área <span className="text-red-500">*</span>
+                                    Oficina <span className="text-red-500">*</span>
                                 </label>
                                 <Combobox data={data.level3} setData={setData} locationList={props.area} label={'level3'} />
                                 <InputError message={errors.level3} />
                             </div>
                             <div>
                                 <label className="mb-2 flex items-center text-sm font-medium text-neutral-900">
-                                    Salón/Oficina/Equipo <span className="text-red-500">*</span>
+                                    Oficina o Equipo <span className="text-red-500">*</span>
                                 </label>
                                 <Combobox data={data.level4} setData={setData} locationList={[...props.area, ...props.equipment]} label={'level4'} />
                                 <InputError message={errors.level4} />
                             </div>
                             <div>
-                                <label className="mb-2 flex items-center text-sm font-medium text-neutral-900">Salón/Oficina/Equipo</label>
+                                <label className="mb-2 flex items-center text-sm font-medium text-neutral-900">Oficina o Equipo</label>
                                 <Combobox data={data.level5} setData={setData} locationList={[...props.area, ...props.equipment]} label={'level5'} />
                                 <InputError message={errors.level5} />
                             </div>
                             <div>
-                                <label className="mb-2 flex items-center text-sm font-medium text-neutral-900">Salón/Oficina/Equipo</label>
+                                <label className="mb-2 flex items-center text-sm font-medium text-neutral-900">Oficina o Equipo</label>
                                 <Combobox data={data.level6} setData={setData} locationList={[...props.area, ...props.equipment]} label={'level6'} />
                                 <InputError message={errors.level6} />
                             </div>
                             <div>
-                                <label className="mb-2 flex items-center text-sm font-medium text-neutral-900">Salón/Oficina/Equipo </label>
-                                <Combobox data={data.level7} setData={setData} locationList={[...props.area, ...props.equipment]} label={'level7'} />
+                                <label className="mb-2 flex items-center text-sm font-medium text-neutral-900">Equipo</label>
+                                <Combobox data={data.level7} setData={setData} locationList={props.equipment} label={'level7'} />
                                 <InputError message={errors.level7} />
                             </div>
                         </div>
@@ -121,7 +121,7 @@ export default function TechnicalLocationForm({ props }: { props: TechnicalLocat
                                     className="h-12 w-full rounded-xl bg-teal-600 text-base text-white transition-colors hover:bg-teal-700"
                                     disabled={processing}
                                 >
-                                    Crear Ubicación
+                                    Crear ubicación técnica
                                 </button>
                             </div>
                         </div>
