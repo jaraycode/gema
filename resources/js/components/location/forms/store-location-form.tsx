@@ -1,13 +1,19 @@
 'use client';
 import InputError from '@/components/input-error';
+import { Input } from '@/components/ui/input';
 import { LocationStoreFormData } from '@/types';
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Link, useForm } from '@inertiajs/react';
 import { FormEventHandler } from 'react';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 
 export function StoreLocationForm() {
-    const { data, setData, post, processing, errors, reset } = useForm<Required<LocationStoreFormData>>({ name: '', code: '', level: '' });
+    const { data, setData, post, processing, errors, reset } = useForm<Required<LocationStoreFormData>>({
+        name: '',
+        code: '',
+        level: '',
+    });
 
     const submit: FormEventHandler = (e) => {
         e.preventDefault();
@@ -17,89 +23,82 @@ export function StoreLocationForm() {
     };
 
     return (
-        <section className="h-full items-center justify-center">
-            <form className="w-full" onSubmit={submit}>
-                {/* Header */}
-                <Link href={route('location.index')} className="ml-10 hover:cursor-pointer">
-                    <FontAwesomeIcon icon={faChevronLeft} />
-                </Link>
-                <div className="flex h-[100px] flex-col items-center justify-center rounded-2xl border-b border-b-gray-200 bg-white text-center">
-                    <div className="text-2xl leading-8 font-bold text-neutral-900">Registrar Nueva Ubicación</div>
-                    <div className="text-sm leading-5 text-slate-500">Complete la información de la ubicación</div>
-                </div>
+        <div className="mx-auto rounded-xl bg-white py-7 px-14 pb-10 shadow-md">
+            <Link href={route('location.index')} className="mb-4 inline-block text-sm text-gray-500 hover:text-gray-700">
+                <FontAwesomeIcon icon={faChevronLeft} />
+            </Link>
 
-                {/* Inputs */}
-                <div className="mt-6 flex flex-col items-center gap-10 px-5">
-                    <div className="flex w-100 flex-col gap-2.5">
-                        <label htmlFor="name" className="flex items-center gap-2 text-center text-sm font-medium text-neutral-900">
+            <h1 className="mb-4 text-2xl font-bold text-center">Registrar Nueva Ubicación</h1>
+            <p className="mb-5 text-gray-600 text-center">Complete la información de la ubicación</p>
+
+            <form onSubmit={submit} className="space-y-8 border-t pt-7">
+                <div className="grid grid-cols-1 gap-9 gap-y-8 md:grid-cols-2">
+                    {/* Nombre */}
+                    <div className="space-y-3">
+                        <label htmlFor="name" className="block text-left text-sm font-medium text-neutral-900">
                             Nombre <span className="text-red-500">*</span>
                         </label>
-                        <input
+                        <Input
                             id="name"
-                            type="text"
                             value={data.name}
                             onChange={(e) => setData('name', e.target.value)}
-                            className="w-full rounded-[8px] border border-zinc-200 bg-white px-2 py-2 text-base text-neutral-900 focus:ring-2 focus:ring-teal-500 focus:outline-none"
-                            placeholder="Ingresa el nombre"
+                            placeholder="Nombre"
+                            className="mt-1 rounded-xl border border-gray-300 focus:border-gray-300 text-[#8b8b8b] shadow-sm py-7"
                         />
                         <InputError message={errors.name} />
                     </div>
 
-                    <div className="flex w-100 flex-col gap-2.5">
-                        <label htmlFor="code" className="flex items-center gap-2 text-center text-sm font-medium text-neutral-900">
+                    {/* Código */}
+                    <div className="space-y-3">
+                        <label htmlFor="code" className="block text-left text-sm font-medium text-neutral-900">
                             Código <span className="text-red-500">*</span>
                         </label>
-                        <input
+                        <Input
                             id="code"
-                            type="text"
-                            value={data.code}
+                            value={data.name}
                             onChange={(e) => setData('code', e.target.value)}
-                            className="w-full rounded-[8px] border border-zinc-200 bg-white px-2 py-2 text-base text-neutral-900 focus:ring-2 focus:ring-teal-500 focus:outline-none"
                             placeholder="Ingresa el código"
+                            className="mt-1 rounded-xl border border-gray-300 focus:border-gray-300 text-[#8b8b8b] shadow-sm py-7"
                         />
                         <InputError message={errors.code} />
                     </div>
 
-                    <div className="flex w-100 flex-col gap-2.5">
-                        <label htmlFor="level" className="flex items-center gap-2 text-center text-sm font-medium text-neutral-900">
+                    {/* Nivel */}
+                    <div className="space-y-3">
+                        <label htmlFor="level" className="block text-left text-sm font-medium text-neutral-900">
                             Nivel <span className="text-red-500">*</span>
                         </label>
-                        <select
-                            name="level"
-                            id="level"
-                            value={data.level}
-                            onChange={(e) => setData('level', e.target.value)}
-                            className="w-full rounded-[8px] border border-zinc-200 bg-white px-2 py-2 text-base text-neutral-900 focus:ring-2 focus:ring-teal-500 focus:outline-none"
-                        >
-                            <option value="" disabled hidden>
-                                Seleccione un nivel
-                            </option>
-                            <option value={1}>Módulo</option>
-                            <option value={2}>Piso</option>
-                            <option value={3}>Área</option>
-                            <option value={4}>Equipo</option>
-                        </select>
-                        <InputError message={errors.level} />
+                        <Select onValueChange={(value) => setData('level', value as string)} value={data.level as string} required>
+                            <SelectTrigger className="mt-1 rounded-xl border border-gray-300 focus:border-gray-300 focus:ring-0 focus:ring-offset-0 shadow-sm hover:text-black w-full py-7">
+                                <SelectValue placeholder="Seleccione un nivel" className="text-[#8b8b8b]" />
+                            </SelectTrigger>
+                            <SelectContent className="rounded-xl bg-white shadow-sm">
+                                <SelectItem value="1" className="hover:bg-gray-100 text-[#8b8b8b] hover:text-black">Módulo</SelectItem>
+                                <SelectItem value="2" className="hover:bg-gray-100 text-[#8b8b8b] hover:text-black">Piso</SelectItem>
+                                <SelectItem value="3" className="hover:bg-gray-100 text-[#8b8b8b] hover:text-black">Área</SelectItem>
+                                <SelectItem value="4" className="hover:bg-gray-100 text-[#8b8b8b] hover:text-black">Equipo</SelectItem>
+                            </SelectContent>
+                        </Select>
                     </div>
                 </div>
 
                 {/* Botones */}
-                <div className="mx-auto mt-12 flex w-full max-w-2xl flex-col gap-4 md:flex-row">
+                <div className="mt-8 flex justify-center gap-4">
                     <Link
-                        className="flex h-10 w-full items-center justify-center rounded-xl bg-gray-100 text-base text-slate-500 transition-colors hover:bg-gray-200"
                         href={route('location.index')}
+                        className="h-12 flex items-center justify-center rounded-xl bg-gray-200 px-36 text-base text-gray-700 transition hover:bg-gray-300"
                     >
                         Cancelar
                     </Link>
                     <button
                         type="submit"
-                        className="h-10 w-full rounded-xl bg-teal-600 text-base text-white transition-colors hover:bg-teal-700"
+                        className="h-12 rounded-xl bg-[#1e9483] px-36 text-base text-white transition hover:bg-[#1e9483]/90"
                         disabled={processing}
                     >
                         Crear Ubicación
                     </button>
                 </div>
             </form>
-        </section>
+        </div>
     );
 }

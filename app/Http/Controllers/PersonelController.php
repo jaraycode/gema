@@ -7,20 +7,20 @@ use App\Http\Requests\Core\Personel\UpdatePersonelRequest;
 use App\Models\Personel;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Hash;
-use App\Service\Dashboard\DashboardService;
+use App\Service\Personel\PersonelService;
 
 class PersonelController extends Controller
 {
-  public function __construct(protected DashboardService $dashboardService) {}
+  public function __construct(protected PersonelService $personelService) {}
   /**
    * Display a listing of the resource.
    */
   public function index()
   {
-    $dashboardProps = $this->dashboardService->getMenu();
+    $personelProps = $this->personelService->getMenu();
     $personels = Personel::paginate(10);
 
-    return Inertia::render('persona/personel', array_merge($dashboardProps, [
+    return Inertia::render('persona/personel', array_merge($personelProps, [
       'personels' => $personels
     ]));
     //return response()->json($personels, 200);
@@ -28,11 +28,11 @@ class PersonelController extends Controller
 
   public function create()
   {
-    $dashboardProps = $this->dashboardService->getMenu();
+    $personelProps = $this->personelService->getMenu();
 
     return Inertia::render(
       component: 'persona/create',
-      props: array_merge($dashboardProps, [
+      props: array_merge($personelProps, [
         'departamentos' => ['SGMREF', 'RH', 'Finanzas', 'TI'],
         'cargos' => ['Jefe', 'Supervisor', 'Analista', 'Asistente'],
       ])

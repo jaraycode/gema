@@ -1,13 +1,16 @@
-
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faChevronLeft} from "@fortawesome/free-solid-svg-icons"; // Importar el icono de edificio y el icono de QR
-import { PrivateLayout } from "@/layouts/PrivateLayout";
-import { NavBar } from '@/types';
+import { AppSidebar } from '@/components/app-sidebar';
+import { Createform } from '@/components/personel/create/create-form';
+import { SiteHeader } from '@/components/site-header';
+import { SidebarInset, SidebarProvider } from '@/components/ui/sidebar';
+import { NavBarProps } from '@/types';
+import { useForm } from '@inertiajs/react';
 import { useState } from "react";
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 
-export default function New(props: NavBar) {
+export default function New(props: any) {
   const [codigo, setCodigo] = useState("");
   const [nombre, setNombre] = useState("");
 
@@ -27,50 +30,68 @@ export default function New(props: NavBar) {
   };
 
   return (
-    <PrivateLayout {...props}>
-        <div className="flex flex-col gap-4 p-4">
-        <div className="flex items-center">
-          <Button className="mr-2" onClick={handleBack}>
-            <FontAwesomeIcon icon={faChevronLeft} />
-          </Button>
-          <h2 className="text-lg font-semibold">Crear Departamento</h2>
-        </div>
+    <SidebarProvider
+            style={
+                {
+                    '--sidebar-width': 'calc(var(--spacing) * 72)',
+                    '--header-height': 'calc(var(--spacing) * 12)',
+                } as React.CSSProperties
+            }
+        >
+            <AppSidebar variant="inset" user={props.user} navMain={props.navMain} navSecondary={props.navSecondary} />
 
-        <div className="flex w-full flex-col gap-2.5 mt-6 max-w-xl mx-auto">
-          <label htmlFor="codigo" className="flex items-center gap-2 text-sm font-medium text-neutral-900">
-            Código <span className="text-red-500">*</span>
-          </label>
-          <input
-            id="codigo"
-            type="text"
-            value={codigo}
-            onChange={(e) => setCodigo(e.target.value)}
-            className="w-full rounded-[8px] border border-zinc-200 bg-white px-2 py-2 text-base text-neutral-900 focus:ring-2 focus:ring-teal-500 focus:outline-none"
-            placeholder="Ingresa el código"
-          />
-       </div>
-       <div className="flex w-full flex-col gap-2.5 mt-4 max-w-xl mx-auto">
-          <label htmlFor="nombre" className="flex items-center gap-2 text-sm font-medium text-neutral-900">
-            Nombre <span className="text-red-500">*</span>
-          </label>
-          <input
-            id="nombre"
-            type="text"
-            value={nombre}
-            onChange={(e) => setNombre(e.target.value)}
-            className="w-full rounded-[8px] border border-zinc-200 bg-white px-2 py-2 text-base text-neutral-900 focus:ring-2 focus:ring-teal-500 focus:outline-none"
-            placeholder="Ingresa el nombre"
-          />
-        </div>
-        <div className="flex justify-center gap-2 mt-20">
-          <Button onClick={handleBack} className="bg-gray-300 text-black w-90 h-12 rounded-[12px] hover:bg-gray-300 hover:shadow-lg hover:shadow-gray-350">
-            Cancelar
-          </Button>
-          <Button onClick={handleSubmit} className="bg-[#1E9483] text-white w-90 h-12 rounded-[12px] transition duration-200 hover:bg-[#1E9483] hover:shadow hover:shadow-[#1E9483]">
-            Crear Departamento
-          </Button>
-        </div>
-      </div>
-    </PrivateLayout>
+            <SidebarInset>
+                <SiteHeader />
+                <div className="flex flex-1 flex-col">
+                    <div className="@container/main flex flex-1 flex-col gap-2">
+                        <div className="flex flex-col gap-4 py-4 md:gap-6 md:py-6">
+                            <div className="px-10 lg:px-25">
+                              <div className="mx-auto rounded-xl bg-white py-7 px-14 pb-10 text-center shadow-md">
+                                <h1 className="mb-4 text-2xl font-bold">Registrar Nuevo Departamento</h1>
+                                <p className="mb-5 text-gray-600">Complete la información del Departamento</p>
+
+                                <form onSubmit={handleSubmit} className="space-y-8 border-t-1 pt-7">
+                                  <div className="space-y-8">
+                                      {/* Primera fila: Nombre y Cédula */}
+                                       <div className="grid grid-cols-1 gap-9 gap-y-8 md:grid-cols-2">
+                                          <div className="space-y-3">
+                                              <Label htmlFor="codigo">Código</Label>
+                                              <Input
+                                                  id="codigo"
+                                                  value={codigo}
+                                                  onChange={(e) => setCodigo(e.target.value)}
+                                                  placeholder="Código del Departamento"
+                                                  className="mt-1 rounded-xl border border-gray-300 focus:border-gray-300 text-[#8b8b8b] shadow-sm py-7"
+                                              />
+                                          </div>
+                                          <div className="space-y-3">
+                                              <Label htmlFor="nombre">Nombre</Label>
+                                              <Input
+                                                  id="nombre"
+                                                  value={nombre}
+                                                  onChange={(e) => setNombre(e.target.value)}
+                                                  placeholder="Nombre del Departamento"
+                                                  required
+                                                  className="mt-1 rounded-xl border border-gray-300 focus:border-gray-300 text-[#8b8b8b] shadow-sm py-7"
+                                              />
+                                          </div>
+                                      </div>
+                                    </div>
+                                    <div className="mt-15 flex justify-center gap-4 border-b-1 pb-6">
+                                        <Button type="button" className="rounded-xl px-36 bg-gray-200 border-gray-500 hover:bg-gray-300/90 h-12 w-10">
+                                            Cancelar
+                                        </Button>
+                                        <Button type="submit" className="rounded-xl bg-[#1e9483] px-36 text-white hover:bg-[#1e9483]/90 h-12 w-10">
+                                            Crear Nuevo Departamento
+                                        </Button>
+                                    </div>
+                                </form>
+                              </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </SidebarInset>
+        </SidebarProvider>
   );
 }

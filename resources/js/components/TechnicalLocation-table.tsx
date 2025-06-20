@@ -81,7 +81,7 @@ export function TechnicalLocationTable({ data }: { data: TechnicalLocationModel[
                     Agregar Ubicación Técnica
                 </Link>
             </div>
-            <div className="relative mb-4 w-full max-w-md">
+            <div className="relative mb-4 relative w-full max-w-full">
                 <span className="absolute inset-y-0 left-3 flex items-center text-gray-500">
                     <svg className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-4.35-4.35m0 0A7.5 7.5 0 103 10.5a7.5 7.5 0 0013.15 6.15z" />
@@ -94,8 +94,8 @@ export function TechnicalLocationTable({ data }: { data: TechnicalLocationModel[
                     className="w-full rounded-full bg-gray-100 py-2 pr-4 pl-10 text-gray-700 placeholder-gray-500 focus:ring-2 focus:ring-blue-500 focus:outline-none"
                 />
             </div>
-            <div className="rounded-md border">
-                <Table className="w-full">
+            <div className="p-t-1 w-full rounded-xl border p-2">
+                <Table className="border-separate border-spacing-y-6 border-gray-200">
                     <TableHeader>
                         {table.getHeaderGroups().map((headerGroup) => (
                             <TableRow key={headerGroup.id}>
@@ -112,7 +112,7 @@ export function TechnicalLocationTable({ data }: { data: TechnicalLocationModel[
                             table.getRowModel().rows.map((row) => (
                                 <TableRow key={row.id} className="border-b border-gray-200">
                                     {row.getVisibleCells().map((cell) => (
-                                        <TableCell className="py-5" key={cell.id}>
+                                        <TableCell  key={cell.id}>
                                             {flexRender(cell.column.columnDef.cell, cell.getContext())}
                                         </TableCell>
                                     ))}

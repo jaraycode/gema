@@ -72,7 +72,7 @@ export function DepartmentTable({ data }: { data: Department[] }) {
     return (
         <div className="w-full">
             <div className="flex items-center py-4">
-                <div className="relative mb-4 w-full max-w-md">
+                <div className="relative mb-4 relative w-full max-w-full">
                     
                     <span className="absolute inset-y-0 left-3 flex items-center text-gray-500">
                         <svg className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
@@ -89,8 +89,8 @@ export function DepartmentTable({ data }: { data: Department[] }) {
                 </div>
                
             </div>
-            <div className="rounded-md border">
-                <Table className="w-full">
+            <div className="p-t-1 w-full rounded-xl border p-2">
+                <Table className="border-separate border-spacing-y-6 border-gray-200">
                     <TableHeader>
                         {table.getHeaderGroups().map((headerGroup) => (
                             <TableRow key={headerGroup.id}>
@@ -109,7 +109,7 @@ export function DepartmentTable({ data }: { data: Department[] }) {
                             table.getRowModel().rows.map((row) => (
                                 <TableRow key={row.id} className="border-b border-gray-200">
                                     {row.getVisibleCells().map((cell) => (
-                                        <TableCell className='py-5' key={cell.id}>
+                                        <TableCell key={cell.id}>
                                             {flexRender(cell.column.columnDef.cell, cell.getContext())}
                                         </TableCell>
                                     ))}

@@ -6,6 +6,7 @@ import { SidebarInset, SidebarProvider } from '@/components/ui/sidebar';
 import { LocationProps, ResponseHandlerProps } from '@/types';
 import { Head, usePage } from '@inertiajs/react';
 import { useEffect, useState } from 'react';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 
 export default function LocationIndex({ data, user, navMain, navSecondary }: LocationProps) {
     const { flash } = usePage<ResponseHandlerProps>().props;
@@ -40,9 +41,11 @@ export default function LocationIndex({ data, user, navMain, navSecondary }: Loc
                                         <AlertDescription className="text-white">{flash?.success ?? flash?.error}</AlertDescription>
                                     </Alert>
                                 )}
-                                <div className="rounded-lg bg-white p-4 shadow-md">
-                                    <LocationTable {...data} />
-                                </div>
+                                <Card className="rounded-lg bg-white shadow-md">
+                                    <CardContent>
+                                        <LocationTable {...data} />
+                                    </CardContent>
+                                </Card>
                             </div>
                         </div>
                     </div>
