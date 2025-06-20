@@ -45,9 +45,6 @@ export function EditLocationForm(props?: LocationFormData) {
                     </div>
 
                     <div className="flex w-100 flex-col gap-2.5">
-                        <label htmlFor="code" className="flex items-center gap-2 text-center text-sm font-medium text-neutral-900">
-                            Código <span className="text-red-500">*</span>
-                        </label>
                         <div className="flex w-100 flex-col gap-2.5">
                             <label htmlFor="code" className="flex items-center gap-2 text-center text-sm font-medium text-neutral-900">
                                 Código <span className="text-red-500">*</span>

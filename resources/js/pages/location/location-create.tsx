@@ -4,8 +4,6 @@ import { SiteHeader } from '@/components/site-header';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { SidebarInset, SidebarProvider } from '@/components/ui/sidebar';
 import { LocationProps, ResponseHandlerProps } from '@/types';
-import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Head, usePage } from '@inertiajs/react';
 import { useEffect, useState } from 'react';
 
@@ -33,11 +31,6 @@ export default function LocationCreate({ user, navMain, navSecondary }: Location
                 <div className="flex flex-1 flex-col">
                     <div className="@container/main flex flex-1 flex-col gap-2">
                         <div className="flex flex-col gap-4 py-4 md:gap-6 md:py-6">
-                            <div className="flex items-start">
-                                <button onClick={() => window.history.back()} className="transition hover:cursor-pointer">
-                                    <FontAwesomeIcon icon={faChevronLeft} />
-                                </button>
-                            </div>
                             {showAlert && flashMessage && (
                                 <Alert variant={'default'} className={`${flash?.success ? 'bg-[#1E9483]' : 'bg-red-800'}`}>
                                     <AlertTitle className="font-bold text-white">{flash?.success ? 'Éxito!' : 'Error!'}</AlertTitle>

@@ -5,6 +5,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@
 import { TechnicalLocationModel } from '@/types';
 import { faChevronLeft, faChevronRight, faEye } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Link } from '@inertiajs/react';
 import {
     ColumnDef,
     ColumnFiltersState,
@@ -73,12 +74,12 @@ export function TechnicalLocationTable({ data }: { data: TechnicalLocationModel[
         <div className="w-full">
             <div className="flex items-center justify-between py-4">
                 <h2 className="mb-2 text-lg font-semibold">Ubicaciones Técnicas</h2>
-                <a
-                    href="/technical-location/create"
+                <Link
+                    href={route('technical-location.create')}
                     className="flex w-60 items-center justify-center rounded-[20px] bg-[#1E9483] p-3 text-white transition duration-200 hover:shadow hover:shadow-[#1E9483]"
                 >
                     Agregar Ubicación Técnica
-                </a>
+                </Link>
             </div>
             <div className="relative mb-4 w-full max-w-md">
                 <span className="absolute inset-y-0 left-3 flex items-center text-gray-500">
