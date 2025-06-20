@@ -23,7 +23,7 @@ export function EditLocationForm(props?: LocationFormData) {
                     <FontAwesomeIcon icon={faChevronLeft} />
                 </Link>
                 <div className="flex h-[100px] flex-col items-center justify-center rounded-2xl border-b border-b-gray-200 bg-white text-center">
-                    <div className="text-2xl leading-8 font-bold text-neutral-900">Registrar Nueva Ubicación</div>
+                    <div className="text-2xl leading-8 font-bold text-neutral-900">Actualizar Ubicación</div>
                     <div className="text-sm leading-5 text-slate-500">Complete la información de la ubicación</div>
                 </div>
 
@@ -99,7 +99,7 @@ export function EditLocationForm(props?: LocationFormData) {
                         className="h-10 w-full rounded-xl bg-teal-600 text-base text-white transition-colors hover:bg-teal-700"
                         disabled={processing}
                     >
-                        Actualizar Ubicación
+                        Guardar cambios
                     </button>
                 </div>
             </form>
