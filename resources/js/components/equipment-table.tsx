@@ -115,7 +115,7 @@ export function EquipmentTable({ data }: PaginatedData<any>) {
                     Mantenimiento
                 </button>
             </div>
-            <div className="relative mb-4 w-full max-w-md">
+            <div className="relative mb-4 relative w-full max-w-full">
                 <span className="absolute inset-y-0 left-3 flex items-center text-gray-500">
                     <svg className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-4.35-4.35m0 0A7.5 7.5 0 103 10.5a7.5 7.5 0 0013.15 6.15z" />

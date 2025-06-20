@@ -34,9 +34,6 @@ export default function LocationCreate({ user, navMain, navSecondary, data }: Te
                 <div className="flex flex-1 flex-col">
                     <div className="@container/main flex flex-1 flex-col gap-2">
                         <div className="flex flex-col gap-4 py-4 md:gap-6 md:py-6">
-                            <Link href={route('technical-location.index')} className="ml-10 hover:cursor-pointer">
-                                <FontAwesomeIcon icon={faChevronLeft} />
-                            </Link>
                             {showAlert && flashMessage && (
                                 <Alert variant={'default'} className={`${flash?.success ? 'bg-[#1E9483]' : 'bg-red-800'}`}>
                                     <AlertTitle className="font-bold text-white">{flash?.success ? 'Éxito!' : 'Error!'}</AlertTitle>
