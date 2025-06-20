@@ -16,3 +16,9 @@ export interface EditLocationProps extends NavBarProps {
 }
 
 export type LocationFormData = Omit<LocationModel, 'id'>;
+
+export interface LocationStoreFormData {
+    name: string;
+    code: string;
+    level?: number | string;
+}
