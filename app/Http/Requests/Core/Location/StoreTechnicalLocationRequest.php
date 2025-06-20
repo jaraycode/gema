@@ -48,9 +48,6 @@ class StoreTechnicalLocationRequest extends FormRequest
             'level2.integer' => 'Es necesario ingresar un valor numérico',
             'level3.integer' => 'Es necesario ingresar un valor numérico',
             'level4.integer' => 'Es necesario ingresar un valor numérico',
-            'level5.integer' => 'Es necesario ingresar un valor numérico',
-            'level6.integer' => 'Es necesario ingresar un valor numérico',
-            'level7.integer' => 'Es necesario ingresar un valor numérico',
         ];
     }
 }
