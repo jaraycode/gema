@@ -29,7 +29,7 @@ export default function TechnicalLocationForm({ props }: { props: TechnicalLocat
         <div className="mx-auto rounded-xl bg-white px-14 py-7 pb-10 shadow-md">
             {/* Header */}
             <div className="mb-4 flex items-start justify-between">
-                <Link href={route('location.index')} className="mb-4 inline-block text-sm text-gray-500 hover:text-gray-700">
+                <Link href={route('technical-location.index')} className="mb-4 inline-block text-sm text-gray-500 hover:text-gray-700">
                     <FontAwesomeIcon icon={faChevronLeft} />
                 </Link>
 

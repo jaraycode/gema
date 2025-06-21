@@ -25,7 +25,7 @@ export default function TechnicalLocationIndex({ user, navMain, navSecondary, da
                         <div className="flex flex-col gap-4 py-4 md:gap-6 md:py-6">
                             <div className="px-4 lg:px-6"></div>
                             <div className="mx-4 grid grid-cols-1 gap-4 md:mx-8">
-                                <Card className="rounded-lg bg-white shadow-md">
+                                <Card className="rounded-lg bg-white shadow-md bg-card text-card-foreground flex flex-col gap-6 rounded-xl border py-6 shadow-sm">
                                     <CardContent>
                                         <TechnicalLocationTable data={data.data} />
                                     </CardContent>

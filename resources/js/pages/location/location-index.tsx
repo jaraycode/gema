@@ -41,7 +41,7 @@ export default function LocationIndex({ data, user, navMain, navSecondary }: Loc
                                         <AlertDescription className="text-white">{flash?.success ?? flash?.error}</AlertDescription>
                                     </Alert>
                                 )}
-                                <Card className="rounded-lg bg-white shadow-md">
+                                <Card className="rounded-lg bg-white shadow-md bg-card text-card-foreground flex flex-col gap-6 rounded-xl border py-6 shadow-sm">
                                     <CardContent>
                                         <LocationTable {...data} />
                                     </CardContent>
