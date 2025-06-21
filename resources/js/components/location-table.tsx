@@ -1,4 +1,4 @@
-import { Button } from '@/components/ui/button';
+      import { Button } from '@/components/ui/button';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { LocationModel, PaginatedData } from '@/types';
 import { faChevronLeft, faChevronRight, faPen, faTrash } from '@fortawesome/free-solid-svg-icons';
@@ -83,16 +83,34 @@ export function LocationTable({ data }: PaginatedData<LocationModel>) {
         },
     });
 
+    const filterByLevel = (level: string) => {
+        const validLevels = ['Todos', 'Módulo', 'Área', 'Equipo', 'Piso'];
+        if (validLevels.includes(level)) {
+            setColumnFilters(level === 'Todos' ? [] : [{ id: 'level', value: level }]);
+        }
+    };
+
     return (
         <div className="w-full">
             <div className="mb-2 flex items-center justify-between">
                 <h2 className="text-lg font-semibold">Ubicacion</h2>
                 <Link
-                    className="flex w-48 items-center justify-center rounded-[20px] bg-[#1E9483] p-3 text-white transition duration-200 hover:shadow hover:shadow-[#1E9483]"
+                    className="flex w-60 items-center justify-center rounded-[20px] bg-[#1E9483] p-3 text-white transition duration-200 hover:shadow hover:shadow-[#1E9483]"
                     href={route('location.create')}
                 >
                     <span className="text-center">Agregar Ubicación</span>
                 </Link>
+            </div>
+            <div className="mb-4 flex space-x-2 mt-10">
+                 {['Todos', 'Módulo', 'Área', 'Equipo', 'Piso'].map((level) => (
+                    <button
+                        key={level}
+                        className={`btn h-8 w-40 rounded-[12px] transition-shadow hover:shadow-lg ${(columnFilters.length === 0 && level === 'Todos') || (columnFilters.some(filter => filter.value === level)) ? 'bg-[#B0E0D3]' : 'bg-[#F0F2F5]'}`}
+                        onClick={() => filterByLevel(level)}
+                    >
+                        {level}
+                    </button>
+                ))}
             </div>
             <div className="flex items-center py-4">
                 <div className="relative mb-4 relative w-full max-w-full">

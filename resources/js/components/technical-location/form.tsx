@@ -32,7 +32,7 @@ export default function TechnicalLocationForm({ props }: { props: TechnicalLocat
             {/* Header */}
             <div className="mb-4 flex justify-between items-start">
 
-                <Link href={route('location.index')} className="mb-4 inline-block text-sm text-gray-500 hover:text-gray-700">
+                 <Link href={route('technical-location.index')} className="mb-4 inline-block text-sm text-gray-500 hover:text-gray-700">
                     <FontAwesomeIcon icon={faChevronLeft} />
                 </Link>
 

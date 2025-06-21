@@ -1,4 +1,4 @@
-import { DepartmentTable } from '@/components/DepartmentTable';
+ import { DepartmentTable } from '@/components/DepartmentTable';
 import { PrivateLayout } from '@/layouts/PrivateLayout';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 
@@ -8,7 +8,7 @@ export default function DepartmentPage(props: any) {
       <div className="@container/main flex flex-1 flex-col gap-2">
         <div className="flex flex-col gap-4 py-4 md:gap-6 md:py-6">
           <div className="grid grid-cols-1 gap-4 mx-4 md:mx-8">
-            <Card className="bg-white shadow-md rounded-lg p-4">
+            <Card className="bg-white shadow-md rounded-lg p-4 bg-card text-card-foreground flex flex-col gap-6 rounded-xl border py-6 shadow-sm ">
               <CardHeader className="flex justify-between items-center mb-2">
                 <CardTitle className="text-lg font-semibold">Departamentos</CardTitle>
                 <a

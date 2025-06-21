@@ -1,8 +1,11 @@
-import { Button } from '@/components/ui/button';
+  import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { useForm } from '@inertiajs/react';
+import { Link } from '@inertiajs/react'; // Importar Link para la navegación
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'; // Importar el icono correctamente
+import { faChevronLeft } from '@fortawesome/free-solid-svg-icons'; // Importar el icono
 
 interface CreatePersonelFormProps {
     departamentos: string[];
@@ -29,6 +32,11 @@ export function Createform({ departamentos, cargos, onSubmit, onCancel, processi
 
     return (
         <div className="mx-auto rounded-xl bg-white py-7 px-14 pb-10 text-center shadow-md">
+            <div className="flex justify-between items-center mb-4">
+                <Link href="/personel" className="inline-block text-sm text-gray-500 hover:text-gray-700">
+                    <FontAwesomeIcon icon={faChevronLeft} />
+                </Link>
+            </div>
             <h1 className="mb-4 text-2xl font-bold">Registrar Nuevo Personal</h1>
             <p className="mb-5 text-gray-600">Complete la información del Personal</p>
 
