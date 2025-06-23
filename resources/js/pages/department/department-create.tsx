@@ -1,0 +1,108 @@
+import { AppSidebar } from '@/components/app-sidebar';
+import InputError from '@/components/input-error';
+import { SiteHeader } from '@/components/site-header';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { SidebarInset, SidebarProvider } from '@/components/ui/sidebar';
+import { NavBarProps } from '@/types';
+import { DepartmentForm } from '@/types/department/department';
+import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Head, Link, useForm } from '@inertiajs/react';
+import { FormEventHandler } from 'react';
+
+export default function New({ user, navMain, navSecondary }: NavBarProps) {
+    const { data, setData, post, processing, errors, reset } = useForm<Required<DepartmentForm>>({
+        name: '',
+        code: '',
+    });
+
+    const submit: FormEventHandler = (e) => {
+        e.preventDefault();
+        post(route('department.store'), {
+            onFinish: () => reset('code'),
+        });
+    };
+    return (
+        <SidebarProvider
+            style={
+                {
+                    '--sidebar-width': 'calc(var(--spacing) * 72)',
+                    '--header-height': 'calc(var(--spacing) * 12)',
+                } as React.CSSProperties
+            }
+        >
+            <AppSidebar variant="inset" user={user} navMain={navMain} navSecondary={navSecondary} />
+            <Head title="Departamento" />
+
+            <SidebarInset>
+                <SiteHeader />
+                <div className="flex flex-1 flex-col">
+                    <div className="@container/main flex flex-1 flex-col gap-2">
+                        <div className="flex flex-col gap-4 py-4 md:gap-6 md:py-6">
+                            <div className="px-10 lg:px-25">
+                                <div className="rounded-xl bg-white px-14 py-7 pb-10 text-left shadow-md">
+                                    <div className="flex items-center justify-between">
+                                        <Link href="/department" className="inline-block text-sm text-gray-500 hover:text-gray-700">
+                                            <FontAwesomeIcon icon={faChevronLeft} />
+                                        </Link>
+                                    </div>
+                                    <h1 className="mb-4 text-center text-2xl font-bold">Registrar Nuevo Departamento</h1>
+                                    <p className="mb-5 text-center text-gray-600">Complete la información del Departamento</p>
+
+                                    <form onSubmit={submit} className="space-y-8 border-t-1 pt-7">
+                                        <div className="space-y-8">
+                                            <div className="grid grid-cols-1 gap-9 gap-y-8 md:grid-cols-2">
+                                                <div className="space-y-3">
+                                                    <Label htmlFor="codigo">Código</Label>
+                                                    <Input
+                                                        id="code"
+                                                        value={data.code}
+                                                        onChange={(e) => setData('code', e.target.value)}
+                                                        placeholder="Código del Departamento"
+                                                        className="mt-1 rounded-xl border border-gray-300 py-7 text-[#8b8b8b] shadow-sm focus:border-gray-300"
+                                                    />
+                                                    <InputError message={errors.code} />
+                                                </div>
+                                                <div className="space-y-3">
+                                                    <Label htmlFor="nombre">Nombre</Label>
+                                                    <Input
+                                                        id="name"
+                                                        value={data.name}
+                                                        onChange={(e) => setData('name', e.target.value)}
+                                                        placeholder="Nombre del Departamento"
+                                                        required
+                                                        className="mt-1 rounded-xl border border-gray-300 py-7 text-[#8b8b8b] shadow-sm focus:border-gray-300"
+                                                    />
+                                                    <InputError message={errors.name} />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div className="mt-15 flex justify-center gap-4 border-b-1 pb-6">
+                                            <Link href="/department">
+                                                <Button
+                                                    type="button"
+                                                    className="h-12 w-10 rounded-xl border-gray-500 bg-gray-200 px-36 hover:bg-gray-300/90"
+                                                >
+                                                    Cancelar
+                                                </Button>
+                                            </Link>
+                                            <Button
+                                                type="submit"
+                                                className="h-12 w-10 rounded-xl bg-[#1e9483] px-36 text-white hover:bg-[#1e9483]/90"
+                                                disabled={processing}
+                                            >
+                                                Crear Nuevo Departamento
+                                            </Button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </SidebarInset>
+        </SidebarProvider>
+    );
+}

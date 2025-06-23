@@ -3,33 +3,50 @@
 namespace App\Http\Controllers\Department;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Core\Department\StoreDepartmentRequest;
 use App\Service\Department\DepartmentService;
-use Illuminate\Support\Facades\Request;
+use Illuminate\Http\RedirectResponse;
 use Inertia\Inertia;
+use Inertia\Response;
 
 class DepartmentController extends Controller
 {
     public function __construct(protected DepartmentService $departmentService) {}
 
-    public function index()
+    public function index(): Response
     {
-        $currentPath = '/' . Request::path(); // Ej: '/department'
         $dashboardProps = $this->departmentService->getMenu();
 
-        return Inertia::render('department/department', array_merge(
+        return Inertia::render('department/department-index', array_merge(
             $dashboardProps,
             [
-                // Props adicionales si las necesitas
+                'data' => $this->departmentService->getAllDepartments()
             ]
         ));
     }
 
-    public function create()
+    public function create(): Response
     {
-        $currentPath = '/department'; // Establecer el current path a '/department'
         $dashboardProps = $this->departmentService->getMenu();
 
-        return Inertia::render('department/New', array_merge(
+        return Inertia::render('department/department-create', array_merge(
+            $dashboardProps,
+            [
+                // Otros props si los necesitas
+            ]
+        ));
+    }
+
+    public function store(StoreDepartmentRequest $request): RedirectResponse
+    {
+        return $this->departmentService->storeDepartment($request->validated());
+    }
+
+    public function edit(): Response
+    {
+        $dashboardProps = $this->departmentService->getMenu();
+
+        return Inertia::render('department/department-edit', array_merge(
             $dashboardProps,
             [
                 // Otros props si los necesitas

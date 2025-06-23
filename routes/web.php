@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth')->get('/', [DashboardController::class, 'index'])->name('home');
 Route::middleware('auth')->get('/department', [DepartmentController::class, 'index'])->name('department.index');
-Route::middleware('auth')->get('/department/new', [DepartmentController::class, 'create'])->name('department.new');
+Route::middleware('auth')->get('/department/create', [DepartmentController::class, 'create'])->name('department.create');
 
 require __DIR__ . '/LocationRoutes.php';
 require __DIR__ . '/settings.php';
