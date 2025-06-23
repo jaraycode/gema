@@ -4,10 +4,13 @@ namespace App\Http\Controllers\Department;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Core\Department\StoreDepartmentRequest;
+use App\Http\Requests\Core\Department\UpdateDepartmentRequest;
+use App\Models\Department;
 use App\Service\Department\DepartmentService;
 use Illuminate\Http\RedirectResponse;
 use Inertia\Inertia;
 use Inertia\Response;
+use Nette\NotImplementedException;
 
 class DepartmentController extends Controller
 {
@@ -17,7 +20,7 @@ class DepartmentController extends Controller
     {
         $dashboardProps = $this->departmentService->getMenu();
 
-        return Inertia::render('department/department-index', array_merge(
+        return Inertia::render(component: 'department/department-index', props: array_merge(
             $dashboardProps,
             [
                 'data' => $this->departmentService->getAllDepartments()
@@ -25,11 +28,16 @@ class DepartmentController extends Controller
         ));
     }
 
+    public function show()
+    {
+        throw new NotImplementedException();
+    }
+
     public function create(): Response
     {
         $dashboardProps = $this->departmentService->getMenu();
 
-        return Inertia::render('department/department-create', array_merge(
+        return Inertia::render(component: 'department/department-create', props: array_merge(
             $dashboardProps,
             [
                 // Otros props si los necesitas
@@ -39,18 +47,29 @@ class DepartmentController extends Controller
 
     public function store(StoreDepartmentRequest $request): RedirectResponse
     {
-        return $this->departmentService->storeDepartment($request->validated());
+        return $this->departmentService->storeDepartment(request: $request->validated());
     }
 
-    public function edit(): Response
+    public function edit(string $id): Response
     {
         $dashboardProps = $this->departmentService->getMenu();
+        $department = Department::find(id: $id);
 
-        return Inertia::render('department/department-edit', array_merge(
+        return Inertia::render(component: 'department/department-edit', props: array_merge(
             $dashboardProps,
             [
-                // Otros props si los necesitas
+                'department' => $department
             ]
         ));
+    }
+
+    public function update(UpdateDepartmentRequest $request, string $id)
+    {
+        throw new NotImplementedException();
+    }
+
+    public function destroy(string $id)
+    {
+        throw new NotImplementedException();
     }
 }

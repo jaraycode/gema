@@ -11,7 +11,7 @@ class StoreDepartmentRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,24 @@ class StoreDepartmentRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'name' => ['required', 'string'],
+            'code' => ['required', 'string', 'max:10']
+        ];
+    }
+
+    /**
+     * Returns the messages for the validation rules specified beforehand
+     *
+     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
+     */
+    public function messages(): array
+    {
+        return [
+            'name.required' => 'Es necesario ingresar el nombre',
+            'name.string' => 'El nombre tiene que ser una cadena de texto',
+            'code.required' => 'Es necesario ingresar el código',
+            'code.string' => 'El código tiene que ser una cadena de texto',
+            'code.max' => 'El código no puede tener más de 10 caracteres',
         ];
     }
 }

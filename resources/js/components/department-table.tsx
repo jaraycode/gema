@@ -1,10 +1,9 @@
-'use client';
-
 import { Button } from '@/components/ui/button';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { DepartmentModel } from '@/types/department/department';
-import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons';
+import { faChevronLeft, faChevronRight, faPen, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Link } from '@inertiajs/react';
 import {
     ColumnDef,
     ColumnFiltersState,
@@ -39,6 +38,20 @@ export const columns: ColumnDef<DepartmentModel>[] = [
         accessorKey: 'code',
         header: () => <div className="text-center">Abreviatura</div>,
         cell: ({ row }) => <div className="text-center">{row.getValue('code')}</div>,
+    },
+    {
+        accessorKey: 'action',
+        header: () => <div>Acciones</div>,
+        cell: ({ row }) => (
+            <div className="flex gap-2">
+                <Link href={route('department.edit', { id: row.getValue('id') })} className="hover:cursor-pointer">
+                    <FontAwesomeIcon icon={faPen} />
+                </Link>
+                <Link href={route('department.destroy', { id: row.getValue('id') })} method="delete" className="hover:cursor-pointer">
+                    <FontAwesomeIcon icon={faTrash} />
+                </Link>
+            </div>
+        ),
     },
 ];
 

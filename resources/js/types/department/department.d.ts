@@ -11,3 +11,7 @@ export type DepartmentForm = Omit<DepartmentModel, 'id'>;
 export interface DepartmentIndexProps extends NavBarProps {
     data: PaginatedData<DepartmentModel>;
 }
+
+export interface DepartmentEditProps extends NavBarProps {
+    department: DepartmentModel;
+}

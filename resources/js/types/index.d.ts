@@ -1,5 +1,7 @@
 import { LucideIcon } from 'lucide-react';
 import type { Config } from 'ziggy-js';
+export * from '@/types/department/department';
+export * from '@/types/equipment/equipment';
 export * from '@/types/location/location';
 export * from '@/types/maintenance/maintenance';
 

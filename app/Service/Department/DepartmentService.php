@@ -29,10 +29,10 @@ class DepartmentService
     {
         try {
             $response = Department::create($request);
-            if ($response) return redirect()->route(route: 'department.index')->with(key: 'success', value: 'Departamento creada exitosamente');
+            if ($response) return redirect()->route(route: 'department.index')->with(key: 'success', value: 'Departamento creado exitosamente');
             return redirect()->back()->with(key: 'error', value: 'No se pudo crear el departamento. Intente nuevamente!');
         } catch (Exception $e) {
-            return redirect()->back()->with('error', 'No se pudo guardar el departamento');
+            return redirect()->back()->with('error', 'No se pudo guardar el departamento: ' . $e->getMessage());
         }
     }
 }
