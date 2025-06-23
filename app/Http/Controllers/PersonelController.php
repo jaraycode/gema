@@ -23,7 +23,6 @@ class PersonelController extends Controller
     return Inertia::render('persona/personel', array_merge($personelProps, [
       'personels' => $personels
     ]));
-    //return response()->json($personels, 200);
   }
 
   public function create()
@@ -45,20 +44,11 @@ class PersonelController extends Controller
    */
   public function store(StorePersonelRequest $request)
   {
-    $password = $request->get('password');
-    $hashedPassword = Hash::make($password);
-    $personel = Personel::create([
-      "email" => $request->get("email"),
-      "username" => $request->get("username"),
-      "password" => $hashedPassword,
-      "phone_number" => $request->get("phone_number"),
-      "first_name" => $request->get("first_name"),
-      "second_name" => $request->get("second_name"),
-      "last_name" => $request->get("last_name"),
-      "second_last_name" => $request->get("second_last_name"),
-    ]);
+    $personnelDTO = $request->validated();
+    $personnelDTO['password'] = Hash::make($personnelDTO['password']);
+    $personel = Personel::create($personnelDTO);
 
-    //return redirect("personels.index")
+    //return redirect("personels.index")->with('success', 'Personal agregado con éxito');
     return response()->json($personel, 201);
   }
 
@@ -69,8 +59,7 @@ class PersonelController extends Controller
   {
     /*  $personel = Personel::all()->findOrFail($id);
     return response()->json($personel, 200); */
-    $dashboardProps = $this->dashboardService->getMenu();
-
+    $dashboardProps = $this->personelService->getMenu();
     return Inertia::render('persona/profile', array_merge($dashboardProps, []));
   }
 
@@ -88,9 +77,9 @@ class PersonelController extends Controller
    */
   public function destroy(string $id)
   {
-    $personel = Personel::all()->findOrFail($id);
+    $personel = Personel::all()->findOrFail(key: $id);
     $personel->delete();
 
-    return response()->json(null, 204);
+    return response()->json(data: null, status: 204);
   }
 }

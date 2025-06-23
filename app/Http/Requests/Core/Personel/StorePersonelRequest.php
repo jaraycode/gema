@@ -11,7 +11,7 @@ class StorePersonelRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,18 +22,19 @@ class StorePersonelRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "email"=> "required|email|unique:personel,email|string",
+            "email" => "required|email|unique:personel,email|string",
             "username" => "required|unique:personel,username|string",
             "password" => "required|string",
-            "phone_number" => "required|string",
+            "phone_number" => "required|string", // max 13 caracteres usando el formato para +584121164027
             "first_name" => "required|string",
-            "second_name" => "string",
+            "second_name" => "sometimes|string",
             "last_name" => "required|string",
-            "second_last_name" => "string",
+            "second_last_name" => "sometimes|string",
         ];
     }
 
-    public function messages(): array {
+    public function messages(): array
+    {
         return [
             'email.required' => 'The email field is required.',
             'email.email' => 'The email must be a valid email address.',
@@ -53,13 +54,13 @@ class StorePersonelRequest extends FormRequest
             'first_name.required' => 'The first name field is required.',
             'first_name.string' => 'The first name must be a string.',
 
-            'second_name.required' => 'The second name field is required.',
+            // 'second_name.required' => 'The second name field is required.',
             'second_name.string' => 'The second name must be a string.',
 
             'last_name.required' => 'The last name field is required.',
             'last_name.string' => 'The last name must be a string.',
 
-            'second_last_name.required' => 'The second last name field is required.',
+            // 'second_last_name.required' => 'The second last name field is required.',
             'second_last_name.string' => 'The second last name must be a string.',
         ];
     }
