@@ -1,4 +1,4 @@
-      import { Button } from '@/components/ui/button';
+import { Button } from '@/components/ui/button';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { LocationModel, PaginatedData } from '@/types';
 import { faChevronLeft, faChevronRight, faPen, faTrash } from '@fortawesome/free-solid-svg-icons';
@@ -84,7 +84,7 @@ export function LocationTable({ data }: PaginatedData<LocationModel>) {
     });
 
     const filterByLevel = (level: string) => {
-        const validLevels = ['Todos', 'Módulo', 'Área', 'Equipo', 'Piso'];
+        const validLevels = ['Todos', 'Edificio', 'Equipo', 'Oficina', 'Piso'];
         if (validLevels.includes(level)) {
             setColumnFilters(level === 'Todos' ? [] : [{ id: 'level', value: level }]);
         }
@@ -101,11 +101,11 @@ export function LocationTable({ data }: PaginatedData<LocationModel>) {
                     <span className="text-center">Agregar Ubicación</span>
                 </Link>
             </div>
-            <div className="mb-4 flex space-x-2 mt-10">
-                 {['Todos', 'Módulo', 'Área', 'Equipo', 'Piso'].map((level) => (
+            <div className="mt-10 mb-4 flex space-x-2">
+                {['Todos', 'Edificio', 'Equipo', 'Oficina', 'Piso'].map((level) => (
                     <button
                         key={level}
-                        className={`btn h-8 w-40 rounded-[12px] transition-shadow hover:shadow-lg ${(columnFilters.length === 0 && level === 'Todos') || (columnFilters.some(filter => filter.value === level)) ? 'bg-[#B0E0D3]' : 'bg-[#F0F2F5]'}`}
+                        className={`btn h-8 w-40 rounded-[12px] transition-shadow hover:shadow-lg ${(columnFilters.length === 0 && level === 'Todos') || columnFilters.some((filter) => filter.value === level) ? 'bg-[#B0E0D3]' : 'bg-[#F0F2F5]'}`}
                         onClick={() => filterByLevel(level)}
                     >
                         {level}
@@ -113,7 +113,7 @@ export function LocationTable({ data }: PaginatedData<LocationModel>) {
                 ))}
             </div>
             <div className="flex items-center py-4">
-                <div className="relative mb-4 relative w-full max-w-full">
+                <div className="relative mb-4 w-full max-w-full">
                     <span className="absolute inset-y-0 left-3 flex items-center text-gray-500">
                         <svg className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-4.35-4.35m0 0A7.5 7.5 0 103 10.5a7.5 7.5 0 0013.15 6.15z" />
@@ -146,7 +146,7 @@ export function LocationTable({ data }: PaginatedData<LocationModel>) {
                             table.getRowModel().rows.map((row) => (
                                 <TableRow key={row.id}>
                                     {row.getVisibleCells().map((cell) => (
-                                        <TableCell  key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</TableCell>
+                                        <TableCell key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</TableCell>
                                     ))}
                                 </TableRow>
                             ))
