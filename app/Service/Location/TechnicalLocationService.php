@@ -18,11 +18,19 @@ class TechnicalLocationService
 
     public function __construct(protected SidebarRepository $menu) {}
 
+    /**
+     * Función base para poder renderizar el sidebar.
+     * @return array
+     */
     public function getMenu(): array
     {
         return setActiveRoute(menu: $this->menu->getSidebarMenu(), title: $this->title);
     }
 
+    /**
+     * Regresa todas las ubicaciones con su respectivo nivel en formato json para que sea más sencillo de manipular al momento de crear una ubicación técnica.
+     * @return Collection<int, Location>|\Illuminate\Support\Collection<int, Location>
+     */
     public function getTechnicalLocationGroupByLevel(): Collection
     {
         return Location::all()->map(callback: function (Location $value): Location {
@@ -31,6 +39,10 @@ class TechnicalLocationService
         });
     }
 
+    /**
+     * Envia la información necesaria para la página principal de ubicación técnica, donde se necesita el identificador de la ubicación técnica y la combinación de los códigos de cada ubicación.
+     * @return \Illuminate\Pagination\LengthAwarePaginator
+     */
     public function getAllTechnicalLocationCode(): LengthAwarePaginator
     {
         $technicalLocations = TechnicalLocation::paginate(perPage: TechnicalLocation::count(), columns: ['id', 'level1', 'level2', 'level3', 'level4', 'level5', 'level6', 'level7'])->through(callback: function ($value): array {
@@ -42,6 +54,12 @@ class TechnicalLocationService
         return $technicalLocations;
     }
 
+    /**
+     * Se crea un nuevo registro de ubicación técnica, siendo este las referencias directas del ID de la tabla de ubicaciones (location), antes de guardar el registro verifica que siga la regla que nos indica que el último de la cadena tiene que ser un equipo.
+     * @param array $technicalLocation
+     * @throws \Exception
+     * @return RedirectResponse
+     */
     public function storeTechnicalLocation(array $technicalLocation): RedirectResponse
     {
         try {
