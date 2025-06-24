@@ -63,13 +63,13 @@ class DepartmentController extends Controller
         ));
     }
 
-    public function update(UpdateDepartmentRequest $request, string $id)
+    public function update(UpdateDepartmentRequest $request, string $id): RedirectResponse
     {
-        throw new NotImplementedException();
+        return $this->departmentService->updateDepartment(request: $request->validated(), id: intval(value: $id));
     }
 
-    public function destroy(string $id)
+    public function destroy(string $id): RedirectResponse
     {
-        throw new NotImplementedException();
+        return $this->departmentService->updateDepartment(request: ['delete_at' => now()], id: intval(value: $id));
     }
 }
