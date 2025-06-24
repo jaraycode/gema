@@ -21,7 +21,7 @@ class PersonelController extends Controller
   public function index()
   {
     $personelProps = $this->personelService->getMenu();
-    $personels = PersonelService::getAllPersonnel();
+    $personels = $this->personelService->getAllPersonnel();
 
     return Inertia::render('persona/personel', array_merge($personelProps, [
       'personels' => $personels
