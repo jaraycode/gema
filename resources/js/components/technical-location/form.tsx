@@ -59,7 +59,7 @@ export default function TechnicalLocationForm({ props }: { props: TechnicalLocat
                     {/* Campos individuales */}
                     <div>
                         <label className="mb-2 block text-sm font-medium text-neutral-900">
-                            Módulo <span className="text-red-500">*</span>
+                            Edificio <span className="text-red-500">*</span>
                         </label>
                         <Combobox data={data.level1} setData={setData} locationList={props.module} label={'level1'} />
                         <InputError message={errors.level1} />

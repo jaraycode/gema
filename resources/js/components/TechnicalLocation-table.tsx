@@ -3,7 +3,7 @@
 import { Button } from '@/components/ui/button';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { TechnicalLocationModel } from '@/types';
-import { faChevronLeft, faChevronRight, faEye } from '@fortawesome/free-solid-svg-icons';
+import { faChevronLeft, faChevronRight, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Link } from '@inertiajs/react';
 import {
@@ -36,7 +36,7 @@ export const columns: ColumnDef<TechnicalLocationModel>[] = [
         header: () => <div className="text-center">Acciones</div>,
         cell: ({ row }) => (
             <div className="text-center">
-                <FontAwesomeIcon icon={faEye} />
+                <FontAwesomeIcon icon={faTrash} />
             </div>
         ),
     },
