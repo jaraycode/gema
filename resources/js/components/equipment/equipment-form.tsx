@@ -1,6 +1,9 @@
 "use client";
 import * as React from "react";
 import { Combobox } from "@headlessui/react";
+import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Link } from '@inertiajs/react';
 
 interface CreacionDeEquipoProps {
   onCancel?: () => void;
@@ -56,28 +59,23 @@ const EquipmentForm: React.FC<CreacionDeEquipoProps> = ({ onCancel, onSubmit }) 
   };
 
   return (
-    <div className="flex flex-col items-start bg-white p-5 pt-0 w-full max-w-6xl mx-auto">
-      <div className="flex flex-col items-start w-full">
-        <div className="flex justify-center items-start px-5 pb-2 w-full">
-          <div className="relative w-full">
-            {/* Header */}
-            <div className="bg-white rounded-2xl border-b border-b-gray-200 h-[100px] flex flex-col items-center justify-center">
-              <div className="text-2xl font-bold leading-8 text-neutral-900">
-                Registrar Nuevo Equipo
-              </div>
-              <div className="text-sm leading-5 text-slate-500">
-                Complete la información del equipo
-              </div>
-            </div>
+    <div className="mx-auto rounded-xl bg-white px-14 py-7 pb-10 shadow-md">
+      {/* Header */}
+      <div className="mb-4 flex items-start justify-between">
+          <Link href={route('equipment.index')} className="mb-4 inline-block text-sm text-gray-500 hover:text-gray-700">
+              <FontAwesomeIcon icon={faChevronLeft} />
+          </Link>
+      </div>
 
-            {/* Form Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-10 mt-6">
-              {/* Left Column */}
-              <div className="flex flex-col gap-10">
-                {/* Nombre */}
-                <div className="flex flex-col gap-2.5">
-                  <label className="flex gap-2 items-center text-sm font-medium text-neutral-900">
-                    Nombre del Equipo <span className="text-red-500">*</span>
+      <h1 className="mb-4 text-center text-2xl font-bold"> Registrar Nuevo Equipo</h1>
+      <p className="mb-6 text-center text-gray-600">Complete la información del equipo</p>
+
+      <form onSubmit={handleSubmit} className="space-y-8 border-t pt-7">
+          <div className="grid grid-cols-1 gap-9 gap-y-8 md:grid-cols-2">
+              {/* Campos individuales */}
+              <div>
+                  <label className="mb-2 block text-sm font-medium text-neutral-900">
+                      Nombre del equipo <span className="text-red-500">*</span>
                   </label>
                   <input
                     type="text"
@@ -86,12 +84,11 @@ const EquipmentForm: React.FC<CreacionDeEquipoProps> = ({ onCancel, onSubmit }) 
                     onChange={(e) => handleInputChange('name', e.target.value)}
                     className="px-4 py-3 text-base bg-white rounded-[8px] border border-zinc-200 text-neutral-900 w-full resize-none focus:outline-none focus:ring-2 focus:ring-teal-500"
                   />
-                </div>
+              </div>
 
-                {/* Serial */}
-                <div className="flex flex-col gap-2.5">
-                  <label className="flex gap-2 items-center text-sm font-medium text-neutral-900">
-                    Serial <span className="text-red-500">*</span>
+              <div>
+                  <label className="mb-2 block text-sm font-medium text-neutral-900">
+                  Serial <span className="text-red-500">*</span>
                   </label>
                   <input
                     type="text"
@@ -100,11 +97,10 @@ const EquipmentForm: React.FC<CreacionDeEquipoProps> = ({ onCancel, onSubmit }) 
                     onChange={(e) => handleInputChange('serial', e.target.value)}
                     className="px-4 py-3 text-base bg-white rounded-[8px] border border-zinc-200 text-neutral-900 w-full resize-none focus:outline-none focus:ring-2 focus:ring-teal-500"
                   />
-                </div>
+              </div>
 
-                {/* Tipo de equipo */}
-                <div className="flex flex-col gap-2.5">
-                  <label className="flex gap-2 items-center text-sm font-medium text-neutral-900">
+              <div>
+                  <label className="mb-2 block text-sm font-medium text-neutral-900">
                     Tipo de Equipo <span className="text-red-500">*</span>
                   </label>
                   <select
@@ -117,110 +113,91 @@ const EquipmentForm: React.FC<CreacionDeEquipoProps> = ({ onCancel, onSubmit }) 
                       <option key={option} value={option}>{option.replace(/-/g, ' ')}</option>
                     ))}
                   </select>
-                </div>
               </div>
 
-              {/* Right Column */}
-              <div className="flex flex-col gap-10">
-                {/* Ubicación con Combobox */}
-                <div className="flex flex-col gap-2.5">
-                  <label className="flex gap-2 items-center text-sm font-medium text-neutral-900">
-                    Ubicación <span className="text-red-500">*</span>
-                  </label>
-                  {/* @ts-ignore */}
-                  <Combobox value={formData.module} onChange={(value) => handleInputChange('module', value)}>
-                    <div className="relative">
-                      <Combobox.Input
-                        className="px-4 py-3 w-full text-base bg-white rounded-[8px] border border-zinc-200 text-neutral-900 focus:outline-none focus:ring-2 focus:ring-teal-500"
-                        onChange={(event) => {
-                          setQuery(event.target.value);
-                          handleInputChange('module', event.target.value);
-                        }}
-                        displayValue={(val: string) => val}
-                        placeholder="Escriba o seleccione una ubicación"
-                      />
-                      {filteredLocations.length > 0 && (
-                        <Combobox.Options className="absolute z-10 mt-1 w-full bg-white shadow-lg max-h-60 rounded-md py-1 text-sm overflow-auto border border-gray-200">
-                          {filteredLocations.map((location) => (
-                            <Combobox.Option
-                              key={location}
-                              value={location}
-                              className={({ active }) =>
-                                `cursor-pointer select-none px-4 py-2 ${
-                                  active ? 'bg-teal-600 text-white' : 'text-gray-900'
-                                }`
-                              }
-                            >
-                              {location}
-                            </Combobox.Option>
-                          ))}
-                        </Combobox.Options>
-                      )}
-                    </div>
-                  </Combobox>
-                </div>
-
-                {/* Descripción */}
-                <div className="flex flex-col gap-2.5">
-                  <label className="flex gap-2 items-center text-sm font-medium text-neutral-900">
-                    Descripción <span className="text-red-500">*</span>
-                  </label>
+              <div>
+                  <label className="mb-2 block text-sm font-medium text-neutral-900">Descripción</label>
                   <textarea
                     placeholder="Descripción"
                     value={formData.description}
                     onChange={(e) => handleInputChange('description', e.target.value)}
                     className="px-4 py-3 text-base bg-white rounded-[8px] border border-zinc-200 text-neutral-900 w-full resize-none focus:outline-none focus:ring-2 focus:ring-teal-500"
                   />
-                </div>
-
-                {/* Estado */}
-                <div className="flex flex-col gap-2.5">
-                  <label className="flex gap-2 items-center text-sm font-medium text-neutral-900">
-                    Estado <span className="text-red-500">*</span>
-                  </label>
-                  <div className="flex flex-wrap gap-4">
-                    {["activo", "inactivo", "mantenimiento"].map((statusOption) => (
-                      <label key={statusOption} className="flex items-center gap-2">
-                        <input
-                          type="radio"
-                          name="status"
-                          value={statusOption}
-                          checked={formData.status === statusOption}
-                          onChange={(e) => handleInputChange('status', e.target.value)}
-                          className="w-4 h-4 text-teal-600 focus:ring-teal-500"
-                        />
-                        <span className="text-base text-neutral-900 capitalize">
-                          {statusOption}
-                        </span>
-                      </label>
-                    ))}
-                  </div>
-                </div>
               </div>
-            </div>
 
-            {/* Botones */}
-            <div className="flex justify-center items-center border-t border-t-gray-200 h-16 mt-6">
-              <div className="flex flex-col md:flex-row gap-4 w-full max-w-2xl mt-12">
-                <button
-                  onClick={() => window.location.href = route('equipment.index')}
-                  className="h-12 text-base bg-gray-100 rounded-xl text-slate-500 w-full hover:bg-gray-200 transition-colors"
-                >
-                  Cancelar
-                </button>
-                <button
-                  onClick={handleSubmit}
-                  className="h-12 text-base text-white bg-teal-600 rounded-xl w-full hover:bg-teal-700 transition-colors"
-                >
-                  Crear Equipo
-                </button>
-              </div>
+          </div>
+          <div>
+            <label className="mb-2 block text-sm font-medium text-neutral-900">Estado</label>
+            <div className="flex items-center gap-4">
+              {["activo", "inactivo", "mantenimiento"].map((statusOption) => (
+                <label key={statusOption} className="flex items-center gap-2">
+                  <input
+                    type="radio"
+                    name="status"
+                    value={statusOption}
+                    checked={formData.status === statusOption}
+                    onChange={(e) => handleInputChange('status', e.target.value)}
+                    className="w-4 h-4 text-teal-600 focus:ring-teal-500"
+                  />
+                  <span className="text-base text-neutral-900 capitalize">
+                    {statusOption}
+                  </span>
+                </label>
+              ))}
             </div>
           </div>
-        </div>
-      </div>
+
+          <div className="mt-10 mb-4">
+              <p className="text-center text-gray-600 mb-10">Coloca la ubicación técnica</p>
+              <div className="grid grid-cols-4 gap-4">
+                  <select className="px-4 py-3 text-base bg-white rounded-[8px] border border-zinc-200 text-neutral-900 w-full focus:outline-none focus:ring-2 focus:ring-teal-500">
+                      <option value="">Edificio</option>
+                      <option value="opcion1">Edificio 1</option>
+                      <option value="opcion2">Edificio 2</option>
+                  </select>
+                  <select className="px-4 py-3 text-base bg-white rounded-[8px] border border-zinc-200 text-neutral-900 w-full focus:outline-none focus:ring-2 focus:ring-teal-500">
+                      <option value="">Piso</option>
+                      <option value="opcion1">Piso 1</option>
+                      <option value="opcion2">Piso 2</option>
+                  </select>
+                  <select className="px-4 py-3 text-base bg-white rounded-[8px] border border-zinc-200 text-neutral-900 w-full focus:outline-none focus:ring-2 focus:ring-teal-500">
+                      <option value="">Oficina</option>
+                      <option value="opcion1">Oficina 1</option>
+                      <option value="opcion2">Oficina 2</option>
+                  </select>
+                  <select className="px-4 py-3 text-base bg-white rounded-[8px] border border-zinc-200 text-neutral-900 w-full focus:outline-none focus:ring-2 focus:ring-teal-500">
+                      <option value="">Equipo 4</option>
+                      <option value="opcion1">Equipo 1</option>
+                      <option value="opcion2">Equipo 2</option>
+                  </select>
+              </div>
+              <select className="mt-10 px-4 py-3 text-base bg-white rounded-[8px] border border-zinc-200 text-neutral-900 w-full focus:outline-none focus:ring-2 focus:ring-teal-500">
+                  <option value="">Ubicación Tecnica</option>
+                  <option value="opcion1">Ubicación Tecnica 1</option>
+                  <option value="opcion2">Ubicación Tecnica 2</option>
+              </select>
+          </div>
+
+          {/* Botones */}
+          <div className="mt-20 flex justify-center gap-4">
+              <Link
+                  href={route('technical-location.index')}
+                  className="flex h-12 items-center justify-center rounded-xl bg-gray-200 px-36 text-base text-gray-700 transition hover:bg-gray-300"
+              >
+                  Cancelar
+              </Link>
+              <button
+                  type="submit"
+                  className="h-12 rounded-xl bg-[#1e9483] px-36 text-base text-white transition hover:bg-[#1e9483]/90"
+              >
+                  Crear ubicación técnica
+              </button>
+          </div>
+      </form>
     </div>
   );
 };
 
 export default EquipmentForm;
+
+
