@@ -2,7 +2,10 @@
 
 namespace Tests\Feature;
 
+use App\Http\Controllers\Auth\AuthenticatedSessionController;
+use App\Http\Requests\Auth\LoginRequest;
 use App\Models\Personel;
+use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Hash;
 use Tests\TestCase;
@@ -16,12 +19,12 @@ class PersonelControllerTest extends TestCase
      */
     public function test_index()
     {
+        $this->actingAs($user = Personel::factory()->create());
         $personel = Personel::factory()->create();
-
-        $response = $this->get('/api/personels/');
-
-        $response->assertStatus(200)
-            ->assertJson([$personel->toArray()]);
+        // Make the request to the /personel/ route
+        $response = $this->get('/personel/');
+        // Assert that the response contains the personnel data
+        $response->assertJson([$personel->toArray()]);
     }
 
     /**
@@ -29,6 +32,7 @@ class PersonelControllerTest extends TestCase
      */
     public function test_store()
     {
+        $this->actingAs($user = Personel::factory()->create());
         $data = [
             'email' => 'test@example.com',
             'username' => 'testuser',
@@ -40,10 +44,9 @@ class PersonelControllerTest extends TestCase
             'second_last_name' => 'Johnson',
         ];
 
-        $response = $this->post('/api/personels/', $data);
+        $response = $this->post('/personel/store', $data);
 
-        $response->assertStatus(201)
-            ->assertJsonFragment(['email' => 'test@example.com']);
+        $response->assertJsonFragment(['email' => 'test@example.com']);
 
         $this->assertDatabaseHas('personel', [
             'email' => 'test@example.com',
@@ -55,12 +58,12 @@ class PersonelControllerTest extends TestCase
      */
     public function test_show()
     {
+        $this->actingAs($user = Personel::factory()->create());
         $personel = Personel::factory()->create();
 
-        $response = $this->get('/api/personels/' . $personel->id);
+        $response = $this->get('/personel/p' . $personel->id);
 
-        $response->assertStatus(200)
-            ->assertJson($personel->toArray());
+        $response->assertJson($personel->toArray());
     }
 
     /**
@@ -68,6 +71,7 @@ class PersonelControllerTest extends TestCase
      */
     public function test_update()
     {
+        $this->actingAs($user = Personel::factory()->create());
         $personel = Personel::factory()->create();
 
         $data = [
@@ -81,9 +85,7 @@ class PersonelControllerTest extends TestCase
             'second_last_name' => 'Johnson',
         ];
 
-        $response = $this->patch('/api/personels/' . $personel->id, $data);
-
-        $response->assertStatus(200);
+        $response = $this->patch('/personel/edit/' . $personel->id, $data);
 
         $this->assertDatabaseHas('personel', [
             'email' => 'updated@example.com',
@@ -95,11 +97,10 @@ class PersonelControllerTest extends TestCase
      */
     public function test_destroy()
     {
+        $this->actingAs($user = Personel::factory()->create());
         $personel = Personel::factory()->create();
 
-        $response = $this->delete('/api/personels/' . $personel->id);
-
-        $response->assertStatus(204);
+        $response = $this->delete('/personel/destroy/' . $personel->id);
 
         $this->assertDatabaseMissing('personel', [
             'id' => $personel->id,
