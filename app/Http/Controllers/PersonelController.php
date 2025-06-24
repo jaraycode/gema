@@ -73,7 +73,7 @@ class PersonelController extends Controller
       try {
           $response = $this->personelService->getPersonnel(id: intval(value: $id));
 
-          $dashboardProps = $this->dashboardService->getMenu();
+          $dashboardProps = $this->personelService->getMenu();
 
           return Inertia::render('personel/profile', array_merge($dashboardProps, [
               'personel' => $response

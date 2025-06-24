@@ -16,11 +16,19 @@ class LocationService
 
     public function __construct(protected SidebarRepository $menu) {}
 
+    /**
+     * Función base para poder renderizar el sidebar.
+     * @return array
+     */
     public function getMenu(): array
     {
         return setActiveRoute(menu: $this->menu->getSidebarMenu(), title: $this->title);
     }
 
+    /**
+     * Función ideada para las pantallas principales donde se necesita todas las ubicaciones con paginación, se filtran por las que estén activas y ordenadas según su id, posteriormente se hace casting del nivel de base numérica a string.
+     * @return LengthAwarePaginator
+     */
     public function getAllLocations(): LengthAwarePaginator
     {
         return Location::where(column: 'delete_at')->orderBy(column: 'id')->paginate(perPage: Location::count())->through(callback: function ($value): mixed {
@@ -29,6 +37,12 @@ class LocationService
         });
     }
 
+    /**
+     * Busca ubicación específica según su identificador, en caso de no encontrar regresa una excepción.
+     * @param int $id
+     * @throws \Exception
+     * @return Builder<Location>|Location
+     */
     public function getLocation(int $id): Builder|Location
     {
         $response = Location::where(column: 'delete_at')->find(id: $id);
@@ -40,6 +54,12 @@ class LocationService
         return $response;
     }
 
+    /**
+     * Pasado un arreglo con estructura similar al modelo de ubicación se guarda el nuevo registro.
+     * @param array $location
+     * @throws \Exception
+     * @return RedirectResponse
+     */
     public function storeLocation(array $location): RedirectResponse
     {
         try {
@@ -51,7 +71,13 @@ class LocationService
             throw new Exception(message: "Error al guardar ubicación: " . $e->getMessage());
         }
     }
-
+    /**
+     * Pasado un arreglo con estructura similar al modelo de ubicación se actualiza el registro según su identificador.
+     * @param array $location
+     * @param string $id
+     * @throws \Exception
+     * @return RedirectResponse
+     */
     public function updateLocation(array $location, string $id): RedirectResponse
     {
         try {
@@ -64,6 +90,12 @@ class LocationService
         }
     }
 
+    /**
+     * Se busca desactivar la ubicación al asignarle valor al campo de delete_at según el id que se pase.
+     * @param string $id
+     * @throws \Exception
+     * @return RedirectResponse
+     */
     public function destroyLocation(string $id): RedirectResponse
     {
         try {

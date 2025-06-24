@@ -2,11 +2,11 @@ import { AppSidebar } from '@/components/app-sidebar';
 import { LocationTable } from '@/components/location-table';
 import { SiteHeader } from '@/components/site-header';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
+import { Card, CardContent } from '@/components/ui/card';
 import { SidebarInset, SidebarProvider } from '@/components/ui/sidebar';
 import { LocationProps, ResponseHandlerProps } from '@/types';
 import { Head, usePage } from '@inertiajs/react';
 import { useEffect, useState } from 'react';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 
 export default function LocationIndex({ data, user, navMain, navSecondary }: LocationProps) {
     const { flash } = usePage<ResponseHandlerProps>().props;
@@ -41,7 +41,7 @@ export default function LocationIndex({ data, user, navMain, navSecondary }: Loc
                                         <AlertDescription className="text-white">{flash?.success ?? flash?.error}</AlertDescription>
                                     </Alert>
                                 )}
-                                <Card className="rounded-lg bg-white shadow-md bg-card text-card-foreground flex flex-col gap-6 rounded-xl border py-6 shadow-sm">
+                                <Card className="bg-card text-card-foreground flex flex-col gap-6 rounded-lg border py-6 shadow-sm">
                                     <CardContent>
                                         <LocationTable {...data} />
                                     </CardContent>
