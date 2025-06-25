@@ -1,9 +1,13 @@
-import { NavBarProps, PaginatedData } from '..';
+import { BaseModel, NavBarProps, PaginatedData, PivotDepartmentPersonel } from '..';
 
-export interface DepartmentModel {
+export interface DepartmentModel extends BaseModel {
     id: number;
     name: string;
     code: string;
+}
+
+export interface DepartmentModelWithPersonnel extends DepartmentModel {
+    pivot: PivotDepartmentPersonel;
 }
 
 export type DepartmentForm = Omit<DepartmentModel, 'id'>;

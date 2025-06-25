@@ -1,14 +1,14 @@
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
+import { DateRange, PersonnelTableProps } from '@/types';
 import { Link } from '@inertiajs/react';
 import { format } from 'date-fns';
 import { Eye } from 'lucide-react';
 import { useMemo, useState } from 'react';
 import { PersonelFilters } from './personel-filters';
 import { PersonelSearch } from './personel-search';
-import { DateRange, PersonelTableProps } from './types';
 
-export function PersonelTable({ data }: PersonelTableProps) {
+export function PersonelTable({ data }: PersonnelTableProps) {
     const [searchTerm, setSearchTerm] = useState('');
     const [dateRange, setDateRange] = useState<DateRange>({
         startDate: '',
@@ -18,8 +18,8 @@ export function PersonelTable({ data }: PersonelTableProps) {
     const [selectedDepartment, setSelectedDepartment] = useState<string[]>([]);
 
     // Extraer positions y departamentos únicos
-    const positions = useMemo(() => Array.from(new Set(data.map((item) => item.position))), [data]);
-    const departments = useMemo(() => Array.from(new Set(data.map((item) => item.department))), [data]);
+    // const positions = useMemo(() => Array.from(new Set(data.map((item) => item.position))), [data]);
+    const departments = useMemo(() => data.map((value) => value.department), [data]);
 
     // Función para filtrar los datos
     const filteredData = useMemo(() => {
@@ -32,13 +32,13 @@ export function PersonelTable({ data }: PersonelTableProps) {
             const matchesDate =
                 !dateRange.startDate ||
                 !dateRange.endDate ||
-                (new Date(item.date) >= new Date(dateRange.startDate) && new Date(item.date) <= new Date(dateRange.endDate));
+                (new Date(item.created_at) >= new Date(dateRange.startDate) && new Date(item.created_at) <= new Date(dateRange.endDate));
 
             // Filtro por positions
-            const matchesposition = selectedPosition.length === 0 || selectedPosition.includes(item.position);
+            const matchesposition = selectedPosition.length === 0 || selectedPosition.includes('Jefe');
 
             // Filtro por departamentos
-            const matchesDepartamento = selectedDepartment.length === 0 || selectedDepartment.includes(item.department);
+            const matchesDepartamento = selectedDepartment.length === 0 || selectedDepartment.includes(item.department.map((value) => value.name));
 
             return matchesSearch && matchesDate && matchesposition && matchesDepartamento;
         });
@@ -63,8 +63,7 @@ export function PersonelTable({ data }: PersonelTableProps) {
                     <PersonelFilters
                         dateRange={dateRange}
                         onDateRangeChange={setDateRange}
-                        position={positions}
-                        department={departments}
+                        department={departments.flat()}
                         selectedPosition={selectedPosition}
                         selectedDepartment={selectedDepartment}
                         onPositionChange={(position) =>
@@ -103,12 +102,11 @@ export function PersonelTable({ data }: PersonelTableProps) {
                             {filteredData.length > 0 ? (
                                 filteredData.map((item) => (
                                     <TableRow key={item.id} className="rounded-xl border-b border-gray-800 hover:bg-[#f0f2f5]">
-                                        <TableCell>{format(new Date(item.date), 'dd/MM/yyyy')}</TableCell>
-                                        <TableCell>{item.cedula}</TableCell>
-                                        <TableCell className="font-medium">{item.name}</TableCell>
-                                        <TableCell className="capitalize">{item.position}</TableCell>
-                                        <TableCell className="capitalize">{item.department}</TableCell>
-                                        <TableCell>{item.phone}</TableCell>
+                                        <TableCell>{format(new Date(item.created_at), 'dd/MM/yyyy')}</TableCell>
+                                        <TableCell>{item.id}</TableCell>
+                                        <TableCell className="font-medium">{`${item.first_name} ${item.last_name}`}</TableCell>
+                                        <TableCell className="capitalize">{item.department.map((value) => value.name)}</TableCell>
+                                        <TableCell>{item.phone_number}</TableCell>
                                         <TableCell>
                                             <Eye className="text-black-100 h-5 w-5" />
                                         </TableCell>

@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use Exception;
 use App\Http\Requests\Core\Personel\StorePersonelRequest;
 use App\Http\Requests\Core\Personel\UpdatePersonelRequest;
-use App\Models\Personel;
 use Illuminate\Http\RedirectResponse;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Hash;

@@ -32,11 +32,15 @@ class Personel extends Authenticatable
     {
         return $this->belongsToMany(WorkGroup::class);
     }
-    
+
     public function departments(): BelongsToMany
     {
-        return $this->belongsToMany(Department::class, 'personel_department', 'personel_id', 'department_id')
-                    ->withPivot('begin_date', 'end_date');
+        return $this->belongsToMany(Department::class, 'personel_department', 'personel_id', 'department_id')->withPivot(['begin_date', 'end_date']);
+    }
+
+    public function getDepartments()
+    {
+        return $this->hasManyThrough(Department::class, DepartmentPersonnel::class, 'personel_id', 'department_id', 'id', 'id');
     }
 
     public function incidences(): HasMany
@@ -44,7 +48,7 @@ class Personel extends Authenticatable
         return $this->hasMany(Incidence::class, 'petitioner', 'username');
     }
 
-        public function workGroups(): HasMany
+    public function workGroups(): HasMany
     {
         return $this->hasMany(WorkGroup::class, 'personel_id');
     }
