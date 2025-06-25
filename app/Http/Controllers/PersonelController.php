@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use Exception;
 use App\Http\Requests\Core\Personel\StorePersonelRequest;
 use App\Http\Requests\Core\Personel\UpdatePersonelRequest;
-use App\Models\Personel;
 use Illuminate\Http\RedirectResponse;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Hash;
@@ -48,21 +47,21 @@ class PersonelController extends Controller
    */
   public function store(StorePersonelRequest $request)
   {
-      $password = $request->get('password');
-      $hashedPassword = Hash::make($password);
-      $personnel = [
-          "email" => $request->get("email"),
-          "username" => $request->get("username"),
-          "password" => $hashedPassword,
-          "phone_number" => $request->get("phone_number"),
-          "first_name" => $request->get("first_name"),
-          "second_name" => $request->get("second_name"),
-          "last_name" => $request->get("last_name"),
-          "second_last_name" => $request->get("second_last_name"),
-      ];
+    $password = $request->get('password');
+    $hashedPassword = Hash::make($password);
+    $personnel = [
+      "email" => $request->get("email"),
+      "username" => $request->get("username"),
+      "password" => $hashedPassword,
+      "phone_number" => $request->get("phone_number"),
+      "first_name" => $request->get("first_name"),
+      "second_name" => $request->get("second_name"),
+      "last_name" => $request->get("last_name"),
+      "second_last_name" => $request->get("second_last_name"),
+    ];
 
-      $response = $this->personelService->storePersonnel($personnel);
-      return $response;
+    $response = $this->personelService->storePersonnel($personnel);
+    return $response;
   }
 
   /**
@@ -70,17 +69,17 @@ class PersonelController extends Controller
    */
   public function show(string $id)
   {
-      try {
-          $response = $this->personelService->getPersonnel(id: intval(value: $id));
+    try {
+      $response = $this->personelService->getPersonnel(id: intval(value: $id));
 
-          $dashboardProps = $this->personelService->getMenu();
+      $dashboardProps = $this->personelService->getMenu();
 
-          return Inertia::render('personel/profile', array_merge($dashboardProps, [
-              'personel' => $response
-          ]));
-      } catch (Exception $e) {
-          return redirect()->back()->with(key: "error", value: $e->getMessage());
-      }
+      return Inertia::render('personel/profile', array_merge($dashboardProps, [
+        'personel' => $response
+      ]));
+    } catch (Exception $e) {
+      return redirect()->back()->with(key: "error", value: $e->getMessage());
+    }
   }
 
   /**
@@ -88,20 +87,21 @@ class PersonelController extends Controller
    */
   public function update(UpdatePersonelRequest $request, string $id)
   {
-      return $this->personelService->updatePersonnel(id: intval(value: $id), personnel: $request->validated());
+    return $this->personelService->updatePersonnel(id: intval(value: $id), personnel: $request->validated());
   }
 
-    /**
-     * Renders the update screen of the specified resource in storage.
-     */
-  public function edit(string $id): RedirectResponse | Response {
-      try {
-          $personnel = $this->personelService->getPersonnel(id: intval(value: $id));
-          $dashboardProps = $this->personelService->getMenu();
-          return Inertia::render(component: 'personel/edit', props: array_merge($dashboardProps, ['data' => $personnel]));
-      } catch (Exception $e) {
-          return redirect()->back()->with(key: 'error', value: $e->getMessage());
-      }
+  /**
+   * Renders the update screen of the specified resource in storage.
+   */
+  public function edit(string $id): RedirectResponse | Response
+  {
+    try {
+      $personnel = $this->personelService->getPersonnel(id: intval(value: $id));
+      $dashboardProps = $this->personelService->getMenu();
+      return Inertia::render(component: 'personel/edit', props: array_merge($dashboardProps, ['data' => $personnel]));
+    } catch (Exception $e) {
+      return redirect()->back()->with(key: 'error', value: $e->getMessage());
+    }
   }
 
   /**
@@ -109,6 +109,6 @@ class PersonelController extends Controller
    */
   public function destroy(string $id)
   {
-      return $this->personelService->deletePersonnel(id: $id);
+    return $this->personelService->deletePersonnel(id: $id);
   }
 }

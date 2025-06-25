@@ -24,7 +24,7 @@ class PersonelService
 
   public function getAllPersonnel(): LengthAwarePaginator
   {
-    return Personel::where(column: 'delete_at')->paginate(perPage: Personel::count());
+    return Personel::with(relations: 'departments')->where(column: 'delete_at')->paginate(perPage: Personel::count());
   }
 
   public function getPersonnel(int $id): Builder|Personel
@@ -32,7 +32,7 @@ class PersonelService
     $personnel = Personel::where(column: 'delete_at')->find($id);
 
     if (!$personnel) {
-      throw new \Exception(message: 'Personal no encontrado');
+      throw new Exception(message: 'Personal no encontrado');
     }
 
     return $personnel;

@@ -4,6 +4,7 @@ export * from '@/types/department/department';
 export * from '@/types/equipment/equipment';
 export * from '@/types/location/location';
 export * from '@/types/maintenance/maintenance';
+export * from '@/types/personnel/personnel';
 
 export interface Auth {
     user: User;
@@ -82,4 +83,9 @@ export interface ResponseHandlerProps {
         error?: string;
     };
     [key: string]: unknown; // This allows for additional properties...
+}
+
+export interface BaseModel {
+    created_at: Date;
+    updated_at?: Date;
 }
