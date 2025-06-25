@@ -18,9 +18,10 @@ return new class extends Migration
             $table->timestamps();
         });
         Schema::create(table: 'correlative_incidence', callback: function (Blueprint $table): void {
-            $table->integer(column: 'year')->primary();
+            $table->integer(column: 'year');
             $table->bigInteger(column: 'counter');
             $table->string(column: 'code', length: 4);
+            $table->primary(columns: ['code', 'year']);
             $table->timestamps();
         });
     }
