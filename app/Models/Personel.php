@@ -35,7 +35,7 @@ class Personel extends Authenticatable
 
     public function departments(): BelongsToMany
     {
-        return $this->belongsToMany(Department::class, 'personel_department', 'personel_id', 'department_id')->withPivot(['begin_date', 'end_date']);
+        return $this->belongsToMany(Department::class, 'personel_department', 'personel_id', 'department_id')->withPivot(['begin_date', 'end_date'])->where('end_date');
     }
 
     public function getDepartments()
