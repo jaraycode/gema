@@ -24,7 +24,12 @@ class PersonelService
 
   public function getAllPersonnel(): LengthAwarePaginator
   {
-    return Personel::with(relations: 'departments')->where(column: 'delete_at')->paginate(perPage: Personel::count());
+    $paginatedData = Personel::with(relations: 'departments')->where(column: 'delete_at')->paginate(perPage: Personel::count());
+    return $paginatedData->through(function ($value) {
+      $valueArray = $value->toArray();
+      $valueArray['departments'] = $valueArray['departments'][0]['code'];
+      return $valueArray;
+    });
   }
 
   public function getPersonnel(int $id): Builder|Personel
