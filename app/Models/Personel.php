@@ -35,7 +35,12 @@ class Personel extends Authenticatable
 
     public function departments(): BelongsToMany
     {
-        return $this->belongsToMany(Department::class, 'personel_department', 'personel_id', 'department_id')->withPivot(['begin_date', 'end_date'])->where('end_date');
+        return $this->belongsToMany(related: Department::class, table: 'personel_department', foreignPivotKey: 'personel_id', relatedPivotKey: 'department_id')->withPivot(columns: ['begin_date', 'end_date'])->where(column: 'end_date');
+    }
+
+    public function role(): BelongsToMany
+    {
+        return $this->belongsToMany(related: Role::class, table: 'personnel_role', foreignPivotKey: 'personnel_id', relatedPivotKey: 'role_id')->withPivot(columns: ['delete_at'])->where(column: 'personnel_role.delete_at');
     }
 
     public function getDepartments()
