@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Exception;
 use App\Http\Requests\Core\Personel\StorePersonelRequest;
 use App\Http\Requests\Core\Personel\UpdatePersonelRequest;
+use App\Models\Personel;
 use Illuminate\Http\RedirectResponse;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Hash;
@@ -17,7 +18,7 @@ class PersonelController extends Controller
   /**
    * Display a listing of the resource.
    */
-  public function index()
+  public function index(): Response
   {
     $personelProps = $this->personelService->getMenu();
     $personels = $this->personelService->getAllPersonnel();
@@ -28,7 +29,7 @@ class PersonelController extends Controller
     //return response()->json($personels, 200);
   }
 
-  public function create()
+  public function create(): Response
   {
     $personelProps = $this->personelService->getMenu();
 
