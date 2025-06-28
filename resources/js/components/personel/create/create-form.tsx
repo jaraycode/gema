@@ -1,28 +1,24 @@
-  import { Button } from '@/components/ui/button';
+import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { useForm } from '@inertiajs/react';
-import { Link } from '@inertiajs/react'; // Importar Link para la navegación
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'; // Importar el icono correctamente
-import { faChevronLeft } from '@fortawesome/free-solid-svg-icons'; // Importar el icono
+import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Link, useForm } from '@inertiajs/react';
 
 interface CreatePersonelFormProps {
     departamentos: string[];
-    cargos: string[];
     onSubmit: (formData: any) => void;
     onCancel: () => void;
     processing?: boolean;
 }
 
-export function Createform({ departamentos, cargos, onSubmit, onCancel, processing = false }: CreatePersonelFormProps) {
+export function Createform({ departamentos, onSubmit, onCancel, processing = false }: CreatePersonelFormProps) {
     const { data, setData } = useForm({
         nombre: '',
-        cedula: '',
         telefono: '',
         email: '',
         departamento: '',
-        cargo: '',
     });
 
     const handleSubmit = (e: React.FormEvent) => {
@@ -31,8 +27,8 @@ export function Createform({ departamentos, cargos, onSubmit, onCancel, processi
     };
 
     return (
-        <div className="mx-auto rounded-xl bg-white py-7 px-14 pb-10 text-center shadow-md">
-            <div className="flex justify-between items-center mb-4">
+        <div className="mx-auto rounded-xl bg-white px-14 py-7 pb-10 text-center shadow-md">
+            <div className="mb-4 flex items-center justify-between">
                 <Link href="/personel" className="inline-block text-sm text-gray-500 hover:text-gray-700">
                     <FontAwesomeIcon icon={faChevronLeft} />
                 </Link>
@@ -42,32 +38,20 @@ export function Createform({ departamentos, cargos, onSubmit, onCancel, processi
 
             <form onSubmit={handleSubmit} className="space-y-8 border-t-1 pt-7">
                 <div className="space-y-8">
-                    {/* Primera fila: Nombre y Cédula */}
+                    {/* Fila 1: Nombre completo */}
                     <div className="grid grid-cols-1 gap-9 gap-y-8 md:grid-cols-2">
                         <div className="space-y-3">
-                            <Label htmlFor="nombre">Nombre</Label>
+                            <Label htmlFor="nombre">Nombre completo</Label>
                             <Input
                                 id="nombre"
                                 value={data.nombre}
                                 onChange={(e) => setData('nombre', e.target.value)}
-                                placeholder="Nombre del Personal"
-                                className="mt-1 rounded-xl border border-gray-300 focus:border-gray-300 text-[#8b8b8b] shadow-sm py-7"
-                            />
-                        </div>
-                        <div className="space-y-3">
-                            <Label htmlFor="cedula">Cédula</Label>
-                            <Input
-                                id="cedula"
-                                value={data.cedula}
-                                onChange={(e) => setData('cedula', e.target.value)}
-                                placeholder="Número de Cédula"
+                                placeholder="Nombre completo"
                                 required
-                                className="mt-1 rounded-xl border border-gray-300 focus:border-gray-300 text-[#8b8b8b] shadow-sm py-7"
+                                className="mt-1 rounded-xl border border-gray-300 py-7 text-[#8b8b8b] shadow-sm focus:border-gray-300"
                             />
                         </div>
-                    </div>
-                    {/* Segunda fila: Correo y Teléfono */}
-                    <div className="grid grid-cols-1 gap-9 gap-y-8 md:grid-cols-2">
+                        {/* Espacio vacío para mantener el diseño de dos columnas */}
                         <div className="space-y-3">
                             <Label htmlFor="email">Correo electrónico</Label>
                             <Input
@@ -75,9 +59,29 @@ export function Createform({ departamentos, cargos, onSubmit, onCancel, processi
                                 type="email"
                                 value={data.email}
                                 onChange={(e) => setData('email', e.target.value)}
-                                placeholder="Ingresar tu correo Electrónico"
-                                className="mt-1 rounded-xl border border-gray-300 focus:border-gray-300 text-[#8b8b8b] shadow-sm py-7"
+                                placeholder="Ingresar correo electrónico"
+                                required
+                                className="mt-1 rounded-xl border border-gray-300 py-7 text-[#8b8b8b] shadow-sm focus:border-gray-300"
                             />
+                        </div>
+                    </div>
+
+                    {/* Fila 2: Correo y Teléfono */}
+                    <div className="grid grid-cols-1 gap-9 gap-y-8 md:grid-cols-2">
+                        <div className="space-y-3">
+                            <Label htmlFor="departamento">Departamento</Label>
+                            <Select onValueChange={(value) => setData('departamento', value)} value={data.departamento}>
+                                <SelectTrigger className="mt-1 w-full rounded-xl border border-gray-300 py-7 shadow-sm hover:text-black focus:border-gray-300 focus:ring-0 focus:ring-offset-0">
+                                    <SelectValue placeholder="Seleccionar Departamento" className="text-[#8b8b8b]" />
+                                </SelectTrigger>
+                                <SelectContent className="rounded-xl bg-white shadow-sm">
+                                    {departamentos.map((depto) => (
+                                        <SelectItem key={depto} value={depto} className="text-[#8b8b8b] hover:bg-gray-100 hover:text-black">
+                                            {depto}
+                                        </SelectItem>
+                                    ))}
+                                </SelectContent>
+                            </Select>
                         </div>
                         <div className="space-y-3">
                             <Label htmlFor="telefono">Teléfono</Label>
@@ -87,49 +91,16 @@ export function Createform({ departamentos, cargos, onSubmit, onCancel, processi
                                 onChange={(e) => setData('telefono', e.target.value)}
                                 placeholder="Teléfono"
                                 required
-                                className="mt-1 rounded-xl border border-gray-300 focus:border-gray-300 text-[#8b8b8b] shadow-sm py-7"
+                                className="mt-1 rounded-xl border border-gray-300 py-7 text-[#8b8b8b] shadow-sm focus:border-gray-300"
                             />
-                        </div>
-                    </div>
-                    {/* Tercera fila: Departamento y Cargo */}
-                    <div className="grid grid-cols-1 gap-9 gap-y-8 md:grid-cols-2">
-                        <div className="space-y-3">
-                            <Label htmlFor="departamento">Departamento</Label>
-                            <Select onValueChange={(value) => setData('departamento', value)} value={data.departamento} required>
-                                <SelectTrigger className="mt-1 rounded-xl border border-gray-300 focus:border-gray-300 focus:ring-0 focus:ring-offset-0 shadow-sm hover:text-black w-full py-7">
-                                    <SelectValue placeholder="Seleccionar Departamento" className="text-[#8b8b8b]"  />
-                                </SelectTrigger>
-                                <SelectContent className="rounded-xl bg-white shadow-sm">
-                                    {departamentos.map((depto) => (
-                                        <SelectItem key={depto} value={depto} className="hover:bg-gray-100 text-[#8b8b8b] hover:text-black">
-                                            {depto}
-                                        </SelectItem>
-                                    ))}
-                                </SelectContent>
-                            </Select>
-                        </div>
-                        <div className="space-y-3">
-                            <Label htmlFor="cargo">Cargo</Label>
-                            <Select onValueChange={(value) => setData('cargo', value)} value={data.cargo} required>
-                                <SelectTrigger className="mt-1 rounded-xl border border-gray-300 focus:border-gray-300 focus:ring-0 focus:ring-offset-0 shadow-sm hover:text-black w-full py-7">
-                                    <SelectValue placeholder="Seleccionar el cargo" className="text-[#8b8b8b]" />
-                                </SelectTrigger>
-                                <SelectContent className="rounded-xl bg-white">
-                                    {cargos.map((cargo) => (
-                                        <SelectItem key={cargo} value={cargo} className="hover:bg-gray-100 text-[#8b8b8b] hover:text-black">
-                                            {cargo}
-                                        </SelectItem>
-                                    ))}
-                                </SelectContent>
-                            </Select>
                         </div>
                     </div>
                 </div>
                 <div className="mt-8 flex justify-center gap-4 border-b-1 pb-6">
-                    <Button type="button" onClick={onCancel} className="rounded-xl px-36 bg-gray-200 border-gray-500 hover:bg-gray-300/90 h-12 w-10">
+                    <Button type="button" onClick={onCancel} className="h-12 w-10 rounded-xl border-gray-500 bg-gray-200 px-36 hover:bg-gray-300/90">
                         Cancelar
                     </Button>
-                    <Button type="submit" disabled={processing} className="rounded-xl bg-[#1e9483] px-36 text-white hover:bg-[#1e9483]/90 h-12 w-10">
+                    <Button type="submit" disabled={processing} className="h-12 w-10 rounded-xl bg-[#1e9483] px-36 text-white hover:bg-[#1e9483]/90">
                         Crear Nuevo Personal
                     </Button>
                 </div>

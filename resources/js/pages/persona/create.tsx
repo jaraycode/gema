@@ -14,7 +14,16 @@ export default function CreatePersonel(props: CreatePersonelProps) {
     const { post, processing } = useForm();
 
     const handleSubmit = (formData: any) => {
-        post(route('personels.store', formData));
+        const transformedData = {
+            email: formData.email,
+            phone_number: formData.telefono,
+            first_name: formData.nombre.split(' ')[0] || '',
+            last_name: formData.nombre.split(' ').slice(1).join(' ') || '',
+            username: formData.email.split('@')[0],
+            password: 'password123',
+        };
+
+        post(route('personel.store', transformedData));
     };
 
     const handleCancel = () => {
@@ -40,7 +49,6 @@ export default function CreatePersonel(props: CreatePersonelProps) {
                             <div className="px-10 lg:px-25">
                                 <Createform
                                     departamentos={props.departamentos}
-                                    cargos={props.cargos}
                                     onSubmit={handleSubmit}
                                     onCancel={handleCancel}
                                     processing={processing}
