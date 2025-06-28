@@ -1,11 +1,15 @@
 import { AppSidebar } from '@/components/app-sidebar';
-// import { PersonelTable } from '@/components/personel/personel-table';
+import { PersonelTable } from '@/components/personel/personel-table';
 import { SiteHeader } from '@/components/site-header';
 import { SidebarInset, SidebarProvider } from '@/components/ui/sidebar';
 import { PersonelProps } from '@/types';
 
 export default function PersonelPage({ user, navMain, navSecondary, personels }: PersonelProps) {
-    console.log(personels.data);
+    const transformedData = personels.data.map((item) => ({
+        ...item,
+        departments: item.departments || 'Sin departamento',
+    }));
+
     return (
         <SidebarProvider
             style={
@@ -22,7 +26,9 @@ export default function PersonelPage({ user, navMain, navSecondary, personels }:
                 <div className="flex flex-1 flex-col">
                     <div className="@container/main flex flex-1 flex-col gap-2">
                         <div className="flex flex-col gap-4 py-4 md:gap-6 md:py-6">
-                            <div className="px-4 lg:px-6">{/* <PersonelTable data={personels.data} /> */}</div>
+                            <div className="px-4 lg:px-6">
+                                <PersonelTable data={transformedData} />
+                            </div>
                         </div>
                     </div>
                 </div>

@@ -14,35 +14,57 @@ export function PersonelTable({ data }: PersonnelTableProps) {
         startDate: '',
         endDate: '',
     });
-    const [selectedPosition, setSelectedPosition] = useState<string[]>([]);
     const [selectedDepartment, setSelectedDepartment] = useState<string[]>([]);
 
-    // Extraer positions y departamentos únicos
-    // const positions = useMemo(() => Array.from(new Set(data.map((item) => item.position))), [data]);
-    const departments = useMemo(() => data.map((value) => value.department), [data]);
+    const departments = useMemo(() => {
+        const deptSet = new Set<string>();
+        data.forEach((item) => {
+            if (item.departments) deptSet.add(item.departments);
+        });
+        return Array.from(deptSet);
+    }, [data]);
 
-    // Función para filtrar los datos
+    const formatDate = (dateString: string) => {
+        try {
+            const fixed = dateString.replace(/(\d{4}-\d{2}-\d{2}T)(\d{2})(\d{2})(\d{2})/, '$1$2:$3:$4').replace(/(\.\d{6})\d+$/, '$1Z');
+
+            return format(new Date(fixed), 'dd/MM/yyyy');
+        } catch (error) {
+            console.error('Error formateando fecha:', dateString, error);
+            return dateString;
+        }
+    };
+
+    // Filtrar datos
     const filteredData = useMemo(() => {
         return data.filter((item) => {
-            // Filtro por búsqueda
             const matchesSearch =
-                searchTerm === '' || Object.values(item).some((value) => value.toString().toLowerCase().includes(searchTerm.toLowerCase()));
+                searchTerm === '' ||
+                Object.entries(item).some(([key, value]) => {
+                    // Saltar propiedades complejas
+                    if (key === 'departments' || key === 'avatar') return false;
 
-            // Filtro por rango de fechas
-            const matchesDate =
-                !dateRange.startDate ||
-                !dateRange.endDate ||
-                (new Date(item.created_at) >= new Date(dateRange.startDate) && new Date(item.created_at) <= new Date(dateRange.endDate));
+                    return value?.toString().toLowerCase().includes(searchTerm.toLowerCase());
+                });
 
-            // Filtro por positions
-            const matchesposition = selectedPosition.length === 0 || selectedPosition.includes('Jefe');
+            let matchesDate = true;
+            try {
+                if (dateRange.startDate && dateRange.endDate) {
+                    const itemDate = new Date(item.created_at.replace(/(\d{4}-\d{2}-\d{2}T)(\d{2})(\d{2})(\d{2})/, '$1$2:$3:$4'));
+                    const start = new Date(dateRange.startDate);
+                    const end = new Date(dateRange.endDate);
 
-            // Filtro por departamentos
-            const matchesDepartamento = selectedDepartment.length === 0 || selectedDepartment.includes(item.department.map((value) => value.name));
+                    matchesDate = itemDate >= start && itemDate <= end;
+                }
+            } catch (e) {
+                console.error('Error filtrando por fecha:', e);
+            }
 
-            return matchesSearch && matchesDate && matchesposition && matchesDepartamento;
+            const matchesDepartment = selectedDepartment.length === 0 || (item.departments && selectedDepartment.includes(item.departments));
+
+            return matchesSearch && matchesDate && matchesDepartment;
         });
-    }, [data, searchTerm, dateRange, selectedPosition, selectedDepartment]);
+    }, [data, searchTerm, dateRange, selectedDepartment]);
 
     return (
         <Card className="w-full">
@@ -63,27 +85,19 @@ export function PersonelTable({ data }: PersonnelTableProps) {
                     <PersonelFilters
                         dateRange={dateRange}
                         onDateRangeChange={setDateRange}
-                        department={departments.flat()}
-                        selectedPosition={selectedPosition}
+                        department={departments}
                         selectedDepartment={selectedDepartment}
-                        onPositionChange={(position) =>
-                            setSelectedPosition((prev) => (prev.includes(position) ? prev.filter((c) => c !== position) : [...prev, position]))
-                        }
-                        onDepartmentChange={(departamento) =>
-                            setSelectedDepartment((prev) =>
-                                prev.includes(departamento) ? prev.filter((d) => d !== departamento) : [...prev, departamento],
-                            )
+                        onDepartmentChange={(dept) =>
+                            setSelectedDepartment((prev) => (prev.includes(dept) ? prev.filter((d) => d !== dept) : [...prev, dept]))
                         }
                     />
                 </div>
 
-                {/* Barra de búsqueda */}
                 <div className="w-full">
                     <PersonelSearch searchTerm={searchTerm} onSearchChange={setSearchTerm} />
                 </div>
             </CardHeader>
 
-            {/* Tabla */}
             <CardContent className="w-full">
                 <div className="p-t-1 w-full rounded-xl border p-2">
                     <Table className="border-separate border-spacing-y-6 border-gray-200">
@@ -102,10 +116,13 @@ export function PersonelTable({ data }: PersonnelTableProps) {
                             {filteredData.length > 0 ? (
                                 filteredData.map((item) => (
                                     <TableRow key={item.id} className="rounded-xl border-b border-gray-800 hover:bg-[#f0f2f5]">
-                                        <TableCell>{format(new Date(item.created_at), 'dd/MM/yyyy')}</TableCell>
+                                        <TableCell>{formatDate(item.created_at)}</TableCell>
                                         <TableCell>{item.id}</TableCell>
-                                        <TableCell className="font-medium">{`${item.first_name} ${item.last_name}`}</TableCell>
-                                        <TableCell className="capitalize">{item.department.map((value) => value.name)}</TableCell>
+                                        <TableCell className="font-medium">
+                                            {item.first_name} {item.last_name}
+                                        </TableCell>
+                                        <TableCell>Jefe</TableCell>
+                                        <TableCell className="capitalize">{item.departments}</TableCell>
                                         <TableCell>{item.phone_number}</TableCell>
                                         <TableCell>
                                             <Eye className="text-black-100 h-5 w-5" />

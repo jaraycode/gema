@@ -1,23 +1,19 @@
-import { BaseModel, DepartmentModelWithPersonnel, NavBarProps, PaginatedData } from '..';
-
-export interface PivotDepartmentPersonel {
-    begin_date: Date;
-    end_date?: Date;
-    department_id: number;
-    personel_id: number;
-}
+import { BaseModel, NavBarProps, PaginatedData } from '..';
 
 export interface PersonnelModel extends BaseModel {
     id: number;
-    first_name: string;
-    second_name?: string;
-    last_name: string;
-    second_last_name?: string;
-    username: string;
     email: string;
+    username: string;
     phone_number: string;
+    first_name: string;
+    second_name: string | null;
+    last_name: string;
+    second_last_name: string | null;
     avatar: string;
-    department: DepartmentModelWithPersonnel[];
+    delete_at: string | null;
+    created_at: string;
+    updated_at: string;
+    departments: string;
 }
 
 export interface PersonnelTableProps {
