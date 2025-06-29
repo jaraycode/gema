@@ -2,6 +2,7 @@
 
 namespace App\Service\Personel;
 
+
 use App\Models\Personel;
 use App\Repository\Core\SidebarRepository;
 use Exception;
@@ -50,7 +51,7 @@ class PersonelService
       $response = Personel::create(attributes: $personnel);
       $response->departments()->sync([
         $departmentId => [
-          "begin_date" => date("d M Y H:i:s"),
+          "begin_date" => now()->setTimezone('GMT-4')->format('Y-m-d H:i:s'),
           "end_date" => null,
         ]
       ], false);
