@@ -6,8 +6,14 @@ import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Link, useForm } from '@inertiajs/react';
 
+interface Departments{
+    id: number;
+    name: string;
+    code: string
+}
+
 interface CreatePersonelFormProps {
-    departamentos: string[];
+    departamentos: Departments[];
     onSubmit: (formData: any) => void;
     onCancel: () => void;
     processing?: boolean;
@@ -76,8 +82,8 @@ export function Createform({ departamentos, onSubmit, onCancel, processing = fal
                                 </SelectTrigger>
                                 <SelectContent className="rounded-xl bg-white shadow-sm">
                                     {departamentos.map((depto) => (
-                                        <SelectItem key={depto} value={depto} className="text-[#8b8b8b] hover:bg-gray-100 hover:text-black">
-                                            {depto}
+                                        <SelectItem key={depto.id} value={depto.name} className="text-[#8b8b8b] hover:bg-gray-100 hover:text-black">
+                                            {depto.name}
                                         </SelectItem>
                                     ))}
                                 </SelectContent>
