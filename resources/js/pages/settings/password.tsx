@@ -1,5 +1,5 @@
 import InputError from '@/components/input-error';
-import AppLayout from '@/layouts/app-layout';
+import { AppLayout } from '@/layouts/app-layout';
 import SettingsLayout from '@/layouts/settings/layout';
 import { type BreadcrumbItem } from '@/types';
 import { Transition } from '@headlessui/react';
@@ -18,7 +18,7 @@ const breadcrumbs: BreadcrumbItem[] = [
     },
 ];
 
-export default function Password() {
+/*export default function Password() {
     const passwordInput = useRef<HTMLInputElement>(null);
     const currentPasswordInput = useRef<HTMLInputElement>(null);
 
@@ -125,4 +125,4 @@ export default function Password() {
             </SettingsLayout>
         </AppLayout>
     );
-}
+}*/
