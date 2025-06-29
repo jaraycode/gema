@@ -16,9 +16,9 @@ use Inertia\Response;
 class PersonelController extends Controller
 {
   public function __construct(
-      protected PersonelService $personelService,
-      protected Role $role,
-      protected Department $department,
+    protected PersonelService $personelService,
+    protected Role $role,
+    protected Department $department,
   ) {}
   /**
    * Display a listing of the resource.
@@ -27,7 +27,6 @@ class PersonelController extends Controller
   {
     $personelProps = $this->personelService->getMenu();
     $personels = $this->personelService->getAllPersonnel();
-
     return Inertia::render('persona/personel', array_merge($personelProps, [
       'personels' => $personels
     ]));
@@ -37,7 +36,6 @@ class PersonelController extends Controller
   public function create(): Response
   {
     $personelProps = $this->personelService->getMenu();
-
 
     return Inertia::render(
       component: 'persona/create',
@@ -78,15 +76,18 @@ class PersonelController extends Controller
   public function show(string $id)
   {
     try {
-      $response = $this->personelService->getPersonnel(id: intval(value: $id));
+      $response = $this->personelService->getPersonnel(id: intval($id));
 
       $dashboardProps = $this->personelService->getMenu();
 
-      return Inertia::render('personel/profile', array_merge($dashboardProps, [
-        'personel' => $response
+      return Inertia::render('persona/profile', array_merge($dashboardProps, [
+        'personel' => $response,
+        'user' => $dashboardProps['user'] ?? null,
+        'navMain' => $dashboardProps['navMain'] ?? null,
+        'navSecondary' => $dashboardProps['navSecondary'] ?? null
       ]));
     } catch (Exception $e) {
-      return redirect()->back()->with(key: "error", value: $e->getMessage());
+      return redirect()->back()->with("error", $e->getMessage());
     }
   }
 

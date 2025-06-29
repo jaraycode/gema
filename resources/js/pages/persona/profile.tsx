@@ -2,19 +2,18 @@ import { AppSidebar } from '@/components/app-sidebar';
 import { ProfileInfo } from '@/components/personel/profile/profileInfo';
 import { SiteHeader } from '@/components/site-header';
 import { SidebarInset, SidebarProvider } from '@/components/ui/sidebar';
-import { NavBarProps } from '@/types';
 
-// Datos de ejemplo corregidos
-const profileData = {
-    nombre: 'José Pérez',
-    cedula: '23.687.367',
-    telefono: '0414-18246657',
-    email: 'josep@gmail.com',
-    cargo: 'Jefe de Departamento',
-    departamento: 'SGMREF',
-};
-
-export default function ProfilePage(props: NavBarProps) {
+export default function ProfilePage(props: any) {
+    const profileData = props.personel
+        ? {
+              nombre: `${props.personel.first_name} ${props.personel.last_name}`,
+              cedula: String(props.personel.id ?? ''),
+              telefono: String(props.personel.phone_number ?? ''),
+              email: String(props.personel.email ?? ''),
+              cargo: 'Jefe',
+              departamento: props.personel.departments[0].code ?? '',
+          }
+        : null;
     return (
         <SidebarProvider
             style={

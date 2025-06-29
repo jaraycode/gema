@@ -119,13 +119,17 @@ export function PersonelTable({ data }: PersonnelTableProps) {
                                         <TableCell>{formatDate(item.created_at)}</TableCell>
                                         <TableCell>{item.id}</TableCell>
                                         <TableCell className="font-medium">
-                                            {item.first_name} {item.last_name}
+                                            {item.first_name}
+                                            {item.second_name ? ` ${item.second_name}` : ''}
+                                            {item.last_name}
                                         </TableCell>
                                         <TableCell>Jefe</TableCell>
                                         <TableCell className="capitalize">{item.departments}</TableCell>
                                         <TableCell>{item.phone_number}</TableCell>
                                         <TableCell>
-                                            <Eye className="text-black-100 h-5 w-5" />
+                                            <Link href={route('personel.show', { id: item.id })}>
+                                                <Eye className="text-black-100 h-5 w-5 hover:text-[#1e9483]" />
+                                            </Link>
                                         </TableCell>
                                     </TableRow>
                                 ))

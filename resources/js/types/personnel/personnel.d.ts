@@ -24,6 +24,17 @@ export interface PersonelProps extends NavBarProps {
     personels: PaginatedData<PersonnelModel>;
 }
 
+export interface ProfileInfoProps {
+    data: {
+        nombre: string;
+        cedula: string;
+        telefono: string;
+        email: string;
+        cargo: string;
+        departamento: string;
+    } | null;
+}
+
 export type DateRange = {
     startDate: string;
     endDate: string;
