@@ -21,7 +21,7 @@ Una vez clonado el repositorio, se deben seguir los siguientes pasos:
 3. Construir paquete del frontend por medio de npm
 
 ```bash
-    npm build
+    npm run build
 ```
 
 4. Crear archivo .env por medio de copiar el archivo .env.example asignando credenciales de tu base de datos
@@ -29,7 +29,7 @@ Una vez clonado el repositorio, se deben seguir los siguientes pasos:
 5. Correr migración de la base de datos
 
 ```bash
-    php artisan migrate:fresh
+    php artisan migrate:fresh --seed
 ```
 
 6. Generar llave única de la aplicación
