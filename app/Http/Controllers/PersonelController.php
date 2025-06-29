@@ -58,6 +58,7 @@ class PersonelController extends Controller
       "email" => $request->get("email"),
       "username" => $request->get("username"),
       "password" => $hashedPassword,
+      "dni" => $request->get("dni"),
       "phone_number" => $request->get("phone_number"),
       "first_name" => $request->get("first_name"),
       "second_name" => $request->get("second_name"),

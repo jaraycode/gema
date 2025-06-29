@@ -27,6 +27,7 @@ class UpdatePersonelRequest extends FormRequest
       "second_name" => "string",
       "last_name" => "string",
       "second_last_name" => "string",
+      "dni" => "string",
     ];
   }
 
@@ -38,6 +39,7 @@ class UpdatePersonelRequest extends FormRequest
       "second_name.string" => "The second name must be a string.",
       "last_name.string" => "The last name must be a string.",
       "second_last_name.string" => "The second last name must be a string.",
+        "dni.string" => "The dni must be a string.",
     ];
   }
 }

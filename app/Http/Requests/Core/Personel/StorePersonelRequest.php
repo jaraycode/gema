@@ -25,6 +25,7 @@ class StorePersonelRequest extends FormRequest
             "email" => "required|email|unique:personel,email|string",
             "username" => "required|unique:personel,username|string",
             "password" => "required|string",
+            "dni" => "required|string",
             "phone_number" => "required|string", // max 13 caracteres usando el formato para +584121164027
             "first_name" => "required|string",
             "second_name" => "sometimes|string",
@@ -45,6 +46,9 @@ class StorePersonelRequest extends FormRequest
             'username.required' => 'The username field is required.',
             'username.unique' => 'The username has already been taken.',
             'username.string' => 'The username must be a string.',
+
+            'dni.required' => 'The dni field is required.',
+            'dni.string' => 'The dni must be a string.',
 
             'password.required' => 'The password field is required.',
             'password.string' => 'The password must be a string.',

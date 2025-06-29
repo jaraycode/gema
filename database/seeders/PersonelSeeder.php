@@ -20,6 +20,7 @@ class PersonelSeeder extends Seeder
                 'email' => 'jonas@gmail.com',
                 'username' => 'jonas',
                 'password' => Hash::make('yovita12345'),
+                'dni' => 'V-29008765',
                 'phone_number' => '04121164027',
                 'first_name' => 'Jonas',
                 'last_name' => 'Aray',

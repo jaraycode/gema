@@ -12,7 +12,18 @@ class Personel extends Authenticatable
 {
     use HasFactory;
     protected $table = 'personel';
-    protected $fillable = ['email', 'username', 'password', 'phone_number', 'first_name', 'second_name', 'last_name', 'second_last_name', 'avatar'];
+    protected $fillable = [
+        'email',
+        'username',
+        'password',
+        'dni',
+        'phone_number', 
+        'first_name',
+        'second_name',
+        'last_name',
+        'second_last_name',
+        'avatar'
+    ];
     protected $primaryKey = 'id';
     /**
      * The attributes that should be hidden for serialization.
