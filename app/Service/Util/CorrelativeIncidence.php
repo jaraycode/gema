@@ -2,11 +2,12 @@
 
 namespace App\Service\Util;
 
+use App\Contracts\Correlative;
 use App\Models\CorrIncidence;
 use Exception;
 use Illuminate\Support\Facades\Log;
 
-class CorrelativeIncidence
+class CorrelativeIncidence implements Correlative
 {
     /**
      * Create a new class instance.

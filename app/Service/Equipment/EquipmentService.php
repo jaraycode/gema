@@ -2,17 +2,21 @@
 
 namespace App\Service\Equipment;
 
+use App\Contracts\Correlative;
 use App\Models\Equipment;
 use App\Repository\Core\SidebarRepository;
-use Exception;
-use Illuminate\Database\Eloquent\Collection;
+use App\Service\Util\CorrelativeEquipment;
 use Illuminate\Pagination\LengthAwarePaginator;
 
 class EquipmentService
 {
     private string $title = 'Equipo';
+    private Correlative $correlativeService;
 
-    public function __construct(protected SidebarRepository $menu) {}
+    public function __construct(protected SidebarRepository $menu)
+    {
+        $this->correlativeService = new CorrelativeEquipment();
+    }
 
     public function getMenu(): array
     {
@@ -23,5 +27,4 @@ class EquipmentService
     {
         return Equipment::paginate(perPage: Equipment::count());
     }
-
 }

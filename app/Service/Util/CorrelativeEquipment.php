@@ -2,11 +2,12 @@
 
 namespace App\Service\Util;
 
+use App\Contracts\Correlative;
 use App\Models\CorrEquipment;
 use Exception;
 use Illuminate\Support\Facades\Log;
 
-class CorrelativeEquipment
+class CorrelativeEquipment implements Correlative
 {
     /**
      * Create a new class instance.
