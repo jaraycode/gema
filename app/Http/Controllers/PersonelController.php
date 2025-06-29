@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Department;
+use App\Models\Role;
 use Exception;
 use App\Http\Requests\Core\Personel\StorePersonelRequest;
 use App\Http\Requests\Core\Personel\UpdatePersonelRequest;
-use App\Models\Personel;
 use Illuminate\Http\RedirectResponse;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Hash;
@@ -14,7 +15,11 @@ use Inertia\Response;
 
 class PersonelController extends Controller
 {
-  public function __construct(protected PersonelService $personelService) {}
+  public function __construct(
+      protected PersonelService $personelService,
+      protected Role $role,
+      protected Department $department,
+  ) {}
   /**
    * Display a listing of the resource.
    */
@@ -33,11 +38,12 @@ class PersonelController extends Controller
   {
     $personelProps = $this->personelService->getMenu();
 
+
     return Inertia::render(
       component: 'persona/create',
       props: array_merge($personelProps, [
-        'departamentos' => ['SGMREF', 'RH', 'Finanzas', 'TI'],
-        'cargos' => ['Jefe', 'Supervisor', 'Analista', 'Asistente'],
+        'departamentos' => $this->department::all(),
+        'cargos' => $this->role::all(),
       ])
     );
   }
@@ -59,6 +65,7 @@ class PersonelController extends Controller
       "second_name" => $request->get("second_name"),
       "last_name" => $request->get("last_name"),
       "second_last_name" => $request->get("second_last_name"),
+      "department" => $request->get("department"),
     ];
 
     $response = $this->personelService->storePersonnel($personnel);
