@@ -96,20 +96,41 @@ class PersonelController extends Controller
    */
   public function update(UpdatePersonelRequest $request, string $id)
   {
-    return $this->personelService->updatePersonnel(id: intval(value: $id), personnel: $request->validated());
-  }
+    $personnel = [
+      "email" => $request->get("email"),
+      "phone_number" => $request->get("phone_number"),
+      "first_name" => $request->get("first_name"),
+      "second_name" => $request->get("second_name"),
+      "last_name" => $request->get("last_name"),
+      "second_last_name" => $request->get("second_last_name"),
+      "department" => $request->get("department"),
+    ];
 
+    if ($request->has('password')) {
+      $personnel['password'] = Hash::make($request->get('password'));
+    }
+
+    return $this->personelService->updatePersonnel(
+      id: intval($id),
+      personnel: $personnel
+    );
+  }
   /**
    * Renders the update screen of the specified resource in storage.
    */
   public function edit(string $id): RedirectResponse | Response
   {
     try {
-      $personnel = $this->personelService->getPersonnel(id: intval(value: $id));
-      $dashboardProps = $this->personelService->getMenu();
-      return Inertia::render(component: 'personel/edit', props: array_merge($dashboardProps, ['data' => $personnel]));
+      $personnel = $this->personelService->getPersonnel(id: intval($id));
+      $personelProps = $this->personelService->getMenu();
+
+      return Inertia::render('persona/edit', array_merge($personelProps, [
+        'personel' => $personnel,
+        'departamentos' => $this->department::all(),
+        'cargos' => $this->role::all(),
+      ]));
     } catch (Exception $e) {
-      return redirect()->back()->with(key: 'error', value: $e->getMessage());
+      return redirect()->back()->with('error', $e->getMessage());
     }
   }
 

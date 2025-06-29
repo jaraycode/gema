@@ -26,6 +26,7 @@ export interface PersonelProps extends NavBarProps {
 
 export interface ProfileInfoProps {
     data: {
+        id: number;
         nombre: string;
         cedula: string;
         telefono: string;
