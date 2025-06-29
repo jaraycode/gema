@@ -49,7 +49,7 @@ class PersonelService
       $departmentId = $personnel['department'];
       $response = Personel::create(attributes: $personnel);
       $response->departments()->sync([
-          $departmentId => [
+        $departmentId => [
           "begin_date" => date("d M Y H:i:s"),
           "end_date" => null,
         ]
@@ -58,7 +58,6 @@ class PersonelService
       if ($response) return redirect()->route(route: 'personel.index')->with(key: 'success', value: 'Personal creado exitosamente');
 
       return redirect()->back()->with(key: 'error', value: 'No se pudo crear el personal. Intente nuevamente!');
-
     } catch (Exception $e) {
       Log::error(message: 'Creación de Personal ' . $e->getMessage());
       throw new \Exception(message: "Error al guardar Personal: " . $e->getMessage());

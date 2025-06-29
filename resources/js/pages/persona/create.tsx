@@ -5,10 +5,10 @@ import { SidebarInset, SidebarProvider } from '@/components/ui/sidebar';
 import { NavBarProps } from '@/types';
 import { useForm } from '@inertiajs/react';
 
-interface Departments{
+interface Departments {
     id: number;
     name: string;
-    code: string
+    code: string;
 }
 interface CreatePersonelProps extends NavBarProps {
     departamentos: Departments[];
@@ -26,7 +26,7 @@ export default function CreatePersonel(props: CreatePersonelProps) {
             last_name: formData.nombre.split(' ').slice(1).join(' ') || '',
             username: formData.email.split('@')[0],
             password: 'password123',
-            department: formData.department
+            department: formData.departamento,
         };
 
         post(route('personel.store', transformedData));

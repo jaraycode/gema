@@ -6,10 +6,10 @@ import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Link, useForm } from '@inertiajs/react';
 
-interface Departments{
+interface Departments {
     id: number;
     name: string;
-    code: string
+    code: string;
 }
 
 interface CreatePersonelFormProps {
@@ -82,7 +82,11 @@ export function Createform({ departamentos, onSubmit, onCancel, processing = fal
                                 </SelectTrigger>
                                 <SelectContent className="rounded-xl bg-white shadow-sm">
                                     {departamentos.map((depto) => (
-                                        <SelectItem key={depto.id} value={depto.name} className="text-[#8b8b8b] hover:bg-gray-100 hover:text-black">
+                                        <SelectItem
+                                            key={depto.id}
+                                            value={String(depto.id)}
+                                            className="text-[#8b8b8b] hover:bg-gray-100 hover:text-black"
+                                        >
                                             {depto.name}
                                         </SelectItem>
                                     ))}
