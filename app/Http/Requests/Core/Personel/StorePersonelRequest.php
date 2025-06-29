@@ -30,6 +30,7 @@ class StorePersonelRequest extends FormRequest
             "second_name" => "sometimes|string",
             "last_name" => "required|string",
             "second_last_name" => "sometimes|string",
+            "department" => "required|string",
         ];
     }
 

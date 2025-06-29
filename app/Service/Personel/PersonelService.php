@@ -34,7 +34,7 @@ class PersonelService
 
   public function getPersonnel(int $id): Builder|Personel
   {
-    $personnel = Personel::where(column: 'delete_at')->find($id);
+    $personnel = Personel::with(relations: "departments")->where(column: 'delete_at')->find($id);
 
     if (!$personnel) {
       throw new Exception(message: 'Personal no encontrado');
@@ -46,9 +46,19 @@ class PersonelService
   public function storePersonnel(array $personnel): RedirectResponse
   {
     try {
+      $departmentId = $personnel['department'];
       $response = Personel::create(attributes: $personnel);
+      $response->departments()->sync([
+          $departmentId => [
+          "begin_date" => date("d M Y H:i:s"),
+          "end_date" => null,
+        ]
+      ], false);
+
       if ($response) return redirect()->route(route: 'personel.index')->with(key: 'success', value: 'Personal creado exitosamente');
+
       return redirect()->back()->with(key: 'error', value: 'No se pudo crear el personal. Intente nuevamente!');
+
     } catch (Exception $e) {
       Log::error(message: 'Creación de Personal ' . $e->getMessage());
       throw new \Exception(message: "Error al guardar Personal: " . $e->getMessage());
