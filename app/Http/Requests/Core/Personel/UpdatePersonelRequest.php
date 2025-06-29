@@ -22,24 +22,26 @@ class UpdatePersonelRequest extends FormRequest
   public function rules(): array
   {
     return [
-      "phone_number" => "string",
-      "first_name" => "string",
-      "second_name" => "string",
-      "last_name" => "string",
-      "second_last_name" => "string",
-      "dni" => "string",
+        "phone_number" => "string",
+        "first_name" => "string",
+        "second_name" => "string",
+        "last_name" => "string",
+        "second_last_name" => "string",
+        "dni" => "string",
+        "department" => "string",
     ];
   }
 
   public function messages(): array
   {
     return [
-      "phone_number.string" => "The phone number must be a string.",
-      "first_name.string" => "The first name must be a string.",
-      "second_name.string" => "The second name must be a string.",
-      "last_name.string" => "The last name must be a string.",
-      "second_last_name.string" => "The second last name must be a string.",
+        "phone_number.string" => "The phone number must be a string.",
+        "first_name.string" => "The first name must be a string.",
+        "second_name.string" => "The second name must be a string.",
+        "last_name.string" => "The last name must be a string.",
+        "second_last_name.string" => "The second last name must be a string.",
         "dni.string" => "The dni must be a string.",
+        "department.string" => "The department must be a string.",
     ];
   }
 }

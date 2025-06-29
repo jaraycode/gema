@@ -68,8 +68,32 @@ class PersonelService
   public function updatePersonnel(int $id, array $personnel): RedirectResponse
   {
     try {
+        $newDepartmentId = $personnel['department'];
+
       $response = Personel::where(column: 'id', operator: '=', value: $id)->update($personnel);
-      if ($response > 0) return redirect()->route(route: 'personel.index')->with(key: 'success', value: 'Personal actualizado exitosamente');
+
+      if ($response) {
+
+          $currentDepartment = $response->departments()
+              ->wherePivot('end_date', null)
+              ->first();
+
+
+          if ($currentDepartment) {
+              $response->departments()->updateExistingPivot($currentDepartment->id, [
+                  'end_date' => now()->setTimezone('GMT-4')->format('Y-m-d H:i:s')
+              ]);
+          }
+
+
+          $response->departments()->attach($newDepartmentId, [
+              'begin_date' => now()->setTimezone('GMT-4')->format('Y-m-d H:i:s'),
+              'end_date' => null
+          ]);
+
+          return redirect()->route(route: 'personel.index')->with(key: 'success', value: 'Personal actualizado exitosamente');
+      }
+
       return redirect()->back()->with(key: 'error', value: 'No se pudo actualizar el Personal. Intente nuevamente!');
     } catch (Exception $e) {
       Log::error(message: 'Actualización de Personal ' . $e->getMessage());
