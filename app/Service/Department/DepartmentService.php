@@ -40,7 +40,7 @@ class DepartmentService
     public function updateDepartment(array $request, int $id): RedirectResponse
     {
         try {
-            $response = Department::where(column: 'id', operator: '=', value: $id)->update(attributes: $request);
+            $response = Department::where(column: 'id', operator: '=', value: $id)->update($request);
             if ($response > 0) return redirect()->route(route: 'department.index')->with(key: 'success', value: 'Departamento actualizado exitosamente');
             return redirect()->back()->with(key: 'error', value: 'No se pudo actualizar el departamento. Intente nuevamente!');
         } catch (Exception $e) {

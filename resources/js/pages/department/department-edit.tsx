@@ -3,21 +3,24 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { AppLayout } from '@/layouts/app-layout';
-import { DepartmentEditProps, DepartmentForm } from '@/types/department/department';
+import { DepartmentEditModel, DepartmentEditProps } from '@/types/department/department';
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Head, Link, useForm } from '@inertiajs/react';
+import { Head, Link, useForm, usePage } from '@inertiajs/react';
 import { FormEventHandler } from 'react';
 
 export default function DepartmentEdit({ user, navMain, navSecondary, department }: DepartmentEditProps) {
-    const { data, setData, put, processing, errors, reset } = useForm<Required<DepartmentForm>>({
-        name: department.name,
-        code: department.code,
-    });
+    const { data, setData, put, processing, errors, reset } = useForm<Required<DepartmentEditModel>>(
+        department ?? {
+            name: '',
+            code: '',
+        },
+    );
+    const id = usePage().url.split('/').slice(-1)[0];
 
     const submit: FormEventHandler = (e) => {
         e.preventDefault();
-        put(route('department.update'), {
+        put(route('department.update', { id }), {
             onFinish: () => reset('code'),
         });
     };
