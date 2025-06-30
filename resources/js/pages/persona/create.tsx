@@ -27,8 +27,8 @@ export default function CreatePersonel(props: CreatePersonelProps) {
             username: formData.email.split('@')[0],
             password: 'password123',
             department: formData.departamento,
+            dni: formData.cedula,
         };
-
         post(route('personel.store', transformedData));
     };
 

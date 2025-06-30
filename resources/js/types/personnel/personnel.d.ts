@@ -14,6 +14,7 @@ export interface PersonnelModel extends BaseModel {
     created_at: string;
     updated_at: string;
     departments: string;
+    dni: string;
 }
 
 export interface PersonnelTableProps {
