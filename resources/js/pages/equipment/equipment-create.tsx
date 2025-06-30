@@ -2,12 +2,11 @@ import { AppSidebar } from '@/components/app-sidebar';
 import EquipmentForm from '@/components/equipment/equipment-form';
 import { SiteHeader } from '@/components/site-header';
 import { SidebarInset, SidebarProvider } from '@/components/ui/sidebar';
-import { LocationProps } from '@/types';
-import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Head, Link } from '@inertiajs/react';
+import { EquipmentFormProps } from '@/types';
+import { Head } from '@inertiajs/react';
 
-export default function LocationIndex({ user, navMain, navSecondary }: LocationProps) {
+export default function LocationIndex({ user, navMain, navSecondary, equipment_type, locations, technical_locations }: EquipmentFormProps) {
+    console.log(equipment_type, locations, technical_locations);
     return (
         <SidebarProvider
             style={
@@ -24,7 +23,7 @@ export default function LocationIndex({ user, navMain, navSecondary }: LocationP
                 <div className="flex flex-1 flex-col">
                     <div className="@container/main flex flex-1 flex-col gap-2">
                         <div className="flex flex-col gap-4 py-4 md:gap-6 md:py-6">
-                            <EquipmentForm />
+                            <EquipmentForm equipment_type={equipment_type} locations={locations} technical_locations={technical_locations} />
                         </div>
                     </div>
                 </div>

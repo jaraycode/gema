@@ -4,14 +4,14 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { AppLayout } from '@/layouts/app-layout';
 import { NavBarProps } from '@/types';
-import { DepartmentForm } from '@/types/department/department';
+import { DepartmentFormModel } from '@/types/department/department';
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Head, Link, useForm } from '@inertiajs/react';
 import { FormEventHandler } from 'react';
 
 export default function DepartmentCreate({ user, navMain, navSecondary }: NavBarProps) {
-    const { data, setData, post, processing, errors, reset } = useForm<Required<DepartmentForm>>({
+    const { data, setData, post, processing, errors, reset } = useForm<Required<DepartmentFormModel>>({
         name: '',
         code: '',
     });

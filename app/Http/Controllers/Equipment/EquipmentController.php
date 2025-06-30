@@ -4,13 +4,14 @@ namespace App\Http\Controllers\Equipment;
 
 use App\Http\Controllers\Controller;
 use App\Service\Equipment\EquipmentService;
+use App\Service\Location\TechnicalLocationService;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
 class EquipmentController extends Controller
 {
 
-    public function __construct(protected EquipmentService $equipmentService) {}
+    public function __construct(protected EquipmentService $equipmentService, protected TechnicalLocationService $technicalLocationService) {}
 
     /**
      * Display a listing of the resource.
@@ -33,7 +34,9 @@ class EquipmentController extends Controller
     public function create()
     {
         $dashboardProps = $this->equipmentService->getMenu();
-        return Inertia::render(component: 'equipment/equipment-create', props: $dashboardProps);
+        $locations = $this->technicalLocationService->getTechnicalLocationGroupByLevel();
+        $locations = $locations->groupBy(groupBy: 'level')->toArray();
+        return Inertia::render(component: 'equipment/equipment-create', props: array_merge($dashboardProps, ['equipment_type' => $this->equipmentService->getEquipmentType(), 'locations' => $locations, 'technical_locations' => $this->technicalLocationService->getAllTechnicalLocationCodeNotPaginated()]));
     }
 
     /**

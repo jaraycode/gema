@@ -3,14 +3,14 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { AppLayout } from '@/layouts/app-layout';
-import { DepartmentEditModel, DepartmentEditProps } from '@/types/department/department';
+import { DepartmentEditProps, DepartmentFormModel } from '@/types/department/department';
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Head, Link, useForm, usePage } from '@inertiajs/react';
 import { FormEventHandler } from 'react';
 
 export default function DepartmentEdit({ user, navMain, navSecondary, department }: DepartmentEditProps) {
-    const { data, setData, put, processing, errors, reset } = useForm<Required<DepartmentEditModel>>(
+    const { data, setData, put, processing, errors, reset } = useForm<Required<DepartmentFormModel>>(
         department ?? {
             name: '',
             code: '',

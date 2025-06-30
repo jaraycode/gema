@@ -7,6 +7,8 @@ export interface LocationModel {
     level: number | string;
 }
 
+export type LocationEquipmentProps = Omit<LocationModel, 'id' | 'level'>;
+
 export type TechnicalLocationModel = Omit<LocationModel, 'name' | 'level'>;
 
 export interface TechnicalLocationObject {

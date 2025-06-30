@@ -8,7 +8,7 @@ use App\Models\TechnicalLocation;
 use App\Repository\Core\SidebarRepository;
 use Exception;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
-use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Collection;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Log;
 
@@ -40,12 +40,27 @@ class TechnicalLocationService
     }
 
     /**
-     * Envia la información necesaria para la página principal de ubicación técnica, donde se necesita el identificador de la ubicación técnica y la combinación de los códigos de cada ubicación.
+     * Envia la información necesaria para la página principal de ubicación técnica, donde se necesita el identificador de la ubicación técnica y la combinación de los códigos de cada ubicación con paginación.
      * @return \Illuminate\Pagination\LengthAwarePaginator
      */
     public function getAllTechnicalLocationCode(): LengthAwarePaginator
     {
         $technicalLocations = TechnicalLocation::paginate(perPage: TechnicalLocation::count(), columns: ['id', 'level1', 'level2', 'level3', 'level4', 'level5', 'level6', 'level7'])->through(callback: function ($value): array {
+            $valueArray = $value->toArray();
+            $id = $valueArray['id'];
+            unset($valueArray['id']);
+            return ['id' => $id, 'code' => getCodeTechnicalLocation(levels: $valueArray)];
+        });
+        return $technicalLocations;
+    }
+
+    /**
+     * Envia la información necesaria para la página de creación de equipos, donde se necesita el identificador de la ubicación técnica y la combinación de los códigos de cada ubicación sin paginar.
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
+    public function getAllTechnicalLocationCodeNotPaginated(): Collection
+    {
+        $technicalLocations = TechnicalLocation::where('delete_at')->get(columns: ['id', 'level1', 'level2', 'level3', 'level4', 'level5', 'level6', 'level7'])->map(callback: function ($value): array {
             $valueArray = $value->toArray();
             $id = $valueArray['id'];
             unset($valueArray['id']);
