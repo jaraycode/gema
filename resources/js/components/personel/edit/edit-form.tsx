@@ -66,10 +66,7 @@ export function Editform({ departamentos, personel, onSubmit, processing }: Edit
     return (
         <div className="mx-auto rounded-xl bg-white px-14 py-7 pb-10 text-center shadow-md">
             <div className="mb-4 flex items-center justify-between">
-                <Link
-                    href={route('personel.show', { id: personel.id })}
-                    className="inline-flex items-center text-sm text-gray-500 hover:text-gray-700"
-                >
+                <Link href={route('personel.show', { id: personel.id })} className="inline-flex items-center text-sm">
                     <FontAwesomeIcon icon={faChevronLeft} className="mr-2" />
                 </Link>
             </div>
