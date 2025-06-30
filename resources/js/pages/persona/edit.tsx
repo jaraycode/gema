@@ -28,6 +28,7 @@ export default function EditPersonelPage(props: EditPersonelPageProps) {
 
         const transformedData = {
             email: formData.email,
+            dni: formData.dni,
             phone_number: formData.telefono,
             first_name: firstName,
             last_name: lastName,

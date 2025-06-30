@@ -100,6 +100,7 @@ class PersonelController extends Controller
     $personnel = [
       "email" => $request->get("email"),
       "phone_number" => $request->get("phone_number"),
+      "dni" => $request->get("dni"),
       "first_name" => $request->get("first_name"),
       "second_name" => $request->get("second_name"),
       "last_name" => $request->get("last_name"),

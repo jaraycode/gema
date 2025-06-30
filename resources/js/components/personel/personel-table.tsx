@@ -120,8 +120,9 @@ export function PersonelTable({ data }: PersonnelTableProps) {
                                         <TableCell>{item.dni}</TableCell>
                                         <TableCell className="font-medium">
                                             {item.first_name}
-                                            {item.second_name ? ` ${item.second_name}` : ''}
-                                            {item.last_name}
+                                            {item.second_name && ` ${item.second_name}`}
+                                            {` ${item.last_name}`}
+                                            {item.second_last_name && ` ${item.second_last_name}`}
                                         </TableCell>
                                         <TableCell>Jefe</TableCell>
                                         <TableCell className="capitalize">{item.departments}</TableCell>

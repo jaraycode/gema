@@ -20,6 +20,8 @@ interface EditPersonelFormProps {
         first_name: string;
         second_name: string | null;
         last_name: string;
+        second_last_name: string | null;
+        dni: string;
         email: string;
         phone_number: string;
         departments: {
@@ -42,7 +44,8 @@ export function Editform({ departamentos, personel, onSubmit, processing }: Edit
     const currentDepartment = personel.departments.length > 0 ? personel.departments[0] : null;
 
     const { data, setData } = useForm({
-        nombre: `${personel.first_name} ${personel.second_name || ''}`.trim(),
+        // Combinar todos los nombres y apellidos
+        nombre: [personel.first_name, personel.second_name, personel.last_name, personel.second_last_name].filter(Boolean).join(' '),
         telefono: personel.phone_number,
         email: personel.email,
         departamento: currentDepartment?.id.toString() || '',
@@ -59,6 +62,7 @@ export function Editform({ departamentos, personel, onSubmit, processing }: Edit
         e.preventDefault();
         onSubmit({
             ...data,
+            dni: personel.dni,
             departamento: data.departamento ? Number(data.departamento) : null,
         });
     };
