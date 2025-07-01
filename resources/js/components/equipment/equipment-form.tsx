@@ -31,7 +31,7 @@ export default function EquipmentForm({ equipment_type, locations, technical_loc
 
     // const filteredLocations = query === '' ? locationOptions : locationOptions.filter((loc) => loc.toLowerCase().includes(query.toLowerCase()));
 
-    const handleInputChange = (field: keyof EquipmentFormData, value: string) => {
+    const handleInputChange = (field: keyof EquipmentFormData, value: string | number) => {
         setData(field, value);
     };
 
@@ -139,7 +139,7 @@ export default function EquipmentForm({ equipment_type, locations, technical_loc
                                     name="status"
                                     value={statusOption.code}
                                     checked={data.status === statusOption.code}
-                                    onChange={(e) => handleInputChange('status', e.target.value)}
+                                    onChange={(e) => handleInputChange('status', Number(e.target.value))}
                                     className="h-4 w-4 text-teal-600 focus:ring-teal-500"
                                 />
                                 <span className="text-base text-neutral-900 capitalize">{statusOption.name}</span>
