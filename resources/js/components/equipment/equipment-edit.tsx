@@ -1,7 +1,7 @@
 import InputError from '@/components/input-error';
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { EquipmentFormData, EquipmentFormProps, TechnicalLocationModel } from '@/types';
+import { EquipmentFormData, EquipmentFormProps, EquipmentModel, TechnicalLocationModel } from '@/types';
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Link, useForm } from '@inertiajs/react';
@@ -10,11 +10,11 @@ import { FormEventHandler, useState } from 'react';
 type EquipmentFormProp = Pick<EquipmentFormProps, 'equipment_type' | 'locations' | 'technical_locations'>;
 
 export interface EquipmentEditProps extends EquipmentFormProp {
-    props: EquipmentFormData;
+    props: EquipmentModel;
 }
 
 export default function EquipmentEditForm({ equipment_type, locations, technical_locations, props }: EquipmentEditProps) {
-    const { data, setData, post, processing, errors, reset } = useForm<Required<EquipmentFormData>>({
+    const { data, setData, put, processing, errors, reset } = useForm<Required<EquipmentFormData>>({
         ...props,
         technical_location: String(props.technical_location),
     });
@@ -36,7 +36,7 @@ export default function EquipmentEditForm({ equipment_type, locations, technical
 
     const submit: FormEventHandler = (e) => {
         e.preventDefault();
-        post(route('equipment.update'), {
+        put(route('equipment.update', { id: props.code }), {
             onFinish: () => reset('technical_location', 'type'),
         });
     };

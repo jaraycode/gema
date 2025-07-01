@@ -83,7 +83,31 @@ class EquipmentService
             throw new Exception(message: 'Error al guardar');
         } catch (Exception $e) {
             DB::rollBack();
-            dd($e);
+            return redirect()->back()->with(key: 'error', value: $e->getMessage());
+        }
+    }
+
+    /**
+     * A partir del código único del equipo se actualizan los campos. Se genera un caso de error en caso que no encuentre al equipo según su código primario.
+     * @param array $request
+     * @param string $id
+     * @throws \Exception
+     * @return RedirectResponse
+     */
+    public function updateEquipment(array $request, string $id): RedirectResponse
+    {
+        DB::beginTransaction();
+        try {
+            $response = Equipment::where(column: 'code', operator: '=', value: $id)->update($request);
+
+            if ($response > 0) {
+                DB::commit();
+                return redirect()->route(route: 'equipment.index')->with(key: 'success', value: 'Equipo actualizado exitosamente');
+            }
+
+            throw new Exception(message: 'Error al actualizar el equipo');
+        } catch (Exception $e) {
+            DB::rollBack();
             return redirect()->back()->with(key: 'error', value: $e->getMessage());
         }
     }

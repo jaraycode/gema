@@ -7,6 +7,7 @@ export interface EquipmentModel {
     serial: string;
     type: string;
     description: string;
+    technical_location: string;
     status: number;
 }
 
@@ -26,12 +27,4 @@ export interface EquipmentEditFormProps extends EquipmentFormProps {
 
 export type EquipmentnFormData = Omit<EquipmentnModel, 'id'>;
 
-export interface EquipmentFormData {
-    model: string;
-    brand: string;
-    serial: string;
-    type: string;
-    description: string;
-    technical_location: string;
-    status: number;
-}
+export type EquipmentFormData = Omit<EquipmentModel, 'code'>;
