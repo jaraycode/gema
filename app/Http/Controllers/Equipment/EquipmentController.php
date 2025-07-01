@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Equipment;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Core\Equipment\StoreEquipmentRequest;
+use App\Http\Requests\Core\Equipment\UpdateEquipmentRequest;
 use App\Service\Equipment\EquipmentService;
 use App\Service\Location\TechnicalLocationService;
 use Illuminate\Http\Request;
@@ -53,13 +54,17 @@ class EquipmentController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $dashboardProps = $this->equipmentService->getMenu();
+        $locations = $this->technicalLocationService->getTechnicalLocationGroupByLevel();
+        $locations = $locations->groupBy(groupBy: 'level')->toArray();
+        $data = $this->equipmentService->getEquipmentById(id: $id);
+        return Inertia::render(component: 'equipment/equipment-edit', props: array_merge($dashboardProps, ['equipment_type' => $this->equipmentService->getEquipmentType(), 'locations' => $locations, 'technical_locations' => $this->technicalLocationService->getAllTechnicalLocationCodeNotPaginated(), 'props' => $data]));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(UpdateEquipmentRequest $request, string $id)
     {
         //
     }

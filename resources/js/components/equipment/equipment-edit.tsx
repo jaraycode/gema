@@ -9,21 +9,20 @@ import { FormEventHandler, useState } from 'react';
 
 type EquipmentFormProp = Pick<EquipmentFormProps, 'equipment_type' | 'locations' | 'technical_locations'>;
 
-export default function EquipmentForm({ equipment_type, locations, technical_locations }: EquipmentFormProp) {
+export interface EquipmentEditProps extends EquipmentFormProp {
+    props: EquipmentFormData;
+}
+
+export default function EquipmentEditForm({ equipment_type, locations, technical_locations, props }: EquipmentEditProps) {
     const { data, setData, post, processing, errors, reset } = useForm<Required<EquipmentFormData>>({
-        model: '',
-        brand: '',
-        serial: '',
-        type: '',
-        description: '',
-        technical_location: '',
-        status: 1,
+        ...props,
+        technical_location: String(props.technical_location),
     });
 
     const statusOptions = [
+        { code: 0, name: 'inactivo' },
         { code: 1, name: 'activo' },
         { code: 2, name: 'mantenimiento' },
-        { code: 0, name: 'inactivo' },
     ];
 
     const [locationOptions] = useState<TechnicalLocationModel[]>(technical_locations);
@@ -31,13 +30,13 @@ export default function EquipmentForm({ equipment_type, locations, technical_loc
 
     // const filteredLocations = query === '' ? locationOptions : locationOptions.filter((loc) => loc.toLowerCase().includes(query.toLowerCase()));
 
-    const handleInputChange = (field: keyof EquipmentFormData, value: string) => {
+    const handleInputChange = (field: keyof EquipmentFormData, value: string | number) => {
         setData(field, value);
     };
 
     const submit: FormEventHandler = (e) => {
         e.preventDefault();
-        post(route('equipment.store'), {
+        post(route('equipment.update'), {
             onFinish: () => reset('technical_location', 'type'),
         });
     };
@@ -51,7 +50,7 @@ export default function EquipmentForm({ equipment_type, locations, technical_loc
                 </Link>
             </div>
 
-            <h1 className="mb-4 text-center text-2xl font-bold"> Registrar Nuevo Equipo</h1>
+            <h1 className="mb-4 text-center text-2xl font-bold">Actualizar Equipo</h1>
             <p className="mb-6 text-center text-gray-600">Complete la información del equipo</p>
 
             <form onSubmit={submit} className="space-y-8 border-t pt-7">
@@ -94,6 +93,7 @@ export default function EquipmentForm({ equipment_type, locations, technical_loc
                             placeholder="Número de Serial"
                             value={data.serial}
                             onChange={(e) => handleInputChange('serial', e.target.value)}
+                            disabled
                             className="w-full resize-none rounded-[8px] border border-zinc-200 bg-white px-4 py-3 text-base text-neutral-900 placeholder:text-neutral-500 focus-visible:ring-2 focus-visible:ring-teal-500 focus-visible:outline-none"
                         />
                         <InputError message={errors.serial} />
@@ -103,7 +103,7 @@ export default function EquipmentForm({ equipment_type, locations, technical_loc
                         <label className="mb-2 block text-sm font-medium text-neutral-900">
                             Tipo de Equipo <span className="text-red-500">*</span>
                         </label>
-                        <Select value={data.type} onValueChange={(value) => handleInputChange('type', value)} required>
+                        <Select value={data.type} onValueChange={(value) => handleInputChange('type', value)} required disabled>
                             <SelectTrigger className="mt-1 w-full rounded-xl border border-gray-300 py-7 shadow-sm hover:text-black focus-visible:border-gray-300 focus-visible:ring-2 focus-visible:ring-teal-500 focus-visible:ring-offset-0">
                                 <SelectValue placeholder="Seleccione un tipo de equipo" className="text-[#8b8b8b]" />
                             </SelectTrigger>
@@ -139,7 +139,7 @@ export default function EquipmentForm({ equipment_type, locations, technical_loc
                                     name="status"
                                     value={statusOption.code}
                                     checked={data.status === statusOption.code}
-                                    onChange={(e) => handleInputChange('status', e.target.value)}
+                                    onChange={(e) => handleInputChange('status', Number(e.target.value))}
                                     className="h-4 w-4 text-teal-600 focus:ring-teal-500"
                                 />
                                 <span className="text-base text-neutral-900 capitalize">{statusOption.name}</span>
@@ -201,7 +201,12 @@ export default function EquipmentForm({ equipment_type, locations, technical_loc
                             </SelectContent>
                         </Select>
                     </div>
-                    <Select value={data.technical_location} onValueChange={(value) => handleInputChange('technical_location', value)} required>
+                    <Select
+                        value={data.technical_location}
+                        onValueChange={(value) => handleInputChange('technical_location', value)}
+                        required
+                        disabled
+                    >
                         <SelectTrigger className="mt-5 w-full rounded-xl border border-gray-300 py-7 shadow-sm hover:text-black focus-visible:border-gray-300 focus-visible:ring-2 focus-visible:ring-teal-500 focus-visible:ring-offset-0">
                             <SelectValue placeholder="Seleccione una ubicación técnica" className="text-[#8b8b8b]" />
                         </SelectTrigger>
@@ -229,7 +234,7 @@ export default function EquipmentForm({ equipment_type, locations, technical_loc
                         className="h-12 rounded-xl bg-[#1e9483] px-36 text-base text-white transition hover:bg-[#1e9483]/90"
                         disabled={processing}
                     >
-                        Crear equipo
+                        Actualizar equipo
                     </button>
                 </div>
             </form>

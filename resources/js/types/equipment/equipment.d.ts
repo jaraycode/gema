@@ -20,6 +20,10 @@ export interface EquipmentFormProps extends NavBarProps {
     technical_locations: TechnicalLocationModel[];
 }
 
+export interface EquipmentEditFormProps extends EquipmentFormProps {
+    props: EquipmentFormData;
+}
+
 export type EquipmentnFormData = Omit<EquipmentnModel, 'id'>;
 
 export interface EquipmentFormData {

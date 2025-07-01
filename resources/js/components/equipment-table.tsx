@@ -1,7 +1,7 @@
 import { Button } from '@/components/ui/button';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { EquipmentModel } from '@/types';
-import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons';
+import { faChevronLeft, faChevronRight, faPen, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Link } from '@inertiajs/react';
 import {
@@ -43,6 +43,20 @@ export const columns: ColumnDef<EquipmentModel>[] = [
         accessorKey: 'status',
         header: () => <div>Estado</div>,
         cell: ({ row }) => <div>{row.getValue('status')}</div>,
+    },
+    {
+        accessorKey: 'action',
+        header: () => <div>Acciones</div>,
+        cell: ({ row }) => (
+            <div className="flex gap-2">
+                <Link href={route('equipment.edit', { id: row.getValue('code') })}>
+                    <FontAwesomeIcon icon={faPen} />
+                </Link>
+                <Link href={route('equipment.destroy', { id: row.getValue('code') })} method="delete" className="hover:cursor-pointer">
+                    <FontAwesomeIcon icon={faTrash} />
+                </Link>
+            </div>
+        ),
     },
 ];
 

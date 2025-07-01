@@ -38,6 +38,11 @@ class EquipmentService
         });
     }
 
+    public function getEquipmentById(string $id): Equipment|null
+    {
+        return Equipment::find(id: $id);
+    }
+
     public function getEquipmentType(): Collection
     {
         return Location::where('delete_at')->where('level', '=', LocationLevel::EQUIPMENT->value)->get(['name', 'code']);

@@ -1,13 +1,21 @@
 import { AppSidebar } from '@/components/app-sidebar';
-import EquipmentForm from '@/components/equipment/equipment-form';
+import EquipmentEditForm from '@/components/equipment/equipment-edit';
 import { SiteHeader } from '@/components/site-header';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { SidebarInset, SidebarProvider } from '@/components/ui/sidebar';
-import { EquipmentFormProps, ResponseHandlerProps } from '@/types';
+import { EquipmentEditFormProps, ResponseHandlerProps } from '@/types';
 import { Head, usePage } from '@inertiajs/react';
 import { useEffect, useState } from 'react';
 
-export default function EquipmentCreate({ user, navMain, navSecondary, equipment_type, locations, technical_locations }: EquipmentFormProps) {
+export default function EquipmentEdit({
+    user,
+    navMain,
+    navSecondary,
+    equipment_type,
+    locations,
+    technical_locations,
+    props,
+}: EquipmentEditFormProps) {
     const { flash } = usePage<ResponseHandlerProps>().props;
     const flashMessage = flash?.error ?? flash?.success;
     const [showAlert, setShowAlert] = useState(flashMessage ? true : false);
@@ -38,7 +46,12 @@ export default function EquipmentCreate({ user, navMain, navSecondary, equipment
                                     <AlertDescription className="text-white">{flash?.success ?? flash?.error}</AlertDescription>
                                 </Alert>
                             )}
-                            <EquipmentForm equipment_type={equipment_type} locations={locations} technical_locations={technical_locations} />
+                            <EquipmentEditForm
+                                equipment_type={equipment_type}
+                                locations={locations}
+                                technical_locations={technical_locations}
+                                props={props}
+                            />
                         </div>
                     </div>
                 </div>
