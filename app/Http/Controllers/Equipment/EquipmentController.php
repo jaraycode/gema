@@ -31,7 +31,7 @@ class EquipmentController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id): never
+    public function show(string $id)
     {
         throw new NotImplementedException();
     }
@@ -80,8 +80,8 @@ class EquipmentController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(string $id): RedirectResponse
     {
-        //
+        return $this->equipmentService->softDeleteEquipment(id: $id);
     }
 }

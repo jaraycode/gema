@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string(column: 'brand');
             $table->string(column: 'serial');
             $table->string(column: 'description');
+            $table->string(column: 'type');
             $table->integer(column: 'status');
             $table->timestamp(column: 'delete_at')->nullable()->default(value: null);
             $table->timestamps();

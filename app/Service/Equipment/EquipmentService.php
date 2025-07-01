@@ -3,14 +3,11 @@
 namespace App\Service\Equipment;
 
 use App\Contracts\Correlative;
-use App\Enums\Location\LocationLevel;
 use App\Models\Equipment;
-use App\Models\Location;
 use App\Models\TechnicalLocation;
 use App\Repository\Core\SidebarRepository;
 use App\Service\Util\CorrelativeEquipment;
 use Exception;
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\DB;
@@ -32,7 +29,7 @@ class EquipmentService
 
     public function getAllEquipments(): LengthAwarePaginator
     {
-        return Equipment::paginate(perPage: Equipment::count())->through(callback: function ($value): mixed {
+        return Equipment::where('delete_at')->paginate(perPage: Equipment::count())->through(callback: function ($value): mixed {
             $value->status = castEquipmentStatus(index: $value->status);
             return $value;
         });
@@ -43,9 +40,9 @@ class EquipmentService
         return Equipment::find(id: $id);
     }
 
-    public function getEquipmentType(): Collection
+    public function getEquipmentType(): array
     {
-        return Location::where('delete_at')->where('level', '=', LocationLevel::EQUIPMENT->value)->get(['name', 'code']);
+        return ['Refrigeración', 'Logística', 'Infraestructura', 'Mecánico', 'Eléctrico'];
     }
 
     public function storeEquipment(array $request): RedirectResponse
@@ -62,14 +59,9 @@ class EquipmentService
             if (empty($technicalLocations)) throw new Exception(message: 'Ubicación técnica no existe o ha sido deshabilitada');
 
             $technicalLocations = $technicalLocations->toArray()[0];
-
             $code = explode(separator: '-', string: $technicalLocations['code']);
             $code = array_reverse($code);
-
-            if ($code[0] !== $request['type']) throw new Exception(message: 'El tipo de equipo tiene que coincidir con la ubicación técnica');
-
-            $correlative = $this->correlativeService->getCorrelative(equipment: $request['type']);
-
+            $correlative = $this->correlativeService->getCorrelative(equipment: $code[0]);
             $request['code'] = $technicalLocations['code'] . '-' . $correlative;
             $request['technical_location'] = intval(value: $request['technical_location']);
 
@@ -83,6 +75,7 @@ class EquipmentService
             throw new Exception(message: 'Error al guardar');
         } catch (Exception $e) {
             DB::rollBack();
+            dd($e);
             return redirect()->back()->with(key: 'error', value: $e->getMessage());
         }
     }
@@ -106,6 +99,30 @@ class EquipmentService
             }
 
             throw new Exception(message: 'Error al actualizar el equipo');
+        } catch (Exception $e) {
+            DB::rollBack();
+            return redirect()->back()->with(key: 'error', value: $e->getMessage());
+        }
+    }
+
+    /**
+     * Toma la clave primaria del equipo para actualizar el campo 'delete_at' para inhabilitar el registro y que no pueda aparecer en otros campos.
+     * @param string $id
+     * @throws \Exception
+     * @return RedirectResponse
+     */
+    public function softDeleteEquipment(string $id): RedirectResponse
+    {
+        DB::beginTransaction();
+        try {
+            $response = Equipment::where(column: 'code', operator: '=', value: $id)->update(['delete_at' => now()]);
+
+            if ($response > 0) {
+                DB::commit();
+                return redirect()->route(route: 'equipment.index')->with(key: 'success', value: 'Equipo inhabilitado exitosamente');
+            }
+
+            throw new Exception(message: 'Error al inhabilitar el equipo');
         } catch (Exception $e) {
             DB::rollBack();
             return redirect()->back()->with(key: 'error', value: $e->getMessage());

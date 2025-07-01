@@ -1,4 +1,4 @@
-import { LocationEquipmentProps, NavBarProps, PaginatedData, TechnicalLocationModel, TechnicalLocationObject } from '..';
+import { NavBarProps, PaginatedData, TechnicalLocationModel, TechnicalLocationObject } from '..';
 
 export interface EquipmentModel {
     code: string;
@@ -16,7 +16,7 @@ export interface EquipmentProps extends NavBarProps {
 }
 
 export interface EquipmentFormProps extends NavBarProps {
-    equipment_type: LocationEquipmentProps[];
+    equipment_type: string[];
     locations: TechnicalLocationObject;
     technical_locations: TechnicalLocationModel[];
 }

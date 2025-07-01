@@ -109,8 +109,8 @@ export default function EquipmentEditForm({ equipment_type, locations, technical
                             </SelectTrigger>
                             <SelectContent className="rounded-xl bg-white shadow-sm">
                                 {equipment_type.map((value, key) => (
-                                    <SelectItem key={key} value={value.code}>
-                                        {`${value.code} - ${value.name}`}
+                                    <SelectItem key={key} value={value}>
+                                        {value}
                                     </SelectItem>
                                 ))}
                             </SelectContent>
@@ -224,7 +224,7 @@ export default function EquipmentEditForm({ equipment_type, locations, technical
                 {/* Botones */}
                 <div className="mt-10 flex justify-center gap-4">
                     <Link
-                        href={route('technical-location.index')}
+                        href={route('equipment.index')}
                         className="flex h-12 items-center justify-center rounded-xl bg-gray-200 px-36 text-base text-gray-700 transition hover:bg-gray-300"
                     >
                         Cancelar
