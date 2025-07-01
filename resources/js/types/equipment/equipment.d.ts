@@ -1,14 +1,17 @@
 import { LocationEquipmentProps, NavBarProps, PaginatedData, TechnicalLocationModel, TechnicalLocationObject } from '..';
 
-export interface EquipmentnModel {
-    id: number;
-    name: string;
+export interface EquipmentModel {
     code: string;
-    level: number | string;
+    model: string;
+    brand: string;
+    serial: string;
+    type: string;
+    description: string;
+    status: number;
 }
 
-export interface EquipmentnProps extends NavBarProps {
-    data: PaginatedData<EquipmentnModel>;
+export interface EquipmentProps extends NavBarProps {
+    data: PaginatedData<EquipmentModel>;
 }
 
 export interface EquipmentFormProps extends NavBarProps {
@@ -18,3 +21,13 @@ export interface EquipmentFormProps extends NavBarProps {
 }
 
 export type EquipmentnFormData = Omit<EquipmentnModel, 'id'>;
+
+export interface EquipmentFormData {
+    model: string;
+    brand: string;
+    serial: string;
+    type: string;
+    description: string;
+    technical_location: string;
+    status: number;
+}

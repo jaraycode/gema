@@ -33,6 +33,19 @@ if (!function_exists(function: 'castLevel')) {
     }
 }
 
+if (!function_exists(function: 'castEquipmentStatus')) {
+    /**
+     * This function needs the index to then return a name based on the levels of the locations
+     * @param int $index
+     * @return string
+     */
+    function castEquipmentStatus(int $index): string
+    {
+        $casting = ['Inactivo', 'Activo', 'Mantenimiento'];
+        return $casting[$index];
+    }
+}
+
 if (!function_exists(function: 'castLevelTechnicalLocation')) {
     /**
      * This function needs the index to then return a name based on the levels of the locations for technical locations

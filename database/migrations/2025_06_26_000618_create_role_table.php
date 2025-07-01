@@ -35,5 +35,6 @@ return new class extends Migration
     public function down(): void
     {
         Schema::dropIfExists('role');
+        Schema::dropIfExists('personnel_role');
     }
 };

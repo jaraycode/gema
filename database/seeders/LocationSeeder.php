@@ -193,6 +193,5 @@ class LocationSeeder extends Seeder
         foreach ($locations as $location) {
             Location::create($location);
         }
-        Location::factory(count: 100)->create();
     }
 }

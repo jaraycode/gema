@@ -1,6 +1,6 @@
 import { Button } from '@/components/ui/button';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
-import { PaginatedData } from '@/types';
+import { EquipmentModel } from '@/types';
 import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Link } from '@inertiajs/react';
@@ -18,35 +18,40 @@ import {
 } from '@tanstack/react-table';
 import { useState } from 'react';
 
-export const columns: ColumnDef<any>[] = [
+export const columns: ColumnDef<EquipmentModel>[] = [
     {
-        accessorKey: 'id',
-        header: () => <div>ID ubicación</div>,
-        cell: ({ row }) => <div>{row.getValue('id')}</div>,
+        accessorKey: 'code',
+        header: () => <div>ID equipo</div>,
+        cell: ({ row }) => <div>{row.getValue('code')}</div>,
     },
     {
-        accessorKey: 'name',
-        header: () => <div>Nombre de la ubicación</div>,
-        cell: ({ row }) => <div>{row.getValue('name')}</div>,
+        accessorKey: 'brand',
+        header: () => <div>Marca</div>,
+        cell: ({ row }) => <div>{row.getValue('brand')}</div>,
     },
     {
-        accessorKey: 'type',
-        header: () => <div>Tipo</div>,
-        cell: ({ row }) => <div>{row.getValue('type')}</div>,
+        accessorKey: 'model',
+        header: () => <div>Modelo</div>,
+        cell: ({ row }) => <div>{row.getValue('model')}</div>,
     },
     {
-        accessorKey: 'state',
+        accessorKey: 'serial',
+        header: () => <div>Serial</div>,
+        cell: ({ row }) => <div>{row.getValue('serial')}</div>,
+    },
+    {
+        accessorKey: 'status',
         header: () => <div>Estado</div>,
-        cell: ({ row }) => <div>{row.getValue('state')}</div>,
+        cell: ({ row }) => <div>{row.getValue('status')}</div>,
     },
 ];
 
-export function EquipmentTable({ data }: PaginatedData<any>) {
+export function EquipmentTable({ data }: { data: EquipmentModel[] }) {
     const [sorting, setSorting] = useState<SortingState>([]);
     const [globalFilter, setGlobalFilter] = useState('');
     const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
-    const globalFilterFn: FilterFnOption<any> = 'includesString';
-    const table = useReactTable<any>({
+    const globalFilterFn: FilterFnOption<EquipmentModel> = 'includesString';
+    const table = useReactTable<EquipmentModel>({
         data,
         columns,
         onSortingChange: setSorting,
@@ -115,7 +120,7 @@ export function EquipmentTable({ data }: PaginatedData<any>) {
                     Mantenimiento
                 </button>
             </div>
-            <div className="relative mb-4 relative w-full max-w-full">
+            <div className="relative mb-4 w-full max-w-full">
                 <span className="absolute inset-y-0 left-3 flex items-center text-gray-500">
                     <svg className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-4.35-4.35m0 0A7.5 7.5 0 103 10.5a7.5 7.5 0 0013.15 6.15z" />

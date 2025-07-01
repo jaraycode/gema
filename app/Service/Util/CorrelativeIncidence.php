@@ -36,7 +36,7 @@ class CorrelativeIncidence implements Correlative
                     'counter' => $correlativo + 1
                 ]);
             } else {
-                CorrIncidence::where(column: 'code', operator: '=', value: $equipment)->where(column: 'year', operator: '=', value: $year)->update(attributes: ['counter' => $correlativo + 1]);
+                CorrIncidence::where(column: 'code', operator: '=', value: $equipment)->where(column: 'year', operator: '=', value: $year)->update(['counter' => $correlativo + 1]);
             }
 
             return $correlativo;

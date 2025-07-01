@@ -87,6 +87,7 @@ export function StoreLocationForm() {
                                 </SelectItem>
                             </SelectContent>
                         </Select>
+                        <InputError message={errors.level} />
                     </div>
                 </div>
 

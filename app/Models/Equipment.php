@@ -23,6 +23,7 @@ class Equipment extends Model
         'description',
         'status',
         'delete_at',
+        'technical_location',
     ];
 
     protected $casts = [

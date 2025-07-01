@@ -34,7 +34,7 @@ class CorrelativeEquipment implements Correlative
                     'counter' => $correlativo + 1
                 ]);
             } else {
-                CorrEquipment::where(column: 'code', operator: '=', value: $equipment)->update(attributes: ['counter' => $correlativo + 1]);
+                CorrEquipment::where(column: 'code', operator: '=', value: $equipment)->update(['counter' => $correlativo + 1]);
             }
 
             return $correlativo;
