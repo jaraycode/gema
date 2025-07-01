@@ -70,6 +70,6 @@ class DepartmentController extends Controller
 
     public function destroy(string $id): RedirectResponse
     {
-        return $this->departmentService->updateDepartment(request: ['delete_at' => now()], id: intval(value: $id));
+        return $this->departmentService->softDeleteDepartment(id: intval(value: $id));
     }
 }

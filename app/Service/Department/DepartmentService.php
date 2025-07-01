@@ -23,7 +23,7 @@ class DepartmentService
 
     public function getAllDepartments(): LengthAwarePaginator
     {
-        return Department::paginate(perPage: Department::count());
+        return Department::where('delete_at')->orderBy('id')->paginate(perPage: Department::count());
     }
 
     public function storeDepartment(array $request): RedirectResponse
@@ -45,7 +45,19 @@ class DepartmentService
             return redirect()->back()->with(key: 'error', value: 'No se pudo actualizar el departamento. Intente nuevamente!');
         } catch (Exception $e) {
             Log::error(message: $e->getMessage());
-            return redirect()->back()->with(key: 'error', value: 'No se pudo guardar el departamento: ' . $e->getMessage());
+            return redirect()->back()->with(key: 'error', value: 'No se pudo actualizar el departamento: ' . $e->getMessage());
+        }
+    }
+
+    public function softDeleteDepartment(int $id): RedirectResponse
+    {
+        try {
+            $response = Department::where(column: 'id', operator: '=', value: $id)->update(['delete_at' => now()]);
+            if ($response > 0) return redirect()->route(route: 'department.index')->with(key: 'success', value: 'Departamento inhabilitado exitosamente');
+            return redirect()->back()->with(key: 'error', value: 'No se pudo inhabilitar el departamento. Intente nuevamente!');
+        } catch (Exception $e) {
+            Log::error(message: $e->getMessage());
+            return redirect()->back()->with(key: 'error', value: 'No se pudo inhabilitar el departamento: ' . $e->getMessage());
         }
     }
 }
