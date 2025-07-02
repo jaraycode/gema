@@ -42,19 +42,17 @@ interface EditPersonelFormProps {
 
 export function Editform({ departamentos, personel, onSubmit, processing }: EditPersonelFormProps) {
     const currentDepartment = personel.departments.length > 0 ? personel.departments[0] : null;
-
     const { data, setData } = useForm({
-        // Combinar todos los nombres y apellidos
-        nombre: [personel.first_name, personel.second_name, personel.last_name, personel.second_last_name].filter(Boolean).join(' '),
-        telefono: personel.phone_number,
+        name: [personel.first_name, personel.second_name, personel.last_name, personel.second_last_name].filter(Boolean).join(' '),
+        phone_number: personel.phone_number,
         email: personel.email,
-        departamento: currentDepartment?.id.toString() || '',
+        department: currentDepartment?.id.toString() || '',
     });
 
     useEffect(() => {
         if (currentDepartment && !departamentos.some((depto) => depto.id === currentDepartment.id)) {
             console.warn(`El departamento con ID ${currentDepartment.id} no existe en la lista proporcionada`);
-            setData('departamento', '');
+            setData('department', '');
         }
     }, [departamentos, currentDepartment]);
 
@@ -63,7 +61,7 @@ export function Editform({ departamentos, personel, onSubmit, processing }: Edit
         onSubmit({
             ...data,
             dni: personel.dni,
-            departamento: data.departamento ? Number(data.departamento) : null,
+            department: data.department ? Number(data.department) : null,
         });
     };
 
@@ -85,8 +83,8 @@ export function Editform({ departamentos, personel, onSubmit, processing }: Edit
                             <Label htmlFor="nombre">Nombre completo</Label>
                             <Input
                                 id="nombre"
-                                value={data.nombre}
-                                onChange={(e) => setData('nombre', e.target.value)}
+                                value={data.name}
+                                onChange={(e) => setData('name', e.target.value)}
                                 placeholder="Nombre completo"
                                 required
                                 className="mt-1 rounded-xl border border-gray-300 py-7 text-[#8b8b8b] shadow-sm focus:border-gray-300"
@@ -109,7 +107,7 @@ export function Editform({ departamentos, personel, onSubmit, processing }: Edit
                     <div className="grid grid-cols-1 gap-9 gap-y-8 md:grid-cols-2">
                         <div className="space-y-3">
                             <Label htmlFor="departamento">Departamento</Label>
-                            <Select onValueChange={(value) => setData('departamento', value)} value={data.departamento}>
+                            <Select onValueChange={(value) => setData('department', value)} value={data.department}>
                                 <SelectTrigger className="mt-1 w-full rounded-xl border border-gray-300 py-7 shadow-sm hover:text-black focus:border-gray-300 focus:ring-0 focus:ring-offset-0">
                                     <SelectValue placeholder={currentDepartment ? currentDepartment.name : 'Seleccionar Departamento'} />
                                 </SelectTrigger>
@@ -130,8 +128,8 @@ export function Editform({ departamentos, personel, onSubmit, processing }: Edit
                             <Label htmlFor="telefono">Teléfono</Label>
                             <Input
                                 id="telefono"
-                                value={data.telefono}
-                                onChange={(e) => setData('telefono', e.target.value)}
+                                value={data.phone_number}
+                                onChange={(e) => setData('phone_number', e.target.value)}
                                 placeholder="Número de teléfono"
                                 required
                                 className="mt-1 rounded-xl border border-gray-300 py-7 text-[#8b8b8b] shadow-sm focus:border-gray-300"

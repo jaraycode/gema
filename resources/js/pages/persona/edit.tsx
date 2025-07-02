@@ -19,22 +19,24 @@ interface EditPersonelPageProps {
 }
 
 export default function EditPersonelPage(props: EditPersonelPageProps) {
-    const { put, processing } = useForm();
+    const { put, processing } = useForm(props.personel);
 
     const handleSubmit = (formData: any) => {
-        console.log(formData);
-        const [firstName, ...lastNames] = formData.nombre.split(' ');
+        const [firstName, ...lastNames] = formData.name.split(' ');
         const lastName = lastNames.join(' ');
 
         const transformedData = {
             email: formData.email,
             dni: formData.dni,
-            phone_number: formData.telefono,
+            phone_number: formData.phone_number,
             first_name: firstName,
             last_name: lastName,
-            department: formData.departamento,
+            second_name: '',
+            second_last_name: '',
+            department: formData.department,
         };
-
+        console.log(transformedData);
+        console.log(props.personel.id);
         put(route('personel.update', { id: props.personel.id }), {
             ...transformedData,
             preserveScroll: true,
