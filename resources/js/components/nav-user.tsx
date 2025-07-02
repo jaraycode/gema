@@ -30,7 +30,7 @@ export function NavUser({ user }: NavUserProps) {
                     <DropdownMenuTrigger className="hover:cursor-pointer" asChild>
                         <SidebarMenuButton size="lg" className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground">
                             <Avatar className="h-8 w-8 rounded-full border border-black grayscale">
-                                <AvatarImage src={user.avatar} alt={user.name} />
+                                <AvatarImage src="/images/gemaLogo.png" alt={user.name} />
                                 <AvatarFallback className="rounded-full">CN</AvatarFallback>
                             </Avatar>
                             <div className="grid flex-1 text-left text-sm leading-tight">
