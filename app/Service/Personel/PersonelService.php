@@ -8,6 +8,7 @@ use App\Repository\Core\SidebarRepository;
 use Exception;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use PhpParser\Builder;
 
@@ -65,17 +66,45 @@ class PersonelService
     }
   }
 
-  public function updatePersonnel(int $id, array $personnel): RedirectResponse
-  {
-    try {
-      $response = Personel::where(column: 'id', operator: '=', value: $id)->update($personnel);
-      if ($response > 0) return redirect()->route(route: 'personel.index')->with(key: 'success', value: 'Personal actualizado exitosamente');
-      return redirect()->back()->with(key: 'error', value: 'No se pudo actualizar el Personal. Intente nuevamente!');
-    } catch (Exception $e) {
-      Log::error(message: 'Actualización de Personal ' . $e->getMessage());
-      throw new Exception(message: "Error al actualizar Personal: " . $e->getMessage());
+    public function updatePersonnel(int $id, array $personnel): RedirectResponse
+    {
+        try {
+            DB::beginTransaction();
+
+
+            $newDepartmentId = $personnel['department'];
+            unset($personnel['department']);
+
+
+            $personnelRecord = Personel::findOrFail($id);
+
+
+            $personnelRecord->update($personnel);
+
+            $currentDepartment = $personnelRecord->departments()
+                ->wherePivot('end_date', null)
+                ->first();
+
+            if ($currentDepartment) {
+                $personnelRecord->departments()->updateExistingPivot($currentDepartment->id, [
+                    'end_date' => now()->setTimezone('GMT-4')->format('Y-m-d H:i:s')
+                ]);
+            }
+
+            $personnelRecord->departments()->attach($newDepartmentId, [
+                'begin_date' => now()->setTimezone('GMT-4')->format('Y-m-d H:i:s'),
+                'end_date' => null
+            ]);
+
+            DB::commit();
+
+            return redirect()->route('personel.index')->with('success', 'Personal actualizado exitosamente');
+        } catch (Exception $e) {
+            DB::rollBack();
+            Log::error('Actualización de Personal ' . $e->getMessage());
+            return redirect()->back()->with('error', 'No se pudo actualizar el Personal. Intente nuevamente!');
+        }
     }
-  }
 
   public function deletePersonnel(int $id): RedirectResponse
   {

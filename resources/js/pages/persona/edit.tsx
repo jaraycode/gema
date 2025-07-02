@@ -1,8 +1,7 @@
 import { AppSidebar } from '@/components/app-sidebar';
-import { Createform } from '@/components/personel/create/create-form';
+import { Editform } from '@/components/personel/edit/edit-form';
 import { SiteHeader } from '@/components/site-header';
 import { SidebarInset, SidebarProvider } from '@/components/ui/sidebar';
-import { NavBarProps } from '@/types';
 import { useForm } from '@inertiajs/react';
 
 interface Departments {
@@ -10,30 +9,44 @@ interface Departments {
     name: string;
     code: string;
 }
-interface CreatePersonelProps extends NavBarProps {
+
+interface EditPersonelPageProps {
+    user: any;
+    navMain: any[];
+    navSecondary: any[];
+    personel: any;
     departamentos: Departments[];
-    cargos: string[];
 }
 
-export default function CreatePersonel(props: CreatePersonelProps) {
-    const { post, processing } = useForm();
+export default function EditPersonelPage(props: EditPersonelPageProps) {
+    const { put, processing } = useForm(props.personel);
 
     const handleSubmit = (formData: any) => {
+        const [firstName, ...lastNames] = formData.name.split(' ');
+        const lastName = lastNames.join(' ');
+
         const transformedData = {
             email: formData.email,
-            phone_number: formData.telefono,
-            first_name: formData.nombre.split(' ')[0] || '',
-            last_name: formData.nombre.split(' ').slice(1).join(' ') || '',
-            username: formData.email.split('@')[0],
-            password: 'password123',
-            department: formData.departamento,
-            dni: formData.cedula,
+            dni: formData.dni,
+            phone_number: formData.phone_number,
+            first_name: firstName,
+            last_name: lastName,
+            second_name: '',
+            second_last_name: '',
+            department: formData.department,
         };
-        post(route('personel.store', transformedData));
-    };
-
-    const handleCancel = () => {
-        window.history.back();
+        console.log(transformedData);
+        console.log(props.personel.id);
+        put(route('personel.update', { id: props.personel.id }), {
+            ...transformedData,
+            preserveScroll: true,
+            onSuccess: () => {
+                window.location.href = route('personel.show', { id: props.personel.id });
+            },
+            onError: (errors) => {
+                console.error('Error al actualizar:', errors);
+            },
+        });
     };
 
     return (
@@ -53,10 +66,10 @@ export default function CreatePersonel(props: CreatePersonelProps) {
                     <div className="@container/main flex flex-1 flex-col gap-2">
                         <div className="flex flex-col gap-4 py-4 md:gap-6 md:py-6">
                             <div className="px-10 lg:px-25">
-                                <Createform
+                                <Editform
                                     departamentos={props.departamentos}
+                                    personel={props.personel}
                                     onSubmit={handleSubmit}
-                                    onCancel={handleCancel}
                                     processing={processing}
                                 />
                             </div>

@@ -115,13 +115,14 @@ export function PersonelTable({ data }: PersonnelTableProps) {
                         <TableBody>
                             {filteredData.length > 0 ? (
                                 filteredData.map((item) => (
-                                    <TableRow key={item.id} className="rounded-xl border-b border-gray-800 hover:bg-[#f0f2f5]">
+                                    <TableRow key={item.id} className="rounded-xl border-b border-gray-800">
                                         <TableCell>{formatDate(item.created_at)}</TableCell>
-                                        <TableCell>{item.id}</TableCell>
+                                        <TableCell>{item.dni}</TableCell>
                                         <TableCell className="font-medium">
                                             {item.first_name}
-                                            {item.second_name ? ` ${item.second_name}` : ''}
-                                            {item.last_name}
+                                            {item.second_name && ` ${item.second_name}`}
+                                            {` ${item.last_name}`}
+                                            {item.second_last_name && ` ${item.second_last_name}`}
                                         </TableCell>
                                         <TableCell>Jefe</TableCell>
                                         <TableCell className="capitalize">{item.departments}</TableCell>

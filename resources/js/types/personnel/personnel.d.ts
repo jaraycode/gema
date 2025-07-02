@@ -14,6 +14,7 @@ export interface PersonnelModel extends BaseModel {
     created_at: string;
     updated_at: string;
     departments: string;
+    dni: string;
 }
 
 export interface PersonnelTableProps {
@@ -26,6 +27,7 @@ export interface PersonelProps extends NavBarProps {
 
 export interface ProfileInfoProps {
     data: {
+        id: number;
         nombre: string;
         cedula: string;
         telefono: string;

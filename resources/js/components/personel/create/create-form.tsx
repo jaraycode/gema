@@ -5,6 +5,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Link, useForm } from '@inertiajs/react';
+import { useState } from 'react';
 
 interface Departments {
     id: number;
@@ -20,16 +21,23 @@ interface CreatePersonelFormProps {
 }
 
 export function Createform({ departamentos, onSubmit, onCancel, processing = false }: CreatePersonelFormProps) {
+    const [tipoDocumento, setTipoDocumento] = useState('V'); // Valor por defecto: V (Venezolano)
     const { data, setData } = useForm({
         nombre: '',
         telefono: '',
         email: '',
         departamento: '',
+        cedula: '',
     });
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        onSubmit(data);
+        // Combinamos el tipo de documento con el número de cédula
+        const cedulaCompleta = `${tipoDocumento}-${data.cedula}`;
+        onSubmit({
+            ...data,
+            cedula: cedulaCompleta,
+        });
     };
 
     return (
@@ -44,7 +52,6 @@ export function Createform({ departamentos, onSubmit, onCancel, processing = fal
 
             <form onSubmit={handleSubmit} className="space-y-8 border-t-1 pt-7">
                 <div className="space-y-8">
-                    {/* Fila 1: Nombre completo */}
                     <div className="grid grid-cols-1 gap-9 gap-y-8 md:grid-cols-2">
                         <div className="space-y-3">
                             <Label htmlFor="nombre">Nombre completo</Label>
@@ -57,7 +64,37 @@ export function Createform({ departamentos, onSubmit, onCancel, processing = fal
                                 className="mt-1 rounded-xl border border-gray-300 py-7 text-[#8b8b8b] shadow-sm focus:border-gray-300"
                             />
                         </div>
-                        {/* Espacio vacío para mantener el diseño de dos columnas */}
+
+                        <div className="space-y-3">
+                            <Label>Documento de Identidad</Label>
+                            <div className="flex gap-2">
+                                <Select value={tipoDocumento} onValueChange={setTipoDocumento}>
+                                    <SelectTrigger className="w-20 rounded-xl border border-gray-300 py-7 shadow-sm hover:text-black focus:border-gray-300 focus:ring-0 focus:ring-offset-0">
+                                        <SelectValue />
+                                    </SelectTrigger>
+                                    <SelectContent className="rounded-xl bg-white shadow-sm">
+                                        <SelectItem value="V" className="text-[#8b8b8b] hover:bg-gray-100 hover:text-black">
+                                            V
+                                        </SelectItem>
+                                        <SelectItem value="E" className="text-[#8b8b8b] hover:bg-gray-100 hover:text-black">
+                                            E
+                                        </SelectItem>
+                                    </SelectContent>
+                                </Select>
+                                <Input
+                                    id="cedula"
+                                    value={data.cedula}
+                                    onChange={(e) => setData('cedula', e.target.value)}
+                                    placeholder="Número de documento"
+                                    maxLength={tipoDocumento === 'V' ? 8 : 10} // Ejemplo: diferentes longitudes máximas
+                                    required
+                                    className="mt-0 flex-1 rounded-xl border border-gray-300 py-7 text-[#8b8b8b] shadow-sm focus:border-gray-300"
+                                />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="grid grid-cols-1 gap-9 gap-y-8 md:grid-cols-2">
                         <div className="space-y-3">
                             <Label htmlFor="email">Correo electrónico</Label>
                             <Input
@@ -70,29 +107,6 @@ export function Createform({ departamentos, onSubmit, onCancel, processing = fal
                                 className="mt-1 rounded-xl border border-gray-300 py-7 text-[#8b8b8b] shadow-sm focus:border-gray-300"
                             />
                         </div>
-                    </div>
-
-                    {/* Fila 2: Correo y Teléfono */}
-                    <div className="grid grid-cols-1 gap-9 gap-y-8 md:grid-cols-2">
-                        <div className="space-y-3">
-                            <Label htmlFor="departamento">Departamento</Label>
-                            <Select onValueChange={(value) => setData('departamento', value)} value={data.departamento}>
-                                <SelectTrigger className="mt-1 w-full rounded-xl border border-gray-300 py-7 shadow-sm hover:text-black focus:border-gray-300 focus:ring-0 focus:ring-offset-0">
-                                    <SelectValue placeholder="Seleccionar Departamento" className="text-[#8b8b8b]" />
-                                </SelectTrigger>
-                                <SelectContent className="rounded-xl bg-white shadow-sm">
-                                    {departamentos.map((depto) => (
-                                        <SelectItem
-                                            key={depto.id}
-                                            value={String(depto.id)}
-                                            className="text-[#8b8b8b] hover:bg-gray-100 hover:text-black"
-                                        >
-                                            {depto.name}
-                                        </SelectItem>
-                                    ))}
-                                </SelectContent>
-                            </Select>
-                        </div>
                         <div className="space-y-3">
                             <Label htmlFor="telefono">Teléfono</Label>
                             <Input
@@ -100,10 +114,28 @@ export function Createform({ departamentos, onSubmit, onCancel, processing = fal
                                 value={data.telefono}
                                 onChange={(e) => setData('telefono', e.target.value)}
                                 placeholder="Teléfono"
+                                maxLength={11}
                                 required
                                 className="mt-1 rounded-xl border border-gray-300 py-7 text-[#8b8b8b] shadow-sm focus:border-gray-300"
                             />
                         </div>
+                    </div>
+                </div>
+                <div className="grid grid-cols-1 gap-9 gap-y-8 md:grid-cols-2">
+                    <div className="space-y-3">
+                        <Label htmlFor="departamento">Departamento</Label>
+                        <Select onValueChange={(value) => setData('departamento', value)} value={data.departamento}>
+                            <SelectTrigger className="mt-1 w-full rounded-xl border border-gray-300 py-7 shadow-sm hover:text-black focus:border-gray-300 focus:ring-0 focus:ring-offset-0">
+                                <SelectValue placeholder="Seleccionar Departamento" className="text-[#8b8b8b]" />
+                            </SelectTrigger>
+                            <SelectContent className="rounded-xl bg-white shadow-sm">
+                                {departamentos.map((depto) => (
+                                    <SelectItem key={depto.id} value={String(depto.id)} className="text-[#8b8b8b] hover:bg-gray-100 hover:text-black">
+                                        {depto.name}
+                                    </SelectItem>
+                                ))}
+                            </SelectContent>
+                        </Select>
                     </div>
                 </div>
                 <div className="mt-8 flex justify-center gap-4 border-b-1 pb-6">

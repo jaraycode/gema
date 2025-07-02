@@ -31,10 +31,16 @@
         </style>
 
         <title inertia>{{ config('app.name', 'Laravel') }}</title>
-
-        <link rel="icon" href="/favicon.ico" sizes="any">
-        <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+        <!-- Favicon Configuration (Optimized for SVG) -->
+        <link rel="icon" href="/LOGO_GEMA_3.svg" type="image/svg+xml">
+        <!-- Fallback for browsers that don't support SVG favicons -->
+        <link rel="icon" href="/LOGO_GEMA_3.png" type="image/png">
+        <!-- Apple Touch Icon (recommended 180x180) -->
         <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+        <!-- Safari Pinned Tab Icon -->
+        <link rel="mask-icon" href="/LOGO_GEMA_3.svg" color="#tuColorHex">
+        <!-- Web App Manifest -->
+        <link rel="manifest" href="/site.webmanifest">
 
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=instrument-sans:400,500,600" rel="stylesheet" />

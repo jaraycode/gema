@@ -55,7 +55,7 @@ export function StoreLocationForm() {
                         </label>
                         <Input
                             id="code"
-                            value={data.name}
+                            value={data.code}
                             onChange={(e) => setData('code', e.target.value)}
                             placeholder="Ingresa el código"
                             className="mt-1 rounded-xl border border-gray-300 py-7 text-[#8b8b8b] shadow-sm focus:border-gray-300"

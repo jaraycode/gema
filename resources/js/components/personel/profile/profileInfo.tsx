@@ -33,9 +33,11 @@ export function ProfileInfo({ data }: ProfileInfoProps) {
                         <FiUser className="size-6" />
                         <h2 className="mb-6 text-xl font-semibold">Información Personal</h2>
                     </div>
-                    <Button className="rounded-xl bg-[#1e9483] px-12 py-6 text-base text-white shadow-sm hover:bg-[#1e9483]/90">
-                        <FiPlus />
-                        Editar Perfil
+                    <Button asChild className="rounded-xl bg-[#1e9483] px-12 py-6 text-base text-white shadow-sm hover:bg-[#1e9483]/90">
+                        <Link href={route('personel.edit', { id: data?.id })}>
+                            <FiPlus />
+                            Editar Perfil
+                        </Link>
                     </Button>
                 </div>
 

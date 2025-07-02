@@ -6,8 +6,9 @@ import { SidebarInset, SidebarProvider } from '@/components/ui/sidebar';
 export default function ProfilePage(props: any) {
     const profileData = props.personel
         ? {
+              id: props.personel.id,
               nombre: `${props.personel.first_name} ${props.personel.last_name}`,
-              cedula: String(props.personel.id ?? ''),
+              cedula: String(props.personel.dni ?? ''),
               telefono: String(props.personel.phone_number ?? ''),
               email: String(props.personel.email ?? ''),
               cargo: 'Jefe',
