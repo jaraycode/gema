@@ -26,12 +26,22 @@ class PersonelService
 
   public function getAllPersonnel(): LengthAwarePaginator
   {
-    $paginatedData = Personel::with(relations: 'departments')->where(column: 'delete_at')->paginate(perPage: Personel::count());
-    return $paginatedData->through(function ($value) {
-      $valueArray = $value->toArray();
-      $valueArray['departments'] = $valueArray['departments'][0]['code'];
-      return $valueArray;
-    });
+      $paginatedData = Personel::with('departments')
+          ->where('delete_at', null)
+          ->paginate(perPage: Personel::count());
+
+      return $paginatedData->through(function ($personel) {
+          $valueArray = $personel->toArray();
+
+          // Obtener el departamento más reciente o null si no hay
+          $latestDepartment = collect($personel->departments)
+              ->sortByDesc('pivot.created_at') // Asumiendo que tienes timestamps en la tabla pivot
+              ->first();
+
+          $valueArray['departments'] = $latestDepartment ? $latestDepartment['code'] : null;
+
+          return $valueArray;
+      });
   }
 
   public function getPersonnel(int $id): Builder|Personel

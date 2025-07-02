@@ -37,8 +37,7 @@ export default function EditPersonelPage(props: EditPersonelPageProps) {
         };
         console.log(transformedData);
         console.log(props.personel.id);
-        put(route('personel.update', { id: props.personel.id }), {
-            ...transformedData,
+        put(route('personel.update', { id: props.personel.id, }), {
             preserveScroll: true,
             onSuccess: () => {
                 window.location.href = route('personel.show', { id: props.personel.id });

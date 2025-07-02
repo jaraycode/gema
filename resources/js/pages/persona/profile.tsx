@@ -12,7 +12,7 @@ export default function ProfilePage(props: any) {
               telefono: String(props.personel.phone_number ?? ''),
               email: String(props.personel.email ?? ''),
               cargo: 'Jefe',
-              departamento: props.personel.departments[0].code ?? '',
+              departamento: props.personel.departments.code ?? '',
           }
         : null;
     return (
