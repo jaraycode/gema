@@ -97,25 +97,27 @@ class PersonelController extends Controller
    */
   public function update(UpdatePersonelRequest $request, string $id)
   {
-    $personnel = [
-      "email" => $request->get("email"),
-      "phone_number" => $request->get("phone_number"),
-      "dni" => $request->get("dni"),
-      "first_name" => $request->get("first_name"),
-      "second_name" => $request->get("second_name"),
-      "last_name" => $request->get("last_name"),
-      "second_last_name" => $request->get("second_last_name"),
-      "department" => $request->get("department"),
-    ];
+      $validated = $request->validated();
+      $personnel = [
+          "email" => $request->get("email"),
+          "phone_number" => $request->get("phone_number"),
+          "dni" => $request->get("dni"),
+          "first_name" => $request->get("first_name"),
+          "second_name" => $request->get("second_name"),
+          "last_name" => $request->get("last_name"),
+          "second_last_name" => $request->get("second_last_name"),
+          "department" => $request->get("department"),
+      ];
 
-    if ($request->has('password')) {
-      $personnel['password'] = Hash::make($request->get('password'));
-    }
+      if ($request->has('password')) {
+          $personnel['password'] = Hash::make($request->get('password'));
+      }
 
-    return $this->personelService->updatePersonnel(
-      id: intval($id),
-      personnel: $personnel
-    );
+      return $this->personelService->updatePersonnel(
+          id: intval($id),
+          personnel: $personnel
+      );
+
   }
   /**
    * Renders the update screen of the specified resource in storage.
