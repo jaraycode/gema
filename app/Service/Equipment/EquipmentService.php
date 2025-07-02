@@ -128,4 +128,21 @@ class EquipmentService
             return redirect()->back()->with(key: 'error', value: $e->getMessage());
         }
     }
+
+    /**
+     * Toma la clave foranea de ubicación técnica del equipo para actualizar el campo 'delete_at' para inhabilitar el registro y que no pueda aparecer en otros campos.
+     * @param string $id
+     * @throws \Exception
+     */
+    public function softDeleteEquipmentByTechnicalLocation(array $ids)
+    {
+        try {
+            foreach ($ids as $id) {
+                Equipment::where(column: 'technical_location', operator: '=', value: $id)->update(['delete_at' => now()]);
+            }
+        } catch (Exception $e) {
+            DB::rollBack();
+            throw new Exception(message: 'Desde equipos: ' . $e->getMessage());
+        }
+    }
 }

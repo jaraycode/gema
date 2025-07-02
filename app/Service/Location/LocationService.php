@@ -2,19 +2,21 @@
 
 namespace App\Service\Location;
 
+use App\Enums\Location\LocationLevel;
 use App\Models\Location;
 use App\Repository\Core\SidebarRepository;
 use Exception;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
 class LocationService
 {
     private string $title = 'Ubicación';
 
-    public function __construct(protected SidebarRepository $menu) {}
+    public function __construct(protected SidebarRepository $menu, protected TechnicalLocationService $technicalLocationService) {}
 
     /**
      * Función base para poder renderizar el sidebar.
@@ -86,25 +88,37 @@ class LocationService
             return redirect()->back()->with(key: 'error', value: 'No se pudo actualizar la ubicación. Intente nuevamente!');
         } catch (Exception $e) {
             Log::error(message: 'Creación de ubicación ' . $e->getMessage());
-            throw new Exception(message: "Error al guardar ubicación: " . $e->getMessage());
+            throw new Exception(message: "Error al actualizar ubicación: " . $e->getMessage());
         }
     }
 
     /**
-     * Se busca desactivar la ubicación al asignarle valor al campo de delete_at según el id que se pase.
+     * Se busca desactivar la ubicación al asignarle valor al campo de delete_at según el id que se pase. Además se sigue una cadena que permite inhabilitar los registros que estén relacionados con esta ubicación.
      * @param string $id
      * @throws \Exception
      * @return RedirectResponse
      */
     public function destroyLocation(string $id): RedirectResponse
     {
+        DB::beginTransaction();
         try {
+            $location = Location::findOrFail(id: $id)->toArray();
+            match ($location['level']) {
+                LocationLevel::MODULE->value => $this->technicalLocationService->softDeleteTechnicalLocationByLocation(id: $id),
+                LocationLevel::FLOOR->value => $this->technicalLocationService->softDeleteTechnicalLocationByLocation(id: $id, level: [2]),
+                LocationLevel::OFFICE->value => $this->technicalLocationService->softDeleteTechnicalLocationByLocation(id: $id, level: [3, 4, 5, 6]),
+                LocationLevel::EQUIPMENT->value => $this->technicalLocationService->softDeleteTechnicalLocationByLocation(id: $id, level: [4, 5, 6, 7]),
+            };
             $response = Location::where(column: 'id', operator: '=', value: $id)->update(['delete_at' => now()]);
-            if ($response > 0) return redirect()->route(route: 'location.index')->with(key: 'success', value: 'Ubicación eliminada exitosamente');
-            return redirect()->back()->with(key: 'error', value: 'No se pudo eliminar la ubicación. Intente nuevamente!');
+            if ($response > 0) {
+                DB::commit();
+                return redirect()->route(route: 'location.index')->with(key: 'success', value: 'Ubicación inhabilitada exitosamente');
+            }
+            return redirect()->back()->with(key: 'error', value: 'No se pudo inhabilitada la ubicación. Intente nuevamente!');
         } catch (Exception $e) {
+            DB::rollBack();
             Log::error(message: 'Creación de ubicación ' . $e->getMessage());
-            throw new Exception(message: "Error al guardar ubicación: " . $e->getMessage());
+            throw new Exception(message: "Error al inhabilitada ubicación: " . $e->getMessage());
         }
     }
 }

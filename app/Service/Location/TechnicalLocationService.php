@@ -6,17 +6,19 @@ use App\Enums\Location\LocationLevel;
 use App\Models\Location;
 use App\Models\TechnicalLocation;
 use App\Repository\Core\SidebarRepository;
+use App\Service\Equipment\EquipmentService;
 use Exception;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
 class TechnicalLocationService
 {
     private string $title = 'Ubicación técnica';
 
-    public function __construct(protected SidebarRepository $menu) {}
+    public function __construct(protected SidebarRepository $menu, protected EquipmentService $equipmentService) {}
 
     /**
      * Función base para poder renderizar el sidebar.
@@ -45,7 +47,7 @@ class TechnicalLocationService
      */
     public function getAllTechnicalLocationCode(): LengthAwarePaginator
     {
-        $technicalLocations = TechnicalLocation::paginate(perPage: TechnicalLocation::count(), columns: ['id', 'level1', 'level2', 'level3', 'level4', 'level5', 'level6', 'level7'])->through(callback: function ($value): array {
+        $technicalLocations = TechnicalLocation::where('delete_at')->paginate(perPage: TechnicalLocation::count(), columns: ['id', 'level1', 'level2', 'level3', 'level4', 'level5', 'level6', 'level7'])->through(callback: function ($value): array {
             $valueArray = $value->toArray();
             $id = $valueArray['id'];
             unset($valueArray['id']);
@@ -95,6 +97,29 @@ class TechnicalLocationService
         } catch (Exception $e) {
             Log::error(message: 'Creación de ubicación ' . $e->getMessage());
             throw new Exception(message: "Error al guardar ubicación: " . $e->getMessage());
+        }
+    }
+
+    public function softDeleteTechnicalLocationByLocation(int $id, array $level = [1])
+    {
+        try {
+            foreach ($level as $l) {
+                $level = match ($l) {
+                    1 => 'level1',
+                    2 => 'level2',
+                    3 => 'level3',
+                    4 => 'level4',
+                    5 => 'level5',
+                    6 => 'level6',
+                    7 => 'level7',
+                };
+                $technical_location = TechnicalLocation::where(column: $level, operator: '=', value: $id)->get('id');
+                if (!empty($technical_location)) $this->equipmentService->softDeleteEquipmentByTechnicalLocation(ids: $technical_location->toArray());
+                TechnicalLocation::where(column: $level, operator: '=', value: $id)->update(['delete_at' => now()]);
+            }
+        } catch (Exception $e) {
+            DB::rollBack();
+            throw new Exception('Desde Ubicación técnica: ' . $e->getMessage());
         }
     }
 }
