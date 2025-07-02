@@ -5,8 +5,13 @@ import { SidebarInset, SidebarProvider } from '@/components/ui/sidebar';
 import { NavBarProps } from '@/types';
 import { useForm } from '@inertiajs/react';
 
+interface Departments {
+    id: number;
+    name: string;
+    code: string;
+}
 interface CreatePersonelProps extends NavBarProps {
-    departamentos: string[];
+    departamentos: Departments[];
     cargos: string[];
 }
 
@@ -14,7 +19,17 @@ export default function CreatePersonel(props: CreatePersonelProps) {
     const { post, processing } = useForm();
 
     const handleSubmit = (formData: any) => {
-        post(route('personels.store', formData));
+        const transformedData = {
+            email: formData.email,
+            phone_number: formData.telefono,
+            first_name: formData.nombre.split(' ')[0] || '',
+            last_name: formData.nombre.split(' ').slice(1).join(' ') || '',
+            username: formData.email.split('@')[0],
+            password: 'password123',
+            department: formData.departamento,
+        };
+
+        post(route('personel.store', transformedData));
     };
 
     const handleCancel = () => {
@@ -40,7 +55,6 @@ export default function CreatePersonel(props: CreatePersonelProps) {
                             <div className="px-10 lg:px-25">
                                 <Createform
                                     departamentos={props.departamentos}
-                                    cargos={props.cargos}
                                     onSubmit={handleSubmit}
                                     onCancel={handleCancel}
                                     processing={processing}

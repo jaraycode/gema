@@ -3,7 +3,6 @@ import { Calendar } from '@/components/ui/calendar';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { cn } from '@/lib/utils';
-import { DepartmentModelWithPersonnel } from '@/types';
 import { format } from 'date-fns';
 import { CalendarIcon, ChevronDown } from 'lucide-react';
 
@@ -74,16 +73,15 @@ export function DropdownFilter({ label, options, selected, onSelect }: DropdownF
 interface PersonelFiltersProps {
     dateRange: { startDate: string; endDate: string };
     onDateRangeChange: (range: { startDate: string; endDate: string }) => void;
-    department: DepartmentModelWithPersonnel[];
-    selectedPosition: string[];
+    department: string[]; // Cambiado a array de strings
     selectedDepartment: string[];
-    onPositionChange: (position: string) => void;
     onDepartmentChange: (departamento: string) => void;
 }
 
 export function PersonelFilters({ dateRange, onDateRangeChange, department, selectedDepartment, onDepartmentChange }: PersonelFiltersProps) {
     return (
         <div className="m-0 flex flex-wrap items-center justify-between gap-4 bg-white p-4 [&_button]:border-none [&_button]:bg-transparent [&_button]:shadow-none">
+            {/* Filtro de fecha desde */}
             <div className="flex items-center gap-2 rounded-xl border border-none bg-[#e2e2e3] shadow-sm">
                 <span className="mr-2 ml-3 h-full w-full text-sm font-medium text-black">Desde:</span>
                 <div className="[&_button]:border [&_button]:border-gray-600 [&_button]:bg-white [&_button]:shadow-none">
@@ -97,6 +95,7 @@ export function PersonelFilters({ dateRange, onDateRangeChange, department, sele
                 </div>
             </div>
 
+            {/* Filtro de fecha hasta */}
             <div className="flex items-center gap-2 rounded-xl border border-none bg-[#e2e2e3] shadow-sm">
                 <span className="mr-2 ml-3 h-full w-full text-sm font-medium text-black">Hasta:</span>
                 <div className="dropdown-wrapper rounded-r-xl bg-[#f0f2f5] text-[#8b8b8b]">
@@ -108,15 +107,11 @@ export function PersonelFilters({ dateRange, onDateRangeChange, department, sele
                 </div>
             </div>
 
+            {/* Filtro por departamento (equipo) */}
             <div className="gap-2border flex items-center rounded-xl border-none bg-[#e2e2e3] shadow-sm">
                 <span className="mr-2 ml-3 h-full w-full text-sm font-medium text-black">Equipo:</span>
                 <div className="dropdown-wrapper rounded-r-xl bg-[#f0f2f5] text-[#8b8b8b]">
-                    <DropdownFilter
-                        label="Todos los equipos"
-                        options={department.map((value) => value.name)}
-                        selected={selectedDepartment}
-                        onSelect={onDepartmentChange}
-                    />
+                    <DropdownFilter label="Todos los equipos" options={department} selected={selectedDepartment} onSelect={onDepartmentChange} />
                 </div>
             </div>
         </div>
