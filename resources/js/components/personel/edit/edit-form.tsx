@@ -60,9 +60,9 @@ export function Editform({ departments, personnel }: EditPersonelFormProps) {
                                 id="name"
                                 value={data.name}
                                 onChange={(e) => setData('name', e.target.value)}
-                                placeholder="Nombres"
+                                placeholder="Nombre completo"
                                 required
-                                className="mt-1 rounded-xl border border-gray-300 py-7 text-[#8b8b8b] shadow-sm focus:border-gray-300"
+                                className="rounded-[8px] rounded-xl border border-zinc-200 bg-white py-7 text-base text-[#8b8b8b] text-neutral-900 shadow-sm placeholder:text-neutral-500 focus-visible:ring-2 focus-visible:ring-teal-500 focus-visible:outline-none"
                             />
                             <InputError message={errors.name} />
                         </div>
@@ -75,7 +75,7 @@ export function Editform({ departments, personnel }: EditPersonelFormProps) {
                                 onChange={(e) => setData('last_name', e.target.value)}
                                 placeholder="Apellidos"
                                 required
-                                className="mt-1 rounded-xl border border-gray-300 py-7 text-[#8b8b8b] shadow-sm focus:border-gray-300"
+                                className="rounded-[8px] rounded-xl border border-zinc-200 bg-white py-7 text-base text-[#8b8b8b] text-neutral-900 shadow-sm placeholder:text-neutral-500 focus-visible:ring-2 focus-visible:ring-teal-500 focus-visible:outline-none"
                             />
                             <InputError message={errors.last_name} />
                         </div>
@@ -127,7 +127,7 @@ export function Editform({ departments, personnel }: EditPersonelFormProps) {
                                 onChange={(e) => setData('email', e.target.value)}
                                 placeholder="Ingresar correo electrónico"
                                 required
-                                className="mt-1 rounded-xl border border-gray-300 py-7 text-[#8b8b8b] shadow-sm focus:border-gray-300"
+                                className="rounded-[8px] rounded-xl border border-zinc-200 bg-white py-7 text-base text-[#8b8b8b] text-neutral-900 shadow-sm placeholder:text-neutral-500 focus-visible:ring-2 focus-visible:ring-teal-500 focus-visible:outline-none"
                             />
                             <InputError message={errors.email} />
                         </div>
@@ -160,7 +160,7 @@ export function Editform({ departments, personnel }: EditPersonelFormProps) {
                                 placeholder="Teléfono"
                                 maxLength={11}
                                 required
-                                className="mt-1 rounded-xl border border-gray-300 py-7 text-[#8b8b8b] shadow-sm focus:border-gray-300"
+                                className="rounded-[8px] rounded-xl border border-zinc-200 bg-white py-7 text-base text-[#8b8b8b] text-neutral-900 shadow-sm placeholder:text-neutral-500 focus-visible:ring-2 focus-visible:ring-teal-500 focus-visible:outline-none"
                             />
                             <InputError message={errors.phone_number} />
                         </div>

@@ -42,7 +42,18 @@ export const columns: ColumnDef<EquipmentModel>[] = [
     {
         accessorKey: 'status',
         header: () => <div>Estado</div>,
-        cell: ({ row }) => <div>{row.getValue('status')}</div>,
+        cell: ({ row }) => {
+            const status = row.getValue('status');
+            let badgeColor = '';
+            if (status === 'Activo') {
+                badgeColor = 'bg-[#A2E6DC] text-[#1E9483]';
+            } else if (status === 'Inactivo') {
+                badgeColor = 'bg-[#E47171] text-[#C41616]';
+            } else if (status === 'Mantenimiento') {
+                badgeColor = 'bg-[#F2C55C] text-[#BE8B16]';
+            }
+            return <span className={`inline-flex items-center rounded-full w-[130px] py-2 justify-center text-s font-semibold shadow-md ${badgeColor}`}>{row.getValue('status')}</span>;
+        },
     },
     {
         accessorKey: 'action',
@@ -88,33 +99,43 @@ export function EquipmentTable({ data }: { data: EquipmentModel[] }) {
         },
     });
 
+    const filterByStatus = (status: string) => {
+        const validStatuses = ['Todos', 'Activo', 'Inactivo', 'Mantenimiento'];
+        if (validStatuses.includes(status)) {
+            setColumnFilters(status === 'Todos' ? [] : [{ id: 'status', value: status }]);
+        }
+    };
+
     return (
-        <Card className="w-full">
-            <CardHeader className="space-y-4">
-                <div className="mb-2 flex items-center justify-between">
-                    <CardTitle className="text-lg font-semibold">Equipos</CardTitle>
-                    <Link
-                        href={route('equipment.create')}
-                        className="flex w-60 items-center justify-center rounded-[20px] bg-[#1E9483] p-3 text-white transition duration-200 hover:shadow hover:shadow-[#1E9483]"
+        <div className="w-full">
+            <div className="flex items-center justify-between py-4">
+                <h2 className="mb-2 text-lg font-semibold">Equipos</h2>
+
+                <Link
+                    className="flex w-48 items-center justify-center rounded-[20px] bg-[#1E9483] p-3 text-white transition duration-200 hover:shadow hover:shadow-[#1E9483]"
+                    href={route('equipment.create')}
+                >
+                    Agregar Equipo
+                </Link>
+            </div>
+            <div className="mb-4 flex space-x-2">
+                {['Todos', 'Activo', 'Inactivo', 'Mantenimiento'].map((status) => (
+                    <button
+                        key={status}
+                        className={`btn h-8 w-40 rounded-[12px] transition-shadow hover:shadow-lg ${(columnFilters.length === 0 && status === 'Todos') || columnFilters.some((filter) => filter.value === status) ? 'bg-[#B0E0D3]' : 'bg-[#F0F2F5]'}`}
+                        onClick={() => filterByStatus(status)}
                     >
-                        Agregar Equipo
-                    </Link>
-                </div>
-                <div className="mb-4 flex space-x-2">
-                    <button className="btn h-8 w-40 rounded-[12px] bg-[#F0F2F5] transition-shadow hover:shadow-lg">
-                        Todos
+                        {status}
                     </button>
-                    <button className="btn h-8 w-40 rounded-[12px] bg-[#F0F2F5] transition-shadow hover:shadow-lg">
-                        Activados
-                    </button>
-                    <button className="btn h-8 w-40 rounded-[12px] bg-[#F0F2F5] transition-shadow hover:shadow-lg">
-                        Inactivos
-                    </button>
-                    <button className="btn h-8 w-40 rounded-[12px] bg-[#F0F2F5] transition-shadow hover:shadow-lg">
-                        Mantenimiento
-                    </button>
-                </div>
+                ))}
+            </div>
+            <div className="flex items-center py-4">
                 <div className="relative mb-4 w-full max-w-full">
+                    <span className="absolute inset-y-0 left-3 flex items-center text-gray-500">
+                        <svg className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-4.35-4.35m0 0A7.5 7.5 0 103 10.5a7.5 7.5 0 0013.15 6.15z" />
+                        </svg>
+                    </span>
                     <input
                         type="text"
                         placeholder="Buscar Equipo"
@@ -123,42 +144,41 @@ export function EquipmentTable({ data }: { data: EquipmentModel[] }) {
                         className="w-full rounded-full bg-gray-100 py-2 pr-4 pl-10 text-gray-700 placeholder-gray-500 focus:ring-2 focus:ring-blue-500 focus:outline-none"
                     />
                 </div>
-            </CardHeader>
-            <CardContent className="w-full">
-                <div className="rounded-md border">
-                    <Table>
-                        <TableHeader>
-                            {table.getHeaderGroups().map((headerGroup) => (
-                                <TableRow key={headerGroup.id}>
-                                    {headerGroup.headers.map((header) => (
-                                        <TableHead key={header.id}>
-                                            {header.isPlaceholder ? null : flexRender(header.column.columnDef.header, header.getContext())}
-                                        </TableHead>
+            </div>
+            <div className="w-full rounded-xl border p-2 pt-1">
+                <Table className="border-separate border-spacing-y-6 border-gray-200">
+                    <TableHeader>
+                        {table.getHeaderGroups().map((headerGroup) => (
+                            <TableRow key={headerGroup.id}>
+                                {headerGroup.headers.map((header) => (
+                                    <TableHead key={header.id}>
+                                        {header.isPlaceholder ? null : flexRender(header.column.columnDef.header, header.getContext())}
+                                    </TableHead>
+                                ))}
+                            </TableRow>
+                        ))}
+                    </TableHeader>
+                    <TableBody>
+                        {table.getRowModel().rows?.length ? (
+                            table.getRowModel().rows.map((row) => (
+                                <TableRow key={row.id} className="border-b border-gray-200">
+                                    {row.getVisibleCells().map((cell) => (
+                                        <TableCell key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</TableCell>
                                     ))}
                                 </TableRow>
-                            ))}
-                        </TableHeader>
-                        <TableBody>
-                            {table.getRowModel().rows?.length ? (
-                                table.getRowModel().rows.map((row) => (
-                                    <TableRow key={row.id}>
-                                        {row.getVisibleCells().map((cell) => (
-                                            <TableCell key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</TableCell>
-                                        ))}
-                                    </TableRow>
-                                ))
-                            ) : (
-                                <TableRow>
-                                    <TableCell colSpan={columns.length} className="h-24 text-center">
-                                        Sin resultados.
-                                    </TableCell>
-                                </TableRow>
-                            )}
-                        </TableBody>
-                    </Table>
-                </div>
-            </CardContent>
-            <div className="flex items-center justify-between py-6">
+                            ))
+                        ) : (
+                            <TableRow>
+                                <TableCell colSpan={columns.length} className="h-24 text-center">
+                                    Sin resultados.
+                                </TableCell>
+                            </TableRow>
+                        )}
+                    </TableBody>
+                </Table>
+            </div>
+
+            <div className="flex items-center justify-between py-4">
                 <div className="text-muted-foreground text-sm">{table.getFilteredRowModel().rows.length} fila(s) mostradas.</div>
                 <div className="space-x-2">
                     <div className="flex items-center gap-2">

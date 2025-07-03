@@ -151,12 +151,12 @@ export function PersonnelCreateForm({ departments }: CreatePersonelFormProps) {
                     <div className="space-y-3">
                         <Label htmlFor="departamento">Departamento</Label>
                         <Select onValueChange={(value) => setData('department', value)} value={data.department}>
-                            <SelectTrigger className="mt-1 w-full rounded-xl border border-gray-300 py-7 shadow-sm hover:text-black focus:border-gray-300 focus:ring-0 focus:ring-offset-0">
-                                <SelectValue placeholder="Seleccionar Departamento" className="text-[#8b8b8b]" />
+                            <SelectTrigger className="mt-1 w-full rounded-xl border border-gray-300 py-7 shadow-sm hover:text-black focus:border-[#1e9483] focus:ring-0 focus:outline-none">
+                                <SelectValue placeholder="Seleccionar Departamento" className="text-gray-800" />
                             </SelectTrigger>
                             <SelectContent className="rounded-xl bg-white shadow-sm">
                                 {departments.map((depto) => (
-                                    <SelectItem key={depto.id} value={String(depto.id)} className="text-[#8b8b8b] hover:bg-gray-100 hover:text-black">
+                                    <SelectItem key={depto.id} value={String(depto.id)} className="text-gray-800 hover:bg-gray-100 hover:text-black">
                                         {depto.name}
                                     </SelectItem>
                                 ))}
