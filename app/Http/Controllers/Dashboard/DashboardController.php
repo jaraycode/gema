@@ -22,6 +22,14 @@ class DashboardController extends Controller
   }
 
   /**
+   * Get all the kpis for the dashboard
+   */
+
+  public function getAllKpis() {
+      return $this->dashboardService->getKpis();
+  }
+
+  /**
    * Show the form for creating a new resource.
    */
   public function create()
