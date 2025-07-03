@@ -87,7 +87,7 @@ export function Editform({ departamentos, personel, onSubmit, processing }: Edit
                                 onChange={(e) => setData('name', e.target.value)}
                                 placeholder="Nombre completo"
                                 required
-                                className="rounded-xl py-7 text-[#8b8b8b] shadow-sm rounded-[8px] border border-zinc-200 bg-white text-base text-neutral-900 placeholder:text-neutral-500 focus-visible:ring-2 focus-visible:ring-teal-500 focus-visible:outline-none"
+                                className="rounded-[8px] border border-zinc-200 bg-white py-7 text-base text-neutral-900 shadow-sm placeholder:text-neutral-500 focus-visible:ring-2 focus-visible:ring-teal-500 focus-visible:outline-none"
                             />
                         </div>
                         <div className="space-y-3">
@@ -99,7 +99,7 @@ export function Editform({ departamentos, personel, onSubmit, processing }: Edit
                                 onChange={(e) => setData('email', e.target.value)}
                                 placeholder="Correo electrónico"
                                 required
-                                className="rounded-xl py-7 text-[#8b8b8b] shadow-sm rounded-[8px] border border-zinc-200 bg-white text-base text-neutral-900 placeholder:text-neutral-500 focus-visible:ring-2 focus-visible:ring-teal-500 focus-visible:outline-none"
+                                className="rounded-[8px] border border-zinc-200 bg-white py-7 text-base text-neutral-900 shadow-sm placeholder:text-neutral-500 focus-visible:ring-2 focus-visible:ring-teal-500 focus-visible:outline-none"
                             />
                         </div>
                     </div>
@@ -132,7 +132,7 @@ export function Editform({ departamentos, personel, onSubmit, processing }: Edit
                                 onChange={(e) => setData('phone_number', e.target.value)}
                                 placeholder="Número de teléfono"
                                 required
-                                className="rounded-xl py-7 text-[#8b8b8b] shadow-sm rounded-[8px] border border-zinc-200 bg-white text-base text-neutral-900 placeholder:text-neutral-500 focus-visible:ring-2 focus-visible:ring-teal-500 focus-visible:outline-none"
+                                className="rounded-[8px] border border-zinc-200 bg-white py-7 text-base text-neutral-900 shadow-sm placeholder:text-neutral-500 focus-visible:ring-2 focus-visible:ring-teal-500 focus-visible:outline-none"
                             />
                         </div>
                     </div>

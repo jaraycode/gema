@@ -50,6 +50,8 @@ export default function DepartmentEdit({ user, navMain, navSecondary, department
                                                 value={data.code}
                                                 onChange={(e) => setData('code', e.target.value)}
                                                 placeholder="Código del Departamento"
+                                                maxLength={6}
+                                                max={6}
                                                 className="mt-1 rounded-xl border border-gray-300 py-7 text-[#8b8b8b] shadow-sm focus:border-gray-300"
                                                 disabled
                                             />
@@ -63,7 +65,7 @@ export default function DepartmentEdit({ user, navMain, navSecondary, department
                                                 onChange={(e) => setData('name', e.target.value)}
                                                 placeholder="Nombre del Departamento"
                                                 required
-                                                className="rounded-xl py-7 text-[#8b8b8b] shadow-sm rounded-[8px] border border-zinc-200 bg-white text-base text-neutral-900 placeholder:text-neutral-500 focus-visible:ring-2 focus-visible:ring-teal-500 focus-visible:outline-none"
+                                                className="rounded-[8px] border border-zinc-200 bg-white py-7 text-base text-neutral-900 shadow-sm placeholder:text-neutral-500 focus-visible:ring-2 focus-visible:ring-teal-500 focus-visible:outline-none"
                                             />
                                             <InputError message={errors.name} />
                                         </div>

@@ -61,7 +61,7 @@ export function Createform({ departamentos, onSubmit, onCancel, processing = fal
                                 onChange={(e) => setData('nombre', e.target.value)}
                                 placeholder="Nombre completo"
                                 required
-                                className="rounded-xl py-7 text-[#8b8b8b] shadow-sm rounded-[8px] border border-zinc-200 bg-white text-base text-neutral-900 placeholder:text-neutral-500 focus-visible:ring-2 focus-visible:ring-teal-500 focus-visible:outline-none"
+                                className="rounded-[8px] border border-zinc-200 bg-white py-7 text-base text-neutral-900 shadow-sm placeholder:text-neutral-500 focus-visible:ring-2 focus-visible:ring-teal-500 focus-visible:outline-none"
                             />
                         </div>
 
@@ -86,9 +86,9 @@ export function Createform({ departamentos, onSubmit, onCancel, processing = fal
                                     value={data.cedula}
                                     onChange={(e) => setData('cedula', e.target.value)}
                                     placeholder="Número de documento"
-                                    maxLength={tipoDocumento === 'V' ? 8 : 10} // Ejemplo: diferentes longitudes máximas
+                                    maxLength={tipoDocumento === 'V' ? 8 : 10}
                                     required
-                                    className="rounded-xl py-7 text-[#8b8b8b] shadow-sm rounded-[8px] border border-zinc-200 bg-white text-base text-neutral-900 placeholder:text-neutral-500 focus-visible:ring-2 focus-visible:ring-teal-500 focus-visible:outline-none"
+                                    className="rounded-[8px] border border-zinc-200 bg-white py-7 text-base text-neutral-900 shadow-sm placeholder:text-neutral-500 focus-visible:ring-2 focus-visible:ring-teal-500 focus-visible:outline-none"
                                 />
                             </div>
                         </div>
@@ -102,9 +102,9 @@ export function Createform({ departamentos, onSubmit, onCancel, processing = fal
                                 type="email"
                                 value={data.email}
                                 onChange={(e) => setData('email', e.target.value)}
-                                placeholder="Ingresar correo electrónico"
+                                placeholder="correo electrónico"
                                 required
-                                className="rounded-xl py-7 text-[#8b8b8b] shadow-sm rounded-[8px] border border-zinc-200 bg-white text-base text-neutral-900 placeholder:text-neutral-500 focus-visible:ring-2 focus-visible:ring-teal-500 focus-visible:outline-none"
+                                className="rounded-[8px] border border-zinc-200 bg-white py-7 text-base text-neutral-900 shadow-sm placeholder:text-neutral-500 focus-visible:ring-2 focus-visible:ring-teal-500 focus-visible:outline-none"
                             />
                         </div>
                         <div className="space-y-3">
@@ -116,7 +116,7 @@ export function Createform({ departamentos, onSubmit, onCancel, processing = fal
                                 placeholder="Teléfono"
                                 maxLength={11}
                                 required
-                                className="rounded-xl py-7 text-[#8b8b8b] shadow-sm rounded-[8px] border border-zinc-200 bg-white text-base text-neutral-900 placeholder:text-neutral-500 focus-visible:ring-2 focus-visible:ring-teal-500 focus-visible:outline-none"
+                                className="rounded-[8px] border border-zinc-200 bg-white py-7 text-base text-neutral-900 shadow-sm placeholder:text-neutral-500 focus-visible:ring-2 focus-visible:ring-teal-500 focus-visible:outline-none"
                             />
                         </div>
                     </div>
