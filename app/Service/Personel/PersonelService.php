@@ -95,7 +95,7 @@ class PersonelService
                 ->wherePivot('end_date', null)
                 ->first();
 
-            if ($currentDepartment) {
+            if ($currentDepartment != $personnel['department']) {
                 $personnelRecord->departments()->updateExistingPivot($currentDepartment->id, [
                     'end_date' => now()->setTimezone('GMT-4')->format('Y-m-d H:i:s')
                 ]);
