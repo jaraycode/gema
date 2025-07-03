@@ -66,7 +66,7 @@ export default function EquipmentForm({ equipment_type, locations, technical_loc
                             placeholder="Ej: Aire acondicionado"
                             value={data.brand}
                             onChange={(e) => handleInputChange('brand', e.target.value)}
-                            className="w-full resize-none rounded-[8px] border border-zinc-200 bg-white px-4 py-3 text-base text-neutral-900 placeholder:text-neutral-500 focus-visible:ring-2 focus-visible:ring-teal-500 focus-visible:outline-none"
+                            className="rounded-xl py-7 text-[#8b8b8b] shadow-sm rounded-[8px] border border-zinc-200 bg-white text-base text-neutral-900 placeholder:text-neutral-500 focus-visible:ring-2 focus-visible:ring-teal-500 focus-visible:outline-none"
                         />
                         <InputError message={errors.brand} />
                     </div>
@@ -80,7 +80,7 @@ export default function EquipmentForm({ equipment_type, locations, technical_loc
                             placeholder="Ej: Aire acondicionado"
                             value={data.model}
                             onChange={(e) => handleInputChange('model', e.target.value)}
-                            className="w-full resize-none rounded-[8px] border border-zinc-200 bg-white px-4 py-3 text-base text-neutral-900 placeholder:text-neutral-500 focus-visible:ring-2 focus-visible:ring-teal-500 focus-visible:outline-none"
+                            className="rounded-xl py-7 text-[#8b8b8b] shadow-sm rounded-[8px] border border-zinc-200 bg-white text-base text-neutral-900 placeholder:text-neutral-500 focus-visible:ring-2 focus-visible:ring-teal-500 focus-visible:outline-none"
                         />
                         <InputError message={errors.model} />
                     </div>
@@ -94,7 +94,7 @@ export default function EquipmentForm({ equipment_type, locations, technical_loc
                             placeholder="Número de Serial"
                             value={data.serial}
                             onChange={(e) => handleInputChange('serial', e.target.value)}
-                            className="w-full resize-none rounded-[8px] border border-zinc-200 bg-white px-4 py-3 text-base text-neutral-900 placeholder:text-neutral-500 focus-visible:ring-2 focus-visible:ring-teal-500 focus-visible:outline-none"
+                            className="rounded-xl py-7 text-[#8b8b8b] shadow-sm rounded-[8px] border border-zinc-200 bg-white text-base text-neutral-900 placeholder:text-neutral-500 focus-visible:ring-2 focus-visible:ring-teal-500 focus-visible:outline-none"
                         />
                         <InputError message={errors.serial} />
                     </div>

@@ -61,7 +61,7 @@ export function Createform({ departamentos, onSubmit, onCancel, processing = fal
                                 onChange={(e) => setData('nombre', e.target.value)}
                                 placeholder="Nombre completo"
                                 required
-                                className="mt-1 rounded-xl border border-gray-300 py-7 text-[#8b8b8b] shadow-sm focus:border-gray-300"
+                                className="rounded-xl py-7 text-[#8b8b8b] shadow-sm rounded-[8px] border border-zinc-200 bg-white text-base text-neutral-900 placeholder:text-neutral-500 focus-visible:ring-2 focus-visible:ring-teal-500 focus-visible:outline-none"
                             />
                         </div>
 
@@ -69,14 +69,14 @@ export function Createform({ departamentos, onSubmit, onCancel, processing = fal
                             <Label>Documento de Identidad</Label>
                             <div className="flex gap-2">
                                 <Select value={tipoDocumento} onValueChange={setTipoDocumento}>
-                                    <SelectTrigger className="w-20 rounded-xl border border-gray-300 py-7 shadow-sm hover:text-black focus:border-gray-300 focus:ring-0 focus:ring-offset-0">
+                                    <SelectTrigger className="w-20 rounded-xl border border-gray-300 py-7 shadow-sm hover:text-black focus:border-[#1e9483] focus:ring-0 focus:outline-none">
                                         <SelectValue />
                                     </SelectTrigger>
                                     <SelectContent className="rounded-xl bg-white shadow-sm">
-                                        <SelectItem value="V" className="text-[#8b8b8b] hover:bg-gray-100 hover:text-black">
+                                        <SelectItem value="V" className="text-gray-800 hover:bg-gray-100 hover:text-black">
                                             V
                                         </SelectItem>
-                                        <SelectItem value="E" className="text-[#8b8b8b] hover:bg-gray-100 hover:text-black">
+                                        <SelectItem value="E" className="text-gray-800 hover:bg-gray-100 hover:text-black">
                                             E
                                         </SelectItem>
                                     </SelectContent>
@@ -88,7 +88,7 @@ export function Createform({ departamentos, onSubmit, onCancel, processing = fal
                                     placeholder="Número de documento"
                                     maxLength={tipoDocumento === 'V' ? 8 : 10} // Ejemplo: diferentes longitudes máximas
                                     required
-                                    className="mt-0 flex-1 rounded-xl border border-gray-300 py-7 text-[#8b8b8b] shadow-sm focus:border-gray-300"
+                                    className="rounded-xl py-7 text-[#8b8b8b] shadow-sm rounded-[8px] border border-zinc-200 bg-white text-base text-neutral-900 placeholder:text-neutral-500 focus-visible:ring-2 focus-visible:ring-teal-500 focus-visible:outline-none"
                                 />
                             </div>
                         </div>
@@ -104,7 +104,7 @@ export function Createform({ departamentos, onSubmit, onCancel, processing = fal
                                 onChange={(e) => setData('email', e.target.value)}
                                 placeholder="Ingresar correo electrónico"
                                 required
-                                className="mt-1 rounded-xl border border-gray-300 py-7 text-[#8b8b8b] shadow-sm focus:border-gray-300"
+                                className="rounded-xl py-7 text-[#8b8b8b] shadow-sm rounded-[8px] border border-zinc-200 bg-white text-base text-neutral-900 placeholder:text-neutral-500 focus-visible:ring-2 focus-visible:ring-teal-500 focus-visible:outline-none"
                             />
                         </div>
                         <div className="space-y-3">
@@ -116,7 +116,7 @@ export function Createform({ departamentos, onSubmit, onCancel, processing = fal
                                 placeholder="Teléfono"
                                 maxLength={11}
                                 required
-                                className="mt-1 rounded-xl border border-gray-300 py-7 text-[#8b8b8b] shadow-sm focus:border-gray-300"
+                                className="rounded-xl py-7 text-[#8b8b8b] shadow-sm rounded-[8px] border border-zinc-200 bg-white text-base text-neutral-900 placeholder:text-neutral-500 focus-visible:ring-2 focus-visible:ring-teal-500 focus-visible:outline-none"
                             />
                         </div>
                     </div>
@@ -125,12 +125,12 @@ export function Createform({ departamentos, onSubmit, onCancel, processing = fal
                     <div className="space-y-3">
                         <Label htmlFor="departamento">Departamento</Label>
                         <Select onValueChange={(value) => setData('departamento', value)} value={data.departamento}>
-                            <SelectTrigger className="mt-1 w-full rounded-xl border border-gray-300 py-7 shadow-sm hover:text-black focus:border-gray-300 focus:ring-0 focus:ring-offset-0">
-                                <SelectValue placeholder="Seleccionar Departamento" className="text-[#8b8b8b]" />
+                            <SelectTrigger className="mt-1 w-full rounded-xl border border-gray-300 py-7 shadow-sm hover:text-black focus:border-[#1e9483] focus:ring-0 focus:outline-none">
+                                <SelectValue placeholder="Seleccionar Departamento" className="text-gray-800" />
                             </SelectTrigger>
                             <SelectContent className="rounded-xl bg-white shadow-sm">
                                 {departamentos.map((depto) => (
-                                    <SelectItem key={depto.id} value={String(depto.id)} className="text-[#8b8b8b] hover:bg-gray-100 hover:text-black">
+                                    <SelectItem key={depto.id} value={String(depto.id)} className="text-gray-800 hover:bg-gray-100 hover:text-black">
                                         {depto.name}
                                     </SelectItem>
                                 ))}

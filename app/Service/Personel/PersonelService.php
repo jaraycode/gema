@@ -29,7 +29,7 @@ class PersonelService
     $paginatedData = Personel::with(relations: 'departments')->where(column: 'delete_at')->paginate(perPage: Personel::count());
     return $paginatedData->through(function ($value) {
       $valueArray = $value->toArray();
-      $valueArray['departments'] = $valueArray['departments'][0]['code'];
+      $valueArray['departments'] = !empty($valueArray['departments']) ? $valueArray['departments'][0]['code'] : null;
       return $valueArray;
     });
   }
