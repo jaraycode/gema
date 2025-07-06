@@ -54,7 +54,9 @@ export function Createform({ departamentos, onSubmit, onCancel, processing = fal
                 <div className="space-y-8">
                     <div className="grid grid-cols-1 gap-9 gap-y-8 md:grid-cols-2">
                         <div className="space-y-3">
-                            <Label htmlFor="nombre">Nombre completo</Label>
+                            <Label htmlFor="nombre">
+                                Nombre completo <span className="text-red-500">*</span>
+                            </Label>
                             <Input
                                 id="nombre"
                                 value={data.nombre}
@@ -66,7 +68,9 @@ export function Createform({ departamentos, onSubmit, onCancel, processing = fal
                         </div>
 
                         <div className="space-y-3">
-                            <Label>Documento de Identidad</Label>
+                            <Label>
+                                Documento de Identidad <span className="text-red-500">*</span>
+                            </Label>
                             <div className="flex gap-2">
                                 <Select value={tipoDocumento} onValueChange={setTipoDocumento}>
                                     <SelectTrigger className="w-20 rounded-xl border border-gray-300 py-7 shadow-sm hover:text-black focus:border-[#1e9483] focus:ring-0 focus:outline-none">
@@ -96,7 +100,9 @@ export function Createform({ departamentos, onSubmit, onCancel, processing = fal
 
                     <div className="grid grid-cols-1 gap-9 gap-y-8 md:grid-cols-2">
                         <div className="space-y-3">
-                            <Label htmlFor="email">Correo electrónico</Label>
+                            <Label htmlFor="email">
+                                Correo electrónico <span className="text-red-500">*</span>
+                            </Label>
                             <Input
                                 id="email"
                                 type="email"
@@ -108,7 +114,9 @@ export function Createform({ departamentos, onSubmit, onCancel, processing = fal
                             />
                         </div>
                         <div className="space-y-3">
-                            <Label htmlFor="telefono">Teléfono</Label>
+                            <Label htmlFor="telefono">
+                                Teléfono <span className="text-red-500">*</span>
+                            </Label>
                             <Input
                                 id="telefono"
                                 value={data.telefono}
@@ -123,7 +131,9 @@ export function Createform({ departamentos, onSubmit, onCancel, processing = fal
                 </div>
                 <div className="grid grid-cols-1 gap-9 gap-y-8 md:grid-cols-2">
                     <div className="space-y-3">
-                        <Label htmlFor="departamento">Departamento</Label>
+                        <Label htmlFor="departamento">
+                            Departamento <span className="text-red-500">*</span>
+                        </Label>
                         <Select onValueChange={(value) => setData('departamento', value)} value={data.departamento}>
                             <SelectTrigger className="mt-1 w-full rounded-xl border border-gray-300 py-7 shadow-sm hover:text-black focus:border-[#1e9483] focus:ring-0 focus:outline-none">
                                 <SelectValue placeholder="Seleccionar Departamento" className="text-gray-800" />

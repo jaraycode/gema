@@ -10,6 +10,7 @@ export default function PersonelPage({ user, navMain, navSecondary, personels }:
         departments: item.departments || 'Sin departamento',
     }));
 
+    console.log(user, navMain, navSecondary, transformedData);
     return (
         <SidebarProvider
             style={
@@ -20,7 +21,6 @@ export default function PersonelPage({ user, navMain, navSecondary, personels }:
             }
         >
             <AppSidebar variant="inset" user={user} navMain={navMain} navSecondary={navSecondary} />
-
             <SidebarInset>
                 <SiteHeader />
                 <div className="flex flex-1 flex-col">
