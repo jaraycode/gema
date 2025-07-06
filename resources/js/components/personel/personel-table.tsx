@@ -7,6 +7,7 @@ import { Eye } from 'lucide-react';
 import { useMemo, useState } from 'react';
 import { PersonelFilters } from './personel-filters';
 import { PersonelSearch } from './personel-search';
+import { IconBackground } from '@tabler/icons-react';
 
 export function PersonelTable({ data }: PersonnelTableProps) {
     const [searchTerm, setSearchTerm] = useState('');

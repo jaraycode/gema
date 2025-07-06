@@ -2,6 +2,7 @@ import { AppSidebar } from '@/components/app-sidebar';
 import { EquipmentTable } from '@/components/equipment-table';
 import { SiteHeader } from '@/components/site-header';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
+import { Card } from '@/components/ui/card';
 import { SidebarInset, SidebarProvider } from '@/components/ui/sidebar';
 import { EquipmentProps, ResponseHandlerProps } from '@/types';
 import { Head, usePage } from '@inertiajs/react';
@@ -40,9 +41,9 @@ export default function EquipmentIndex({ data, user, navMain, navSecondary }: Eq
                                 </Alert>
                             )}
                             <div className="mx-4 grid grid-cols-1 gap-4 md:mx-8">
-                                <div className="rounded-lg bg-white p-4 shadow-md">
+                                <Card className="p-4">
                                     <EquipmentTable {...data} />
-                                </div>
+                                </Card>
                             </div>
                         </div>
                     </div>
