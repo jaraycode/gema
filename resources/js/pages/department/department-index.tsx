@@ -28,7 +28,7 @@ export default function DepartmentPage({ data, ...props }: DepartmentIndexProps)
                                 <AlertDescription className="text-white">{flash?.success ?? flash?.error}</AlertDescription>
                             </Alert>
                         )}
-                        <Card className="bg-card text-card-foreground flex flex-col gap-6 rounded-lg border p-4 py-6 shadow-md">
+                        <Card>
                             <CardHeader className="mb-2 flex items-center justify-between">
                                 <CardTitle className="text-lg font-semibold">Departamentos</CardTitle>
                                 <Link
