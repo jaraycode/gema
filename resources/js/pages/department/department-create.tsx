@@ -43,7 +43,9 @@ export default function DepartmentCreate({ user, navMain, navSecondary }: NavBar
                                 <div className="space-y-8">
                                     <div className="grid grid-cols-1 gap-9 gap-y-8 md:grid-cols-2">
                                         <div className="space-y-3">
-                                            <Label htmlFor="codigo">Código</Label>
+                                            <Label htmlFor="codigo">
+                                                Código <span className="text-red-500">*</span>
+                                            </Label>
                                             <Input
                                                 id="code"
                                                 value={data.code}
@@ -54,7 +56,9 @@ export default function DepartmentCreate({ user, navMain, navSecondary }: NavBar
                                             <InputError message={errors.code} />
                                         </div>
                                         <div className="space-y-3">
-                                            <Label htmlFor="nombre">Nombre</Label>
+                                            <Label htmlFor="nombre">
+                                                Nombre <span className="text-red-500">*</span>
+                                            </Label>
                                             <Input
                                                 id="name"
                                                 value={data.name}

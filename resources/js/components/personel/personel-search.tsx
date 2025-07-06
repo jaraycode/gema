@@ -1,6 +1,3 @@
-import { Input } from '@/components/ui/input';
-import { Search } from 'lucide-react';
-
 interface PersonelSearchProps {
     searchTerm: string;
     onSearchChange: (term: string) => void;
@@ -17,10 +14,10 @@ export function PersonelSearch({ searchTerm, onSearchChange }: PersonelSearchPro
                 </span>
                 <input
                     type="text"
-                    placeholder="Buscar Departamento..."
+                    placeholder="Buscar Personal..."
                     value={searchTerm}
-                    onChange={(e) =>  onSearchChange(e.target.value)}
-                    className="w-full rounded-full border border-gray-100 bg-gray-100 py-2 pr-4 pl-10 text-gray-700 placeholder-gray-500 focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500 ring-0"
+                    onChange={(e) => onSearchChange(e.target.value)}
+                    className="w-full rounded-full border border-gray-100 bg-gray-100 py-2 pr-4 pl-10 text-gray-700 placeholder-gray-500 ring-0 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 focus:outline-none"
                 />
             </div>
         </div>

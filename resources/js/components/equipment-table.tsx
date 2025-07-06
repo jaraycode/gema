@@ -52,7 +52,11 @@ export const columns: ColumnDef<EquipmentModel>[] = [
             } else if (status === 'Mantenimiento') {
                 badgeColor = 'bg-[#F2C55C] text-[#BE8B16]';
             }
-            return <span className={`inline-flex items-center rounded-full w-[130px] py-2 justify-center text-s font-semibold shadow-md ${badgeColor}`}>{row.getValue('status')}</span>;
+            return (
+                <span className={`text-s inline-flex w-[130px] items-center justify-center rounded-full py-2 font-semibold shadow-md ${badgeColor}`}>
+                    {row.getValue('status')}
+                </span>
+            );
         },
     },
     {
@@ -138,7 +142,7 @@ export function EquipmentTable({ data }: { data: EquipmentModel[] }) {
                     </span>
                     <input
                         type="text"
-                        placeholder="Buscar Equipo"
+                        placeholder="Buscar Equipo..."
                         value={globalFilter}
                         onChange={(e) => setGlobalFilter(e.target.value)}
                         className="w-full rounded-full bg-gray-100 py-2 pr-4 pl-10 text-gray-700 placeholder-gray-500 focus:ring-2 focus:ring-blue-500 focus:outline-none"
