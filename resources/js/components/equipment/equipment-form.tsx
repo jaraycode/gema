@@ -174,7 +174,7 @@ export default function EquipmentForm({ equipment_type, locations, technical_loc
                             </SelectTrigger>
                             <SelectContent className="rounded-xl bg-white shadow-sm">
                                 {locations.module.map((value, key) => (
-                                    <SelectItem value={String(value.id)} key={key}>
+                                    <SelectItem value={value.code} key={key}>
                                         {value.name}
                                     </SelectItem>
                                 ))}
@@ -186,7 +186,7 @@ export default function EquipmentForm({ equipment_type, locations, technical_loc
                             </SelectTrigger>
                             <SelectContent className="rounded-xl bg-white shadow-sm">
                                 {locations.floor.map((value, key) => (
-                                    <SelectItem value={String(value.id)} key={key}>
+                                    <SelectItem value={value.code} key={key}>
                                         {value.name}
                                     </SelectItem>
                                 ))}
