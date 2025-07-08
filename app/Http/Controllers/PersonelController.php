@@ -40,8 +40,8 @@ class PersonelController extends Controller
     return Inertia::render(
       component: 'persona/create',
       props: array_merge($personelProps, [
-        'departamentos' => $this->department::all(),
-        'cargos' => $this->role::all(),
+        'departments' => Department::all(),
+        'cargos' => Role::all(),
       ])
     );
   }
@@ -52,22 +52,8 @@ class PersonelController extends Controller
    */
   public function store(StorePersonelRequest $request)
   {
-    $password = $request->get('password');
-    $hashedPassword = Hash::make($password);
-    $personnel = [
-      "email" => $request->get("email"),
-      "username" => $request->get("username"),
-      "password" => $hashedPassword,
-      "dni" => $request->get("dni"),
-      "phone_number" => $request->get("phone_number"),
-      "first_name" => $request->get("first_name"),
-      "second_name" => $request->get("second_name"),
-      "last_name" => $request->get("last_name"),
-      "second_last_name" => $request->get("second_last_name"),
-      "department" => $request->get("department"),
-    ];
 
-    $response = $this->personelService->storePersonnel($personnel);
+    $response = $this->personelService->storePersonnel($request->validated());
     return $response;
   }
 

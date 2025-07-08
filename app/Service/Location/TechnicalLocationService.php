@@ -35,7 +35,7 @@ class TechnicalLocationService
      */
     public function getTechnicalLocationGroupByLevel(): Collection
     {
-        return Location::all()->map(callback: function (Location $value): Location {
+        return Location::where('delete_at')->get()->map(callback: function (Location $value): Location {
             $value->level = castLevelTechnicalLocation(index: $value->level - 1);
             return $value;
         });
@@ -85,7 +85,7 @@ class TechnicalLocationService
                 if ($reverse) {
                     $level = Location::where('delete_at')->where(column: 'id', operator: '=', value: $reverse)->value('level');
                     if ($level != LocationLevel::EQUIPMENT->value) {
-                        return redirect()->back()->with(key: 'error', value: "La ubicación no puede tener como último nivel un área");
+                        throw new Exception(message: 'La ubicación no puede tener como último nivel un área');
                     } else {
                         break;
                     }
@@ -93,13 +93,20 @@ class TechnicalLocationService
             }
             $response = TechnicalLocation::create(attributes: $technicalLocation);
             if ($response) return redirect()->route(route: 'technical-location.index')->with(key: 'success', value: 'Ubicación técnica creada exitosamente');
-            return redirect()->back()->with(key: 'error', value: 'No se pudo crear la ubicación técnica. Intente nuevamente!');
+            throw new Exception(message: 'No se pudo crear la ubicación técnica. Intente nuevamente!');
         } catch (Exception $e) {
-            Log::error(message: 'Creación de ubicación ' . $e->getMessage());
-            throw new Exception(message: "Error al guardar ubicación: " . $e->getMessage());
+            Log::error(message: 'Creación de ubicación técnica ' . $e->getMessage());
+            return redirect()->back()->with(key: 'error', value: $e->getMessage());
         }
     }
 
+    /**
+     * Función encargada de inhabilitar una ubicación técnica basándose en la ubicación que está siendo inhabilitada, posteriormente sigue en la cadena con los equipos.
+     * @param int $id
+     * @param array $level
+     * @throws \Exception
+     * @return void
+     */
     public function softDeleteTechnicalLocationByLocation(int $id, array $level = [1])
     {
         try {

@@ -41,3 +41,15 @@ export type DateRange = {
     startDate: string;
     endDate: string;
 };
+
+export interface PersonnelStoreProps {
+    name: string;
+    last_name: string;
+    department: string;
+    dni: string;
+    national_status: string;
+    password: string;
+    email: string;
+    national_status: string;
+    phone_number: string;
+}

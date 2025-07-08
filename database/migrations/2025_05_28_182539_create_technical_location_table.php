@@ -28,8 +28,10 @@ return new class extends Migration
             $table->foreign(columns: 'level6')->references(columns: 'id')->on(table: 'location');
             $table->foreign(columns: 'level7')->references(columns: 'id')->on(table: 'location');
             $table->timestamp('delete_at')->nullable();
+            // $table->unique(['level1', 'level2', 'level3', 'level4', 'level5', 'level6', 'level7']);
             $table->timestamps();
         });
+        DB::statement('CREATE UNIQUE INDEX level_for_location ON technical_location (level1, level2, level3, level4, level5, level6, level7) NULLS NOT DISTINCT;');
     }
 
     /**

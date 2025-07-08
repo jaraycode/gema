@@ -1,42 +1,37 @@
+import InputError from '@/components/input-error';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
+import { DepartmentModel, PersonnelStoreProps } from '@/types';
+import { faChevronLeft, faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Link, useForm } from '@inertiajs/react';
 import { useState } from 'react';
 
-interface Departments {
-    id: number;
-    name: string;
-    code: string;
-}
+type Departments = Pick<DepartmentModel, 'id' | 'code' | 'name'>;
 
 interface CreatePersonelFormProps {
-    departamentos: Departments[];
-    onSubmit: (formData: any) => void;
-    onCancel: () => void;
-    processing?: boolean;
+    departments: Departments[];
 }
 
-export function Createform({ departamentos, onSubmit, onCancel, processing = false }: CreatePersonelFormProps) {
-    const [tipoDocumento, setTipoDocumento] = useState('V'); // Valor por defecto: V (Venezolano)
-    const { data, setData } = useForm({
-        nombre: '',
-        telefono: '',
+export function PersonnelCreateForm({ departments }: CreatePersonelFormProps) {
+    const { data, setData, errors, post, processing, reset } = useForm<Required<PersonnelStoreProps>>({
+        name: '',
+        last_name: '',
+        password: '',
+        department: '',
         email: '',
-        departamento: '',
-        cedula: '',
+        dni: '',
+        national_status: 'V',
+        phone_number: '',
     });
+    const [showPassword, setShowPassword] = useState(false);
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        // Combinamos el tipo de documento con el número de cédula
-        const cedulaCompleta = `${tipoDocumento}-${data.cedula}`;
-        onSubmit({
-            ...data,
-            cedula: cedulaCompleta,
+        post(route('personel.store'), {
+            onFinish: () => reset('password'),
         });
     };
 
@@ -54,21 +49,41 @@ export function Createform({ departamentos, onSubmit, onCancel, processing = fal
                 <div className="space-y-8">
                     <div className="grid grid-cols-1 gap-9 gap-y-8 md:grid-cols-2">
                         <div className="space-y-3">
-                            <Label htmlFor="nombre">Nombre completo</Label>
+                            <Label htmlFor="nombre">Nombres</Label>
                             <Input
-                                id="nombre"
-                                value={data.nombre}
-                                onChange={(e) => setData('nombre', e.target.value)}
-                                placeholder="Nombre completo"
+                                id="name"
+                                value={data.name}
+                                onChange={(e) => setData('name', e.target.value)}
+                                placeholder="Nombres"
                                 required
                                 className="mt-1 rounded-xl border border-gray-300 py-7 text-[#8b8b8b] shadow-sm focus:border-gray-300"
                             />
+                            <InputError />
+                            <InputError message={errors.name} />
+                        </div>
+
+                        <div className="space-y-3">
+                            <Label htmlFor="nombre">Apellidos</Label>
+                            <Input
+                                id="last_name"
+                                value={data.last_name}
+                                onChange={(e) => setData('last_name', e.target.value)}
+                                placeholder="Apellidos"
+                                required
+                                className="mt-1 rounded-xl border border-gray-300 py-7 text-[#8b8b8b] shadow-sm focus:border-gray-300"
+                            />
+                            <InputError message={errors.last_name} />
                         </div>
 
                         <div className="space-y-3">
                             <Label>Documento de Identidad</Label>
                             <div className="flex gap-2">
-                                <Select value={tipoDocumento} onValueChange={setTipoDocumento}>
+                                <Select
+                                    value={data.national_status}
+                                    onValueChange={(value) => {
+                                        setData('national_status', value);
+                                    }}
+                                >
                                     <SelectTrigger className="w-20 rounded-xl border border-gray-300 py-7 shadow-sm hover:text-black focus:border-gray-300 focus:ring-0 focus:ring-offset-0">
                                         <SelectValue />
                                     </SelectTrigger>
@@ -82,14 +97,15 @@ export function Createform({ departamentos, onSubmit, onCancel, processing = fal
                                     </SelectContent>
                                 </Select>
                                 <Input
-                                    id="cedula"
-                                    value={data.cedula}
-                                    onChange={(e) => setData('cedula', e.target.value)}
+                                    id="dni"
+                                    value={data.dni}
+                                    onChange={(e) => setData('dni', e.target.value)}
                                     placeholder="Número de documento"
-                                    maxLength={tipoDocumento === 'V' ? 8 : 10} // Ejemplo: diferentes longitudes máximas
+                                    maxLength={data.national_status === 'V' ? 8 : 10} // Ejemplo: diferentes longitudes máximas
                                     required
                                     className="mt-0 flex-1 rounded-xl border border-gray-300 py-7 text-[#8b8b8b] shadow-sm focus:border-gray-300"
                                 />
+                                <InputError message={errors.dni} />
                             </div>
                         </div>
                     </div>
@@ -106,44 +122,70 @@ export function Createform({ departamentos, onSubmit, onCancel, processing = fal
                                 required
                                 className="mt-1 rounded-xl border border-gray-300 py-7 text-[#8b8b8b] shadow-sm focus:border-gray-300"
                             />
+                            <InputError message={errors.email} />
+                        </div>
+                        <div className="space-y-3">
+                            <Label htmlFor="password">Contraseña</Label>
+                            <Input
+                                id="password"
+                                type={showPassword ? 'text' : 'password'}
+                                value={data.password}
+                                onChange={(e) => setData('password', e.target.value)}
+                                placeholder="Ingresar contraseña"
+                                required
+                                className="mt-1 rounded-xl border border-gray-300 py-7 text-[#8b8b8b] shadow-sm focus:border-gray-300"
+                            />
+                            <InputError message={errors.password} />
+                            <button
+                                type="button"
+                                onClick={() => setShowPassword(!showPassword)}
+                                className="absolute top-1/2 right-3 -translate-y-1/2 transform text-gray-500"
+                            >
+                                <FontAwesomeIcon icon={showPassword ? faEye : faEyeSlash} />
+                            </button>
                         </div>
                         <div className="space-y-3">
                             <Label htmlFor="telefono">Teléfono</Label>
                             <Input
-                                id="telefono"
-                                value={data.telefono}
-                                onChange={(e) => setData('telefono', e.target.value)}
+                                id="phone_number"
+                                value={data.phone_number}
+                                onChange={(e) => setData('phone_number', e.target.value)}
                                 placeholder="Teléfono"
                                 maxLength={11}
                                 required
                                 className="mt-1 rounded-xl border border-gray-300 py-7 text-[#8b8b8b] shadow-sm focus:border-gray-300"
                             />
+                            <InputError message={errors.phone_number} />
                         </div>
                     </div>
                 </div>
                 <div className="grid grid-cols-1 gap-9 gap-y-8 md:grid-cols-2">
                     <div className="space-y-3">
                         <Label htmlFor="departamento">Departamento</Label>
-                        <Select onValueChange={(value) => setData('departamento', value)} value={data.departamento}>
+                        <Select onValueChange={(value) => setData('department', value)} value={data.department}>
                             <SelectTrigger className="mt-1 w-full rounded-xl border border-gray-300 py-7 shadow-sm hover:text-black focus:border-gray-300 focus:ring-0 focus:ring-offset-0">
                                 <SelectValue placeholder="Seleccionar Departamento" className="text-[#8b8b8b]" />
                             </SelectTrigger>
                             <SelectContent className="rounded-xl bg-white shadow-sm">
-                                {departamentos.map((depto) => (
+                                {departments.map((depto) => (
                                     <SelectItem key={depto.id} value={String(depto.id)} className="text-[#8b8b8b] hover:bg-gray-100 hover:text-black">
                                         {depto.name}
                                     </SelectItem>
                                 ))}
                             </SelectContent>
                         </Select>
+                        <InputError message={errors.department} />
                     </div>
                 </div>
                 <div className="mt-8 flex justify-center gap-4 border-b-1 pb-6">
-                    <Button type="button" onClick={onCancel} className="h-12 w-10 rounded-xl border-gray-500 bg-gray-200 px-36 hover:bg-gray-300/90">
+                    <Link
+                        href={route('personel.index')}
+                        className="flex h-12 items-center justify-center rounded-xl bg-gray-200 px-36 text-base text-gray-700 transition hover:bg-gray-300"
+                    >
                         Cancelar
-                    </Button>
+                    </Link>
                     <Button type="submit" disabled={processing} className="h-12 w-10 rounded-xl bg-[#1e9483] px-36 text-white hover:bg-[#1e9483]/90">
-                        Crear Nuevo Personal
+                        Crear Personal
                     </Button>
                 </div>
             </form>

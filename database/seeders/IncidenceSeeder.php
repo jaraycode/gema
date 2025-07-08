@@ -22,9 +22,6 @@ class IncidenceSeeder extends Seeder
                 'description' => 'El aire acondicionado de la oficina principal no enfría, se sospecha fuga.',
                 'petionier' => 'jonas',
                 'inspection_guide' => json_encode(['revisar_tuberias', 'medir_presion_gas']),
-                'status' => 'pendiente',
-                'resolved_at' => null,
-                'equipment_code' => 'AC-001',
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
@@ -35,9 +32,6 @@ class IncidenceSeeder extends Seeder
                 'description' => 'El aire acondicionado de la sala de reuniones tiene bajo flujo de aire.',
                 'petionier' => 'jonas',
                 'inspection_guide' => json_encode(['limpiar_filtros', 'verificar_ventilador']),
-                'status' => 'en progreso',
-                'resolved_at' => null,
-                'equipment_code' => 'AC-002',
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
@@ -49,9 +43,6 @@ class IncidenceSeeder extends Seeder
                 'description' => 'El compresor del aire acondicionado central no arranca.',
                 'petionier' => 'jonas',
                 'inspection_guide' => json_encode(['revisar_compresor', 'verificar_electricidad']),
-                'status' => 'completado', // Este ya está resuelto en el TR
-                'resolved_at' => '2025-06-03 10:30:00', // Coincide con resolved_date del TR
-                'equipment_code' => 'AC-003', // Referencia a un AC que ya existe
                 'created_at' => now(),
                 'updated_at' => now(),
             ],

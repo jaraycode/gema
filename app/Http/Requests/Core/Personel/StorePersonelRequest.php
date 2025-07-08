@@ -23,14 +23,15 @@ class StorePersonelRequest extends FormRequest
     {
         return [
             "email" => "required|email|unique:personel,email|string",
-            "username" => "required|unique:personel,username|string",
             "password" => "required|string",
-            "dni" => "required|string",
+            "national_status" => "required|string",
+            "dni" => "required|integer",
             "phone_number" => "required|string", // max 13 caracteres usando el formato para +584121164027
-            "first_name" => "required|string",
-            "second_name" => "sometimes|string",
+            // "first_name" => "required|string",
+            // "second_name" => "sometimes|string",
+            // "second_last_name" => "sometimes|string",
+            "name" => "required|string",
             "last_name" => "required|string",
-            "second_last_name" => "sometimes|string",
             "department" => "required|string",
         ];
     }
@@ -43,9 +44,8 @@ class StorePersonelRequest extends FormRequest
             'email.unique' => 'The email has already been taken.',
             'email.string' => 'The email must be a string.',
 
-            'username.required' => 'The username field is required.',
-            'username.unique' => 'The username has already been taken.',
-            'username.string' => 'The username must be a string.',
+            'national_status.required' => 'El estatuto nacional es obligatorio.',
+            'national_status.integer' => 'El estatuto nacional debe ser un valor numérico.',
 
             'dni.required' => 'The dni field is required.',
             'dni.string' => 'The dni must be a string.',
@@ -56,17 +56,20 @@ class StorePersonelRequest extends FormRequest
             'phone_number.required' => 'The phone number field is required.',
             'phone_number.string' => 'The phone number must be a string.',
 
-            'first_name.required' => 'The first name field is required.',
-            'first_name.string' => 'The first name must be a string.',
+            'name.required' => 'El nombre es obligatorio.',
+            'name.string' => 'El nombre tiene que ser una cadena de texto.',
+
+            // 'first_name.required' => 'The first name field is required.',
+            // 'first_name.string' => 'The first name must be a string.',
 
             // 'second_name.required' => 'The second name field is required.',
-            'second_name.string' => 'The second name must be a string.',
+            // 'second_name.string' => 'The second name must be a string.',
 
-            'last_name.required' => 'The last name field is required.',
-            'last_name.string' => 'The last name must be a string.',
+            // 'last_name.required' => 'The last name field is required.',
+            // 'last_name.string' => 'The last name must be a string.',
 
             // 'second_last_name.required' => 'The second last name field is required.',
-            'second_last_name.string' => 'The second last name must be a string.',
+            // 'second_last_name.string' => 'The second last name must be a string.',
         ];
     }
 }

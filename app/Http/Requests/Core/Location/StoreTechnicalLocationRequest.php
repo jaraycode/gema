@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Core\Location;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class StoreTechnicalLocationRequest extends FormRequest
 {
@@ -22,7 +23,9 @@ class StoreTechnicalLocationRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'level1' => ['required', 'integer'],
+            'level1' => ['required', 'integer', Rule::unique(table: 'technical_location')->where(column: function ($query): void {
+                $query->where('level2', $this->level2)->where('level3', $this->level3)->where('level4', $this->level4)->where('level5', $this->level5)->where('level6', $this->level6)->where('level7', $this->level7);
+            })],
             'level2' => ['required', 'integer'],
             'level3' => ['required', 'integer'],
             'level4' => ['required', 'integer'],
@@ -48,6 +51,7 @@ class StoreTechnicalLocationRequest extends FormRequest
             'level2.integer' => 'Es necesario ingresar un valor numérico',
             'level3.integer' => 'Es necesario ingresar un valor numérico',
             'level4.integer' => 'Es necesario ingresar un valor numérico',
+            'level1.unique' => 'Esa ubicación técnica ya existe',
         ];
     }
 }

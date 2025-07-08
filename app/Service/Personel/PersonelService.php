@@ -9,6 +9,7 @@ use Exception;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 use PhpParser\Builder;
 
@@ -47,64 +48,75 @@ class PersonelService
 
   public function storePersonnel(array $personnel): RedirectResponse
   {
+    DB::beginTransaction();
     try {
-      $departmentId = $personnel['department'];
+      $personnel['password'] = Hash::make(value: $personnel['password']);
+      $personnel['username'] = explode(separator: '@', string: $personnel['email'])[0];
+      $personnel['dni'] = $personnel['national_status'] . '-' . $personnel['dni'];
+      $names = explode(separator: ' ', string: $personnel['name']);
+      $personnel['first_name'] = $names[0];
+      $personnel['second_name'] = $names[1] ?? null;
+      $names = explode(separator: ' ', string: $personnel['last_name']);
+      $personnel['last_name'] = $names[0];
+      $personnel['second_last_name'] = $names[1] ?? null;
+      $personnel['avatar'] = '/avatars/shadcn.jpg';
+      unset($personnel['name']);
+      unset($personnel['national_status']);
       $response = Personel::create(attributes: $personnel);
+
+      if (!$response) throw new Exception('No se pudo guardar el personal');
+
       $response->departments()->sync([
-        $departmentId => [
+        $personnel['department'] => [
           "begin_date" => now()->setTimezone('GMT-4')->format('Y-m-d H:i:s'),
           "end_date" => null,
         ]
       ], false);
 
-      if ($response) return redirect()->route(route: 'personel.index')->with(key: 'success', value: 'Personal creado exitosamente');
-
-      return redirect()->back()->with(key: 'error', value: 'No se pudo crear el personal. Intente nuevamente!');
+      DB::commit();
+      return redirect()->route(route: 'personel.index')->with(key: 'success', value: 'Personal creado exitosamente');
     } catch (Exception $e) {
+      DB::rollBack();
       Log::error(message: 'Creación de Personal ' . $e->getMessage());
-      throw new \Exception(message: "Error al guardar Personal: " . $e->getMessage());
+      return redirect()->back()->with(key: 'error', value: 'Error al guardar Personal: ' . $e->getMessage());
     }
   }
 
-    public function updatePersonnel(int $id, array $personnel): RedirectResponse
-    {
-        try {
-            DB::beginTransaction();
+  public function updatePersonnel(int $id, array $personnel): RedirectResponse
+  {
+    DB::beginTransaction();
+    try {
+      $newDepartmentId = $personnel['department'];
+      unset($personnel['department']);
+      $personnelRecord = Personel::findOrFail($id);
+      $personnelRecord->update($personnel);
+      $currentDepartment = $personnelRecord->departments()
+        ->wherePivot('end_date', null)
+        ->first();
+      if ($currentDepartment) {
+        $personnelRecord->departments()->updateExistingPivot($currentDepartment->id, [
+          'end_date' => now()->setTimezone('GMT-4')->format('Y-m-d H:i:s')
+        ]);
+      }
+      $personnelRecord->departments()->sync([
+        $newDepartmentId => [
+          "begin_date" => now()->setTimezone('GMT-4')->format('Y-m-d H:i:s'),
+          "end_date" => null,
+        ]
+      ], false);
+      // $personnelRecord->departments()->sync($newDepartmentId, [
+      //   'begin_date' => now()->setTimezone('GMT-4')->format('Y-m-d H:i:s'),
+      //   'end_date' => null
+      // ]);
 
-
-            $newDepartmentId = $personnel['department'];
-            unset($personnel['department']);
-
-
-            $personnelRecord = Personel::findOrFail($id);
-
-
-            $personnelRecord->update($personnel);
-
-            $currentDepartment = $personnelRecord->departments()
-                ->wherePivot('end_date', null)
-                ->first();
-
-            if ($currentDepartment) {
-                $personnelRecord->departments()->updateExistingPivot($currentDepartment->id, [
-                    'end_date' => now()->setTimezone('GMT-4')->format('Y-m-d H:i:s')
-                ]);
-            }
-
-            $personnelRecord->departments()->attach($newDepartmentId, [
-                'begin_date' => now()->setTimezone('GMT-4')->format('Y-m-d H:i:s'),
-                'end_date' => null
-            ]);
-
-            DB::commit();
-
-            return redirect()->route('personel.index')->with('success', 'Personal actualizado exitosamente');
-        } catch (Exception $e) {
-            DB::rollBack();
-            Log::error('Actualización de Personal ' . $e->getMessage());
-            return redirect()->back()->with('error', 'No se pudo actualizar el Personal. Intente nuevamente!');
-        }
+      DB::commit();
+      return redirect()->route('personel.index')->with('success', 'Personal actualizado exitosamente');
+    } catch (Exception $e) {
+      DB::rollBack();
+      Log::error('Actualización de Personal ' . $e->getMessage());
+      return redirect()->back()->with('error', 'No se pudo actualizar el Personal. Intente nuevamente!');
     }
+  }
 
   public function deletePersonnel(int $id): RedirectResponse
   {
