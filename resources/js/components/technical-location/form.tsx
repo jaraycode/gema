@@ -1,4 +1,4 @@
-'use client';
+ 'use client';
 import Combobox from '@/components/ui/combobox';
 import { TechnicalLocationFormData, TechnicalLocationObject } from '@/types';
 import { faChevronLeft, faQuestion } from '@fortawesome/free-solid-svg-icons';
@@ -8,6 +8,7 @@ import { FormEventHandler } from 'react';
 import InputError from '../input-error';
 import { Button } from '../ui/button';
 import { HoverCard, HoverCardContent, HoverCardTrigger } from '../ui/hover-card';
+import { Card } from '@/components/ui/card'; // Importar Card
 
 export default function TechnicalLocationForm({ props }: { props: TechnicalLocationObject }) {
     const { data, setData, post, processing, errors } = useForm<Required<TechnicalLocationFormData>>({
@@ -26,7 +27,7 @@ export default function TechnicalLocationForm({ props }: { props: TechnicalLocat
     };
 
     return (
-        <div className="mx-auto rounded-xl bg-white px-14 py-7 pb-10 shadow-md">
+        <Card className="mx-auto rounded-xl bg-white px-14 py-7 pb-10 shadow-md"> {/* Usar Card */}
             {/* Header */}
             <div className="mb-4 flex items-start justify-between">
                 <Link href={route('technical-location.index')} className="mb-4 inline-block text-sm text-gray-500 hover:text-gray-700">
@@ -125,6 +126,6 @@ export default function TechnicalLocationForm({ props }: { props: TechnicalLocat
                     </button>
                 </div>
             </form>
-        </div>
+        </Card>
     );
-}
+}   

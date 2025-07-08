@@ -1,5 +1,6 @@
-import InputError from '@/components/input-error';
+ import InputError from '@/components/input-error';
 import { Button } from '@/components/ui/button';
+import { Card } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
@@ -36,7 +37,7 @@ export function PersonnelCreateForm({ departments }: CreatePersonelFormProps) {
     };
 
     return (
-        <div className="mx-auto rounded-xl bg-white px-14 py-7 pb-10 text-center shadow-md">
+        <Card className="mx-auto rounded-xl bg-white px-14 py-7 pb-10 text-center shadow-md">
             <div className="mb-4 flex items-center justify-between">
                 <Link href="/personel" className="inline-block text-sm text-gray-500 hover:text-gray-700">
                     <FontAwesomeIcon icon={faChevronLeft} />
@@ -46,7 +47,7 @@ export function PersonnelCreateForm({ departments }: CreatePersonelFormProps) {
             <p className="mb-5 text-gray-600">Complete la información del Personal</p>
 
             <form onSubmit={handleSubmit} className="space-y-8 border-t-1 pt-7">
-                <div className="space-y-8">
+
                     <div className="grid grid-cols-1 gap-9 gap-y-8 md:grid-cols-2">
                         <div className="space-y-3">
                             <Label htmlFor="nombre">Nombres</Label>
@@ -56,7 +57,7 @@ export function PersonnelCreateForm({ departments }: CreatePersonelFormProps) {
                                 onChange={(e) => setData('name', e.target.value)}
                                 placeholder="Nombres"
                                 required
-                                className="mt-1 rounded-xl border border-gray-300 py-7 text-[#8b8b8b] shadow-sm focus:border-gray-300"
+                                className="rounded-xl py-7 text-[#8b8b8b] shadow-sm rounded-[8px] border border-zinc-200 bg-white text-base text-neutral-900 placeholder:text-neutral-500 focus-visible:ring-2 focus-visible:ring-teal-500 focus-visible:outline-none"
                             />
                             <InputError />
                             <InputError message={errors.name} />
@@ -70,7 +71,7 @@ export function PersonnelCreateForm({ departments }: CreatePersonelFormProps) {
                                 onChange={(e) => setData('last_name', e.target.value)}
                                 placeholder="Apellidos"
                                 required
-                                className="mt-1 rounded-xl border border-gray-300 py-7 text-[#8b8b8b] shadow-sm focus:border-gray-300"
+                                className="rounded-xl py-7 text-[#8b8b8b] shadow-sm rounded-[8px] border border-zinc-200 bg-white text-base text-neutral-900 placeholder:text-neutral-500 focus-visible:ring-2 focus-visible:ring-teal-500 focus-visible:outline-none"
                             />
                             <InputError message={errors.last_name} />
                         </div>
@@ -103,14 +104,12 @@ export function PersonnelCreateForm({ departments }: CreatePersonelFormProps) {
                                     placeholder="Número de documento"
                                     maxLength={data.national_status === 'V' ? 8 : 10} // Ejemplo: diferentes longitudes máximas
                                     required
-                                    className="mt-0 flex-1 rounded-xl border border-gray-300 py-7 text-[#8b8b8b] shadow-sm focus:border-gray-300"
+                                    className="rounded-xl py-7 text-[#8b8b8b] shadow-sm rounded-[8px] border border-zinc-200 bg-white text-base text-neutral-900 placeholder:text-neutral-500 focus-visible:ring-2 focus-visible:ring-teal-500 focus-visible:outline-none"
                                 />
                                 <InputError message={errors.dni} />
                             </div>
                         </div>
-                    </div>
 
-                    <div className="grid grid-cols-1 gap-9 gap-y-8 md:grid-cols-2">
                         <div className="space-y-3">
                             <Label htmlFor="email">Correo electrónico</Label>
                             <Input
@@ -120,7 +119,7 @@ export function PersonnelCreateForm({ departments }: CreatePersonelFormProps) {
                                 onChange={(e) => setData('email', e.target.value)}
                                 placeholder="Ingresar correo electrónico"
                                 required
-                                className="mt-1 rounded-xl border border-gray-300 py-7 text-[#8b8b8b] shadow-sm focus:border-gray-300"
+                                className="rounded-xl py-7 text-[#8b8b8b] shadow-sm rounded-[8px] border border-zinc-200 bg-white text-base text-neutral-900 placeholder:text-neutral-500 focus-visible:ring-2 focus-visible:ring-teal-500 focus-visible:outline-none"
                             />
                             <InputError message={errors.email} />
                         </div>
@@ -133,16 +132,9 @@ export function PersonnelCreateForm({ departments }: CreatePersonelFormProps) {
                                 onChange={(e) => setData('password', e.target.value)}
                                 placeholder="Ingresar contraseña"
                                 required
-                                className="mt-1 rounded-xl border border-gray-300 py-7 text-[#8b8b8b] shadow-sm focus:border-gray-300"
+                                className="rounded-xl py-7 text-[#8b8b8b] shadow-sm rounded-[8px] border border-zinc-200 bg-white text-base text-neutral-900 placeholder:text-neutral-500 focus-visible:ring-2 focus-visible:ring-teal-500 focus-visible:outline-none"
                             />
                             <InputError message={errors.password} />
-                            <button
-                                type="button"
-                                onClick={() => setShowPassword(!showPassword)}
-                                className="absolute top-1/2 right-3 -translate-y-1/2 transform text-gray-500"
-                            >
-                                <FontAwesomeIcon icon={showPassword ? faEye : faEyeSlash} />
-                            </button>
                         </div>
                         <div className="space-y-3">
                             <Label htmlFor="telefono">Teléfono</Label>
@@ -153,29 +145,26 @@ export function PersonnelCreateForm({ departments }: CreatePersonelFormProps) {
                                 placeholder="Teléfono"
                                 maxLength={11}
                                 required
-                                className="mt-1 rounded-xl border border-gray-300 py-7 text-[#8b8b8b] shadow-sm focus:border-gray-300"
+                                className="rounded-xl py-7 text-[#8b8b8b] shadow-sm rounded-[8px] border border-zinc-200 bg-white text-base text-neutral-900 placeholder:text-neutral-500 focus-visible:ring-2 focus-visible:ring-teal-500 focus-visible:outline-none"
                             />
                             <InputError message={errors.phone_number} />
                         </div>
-                    </div>
-                </div>
-                <div className="grid grid-cols-1 gap-9 gap-y-8 md:grid-cols-2">
-                    <div className="space-y-3">
-                        <Label htmlFor="departamento">Departamento</Label>
-                        <Select onValueChange={(value) => setData('department', value)} value={data.department}>
-                            <SelectTrigger className="mt-1 w-full rounded-xl border border-gray-300 py-7 shadow-sm hover:text-black focus:border-gray-300 focus:ring-0 focus:ring-offset-0">
-                                <SelectValue placeholder="Seleccionar Departamento" className="text-[#8b8b8b]" />
-                            </SelectTrigger>
-                            <SelectContent className="rounded-xl bg-white shadow-sm">
-                                {departments.map((depto) => (
-                                    <SelectItem key={depto.id} value={String(depto.id)} className="text-[#8b8b8b] hover:bg-gray-100 hover:text-black">
-                                        {depto.name}
-                                    </SelectItem>
-                                ))}
-                            </SelectContent>
-                        </Select>
-                        <InputError message={errors.department} />
-                    </div>
+                        <div className="space-y-3">
+                            <Label htmlFor="departamento">Departamento</Label>
+                            <Select onValueChange={(value) => setData('department', value)} value={data.department}>
+                                <SelectTrigger className="mt-1 w-full rounded-xl border border-gray-300 py-7 shadow-sm hover:text-black focus:border-gray-300 focus:ring-0 focus:ring-offset-0">
+                                    <SelectValue placeholder="Seleccionar Departamento" className="text-[#8b8b8b]" />
+                                </SelectTrigger>
+                                <SelectContent className="rounded-xl bg-white shadow-sm">
+                                    {departments.map((depto) => (
+                                        <SelectItem key={depto.id} value={String(depto.id)} className="text-[#8b8b8b] hover:bg-gray-100 hover:text-black">
+                                            {depto.name}
+                                        </SelectItem>
+                                    ))}
+                                </SelectContent>
+                            </Select>
+                            <InputError message={errors.department} />
+                        </div>
                 </div>
                 <div className="mt-8 flex justify-center gap-4 border-b-1 pb-6">
                     <Link
@@ -189,6 +178,6 @@ export function PersonnelCreateForm({ departments }: CreatePersonelFormProps) {
                     </Button>
                 </div>
             </form>
-        </div>
+        </Card>
     );
 }

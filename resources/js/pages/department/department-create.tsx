@@ -1,4 +1,4 @@
-import InputError from '@/components/input-error';
+ import InputError from '@/components/input-error';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -9,6 +9,7 @@ import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Head, Link, useForm } from '@inertiajs/react';
 import { FormEventHandler } from 'react';
+import { Card } from '@/components/ui/card'; // Importar Card
 
 export default function DepartmentCreate({ user, navMain, navSecondary }: NavBarProps) {
     const { data, setData, post, processing, errors, reset } = useForm<Required<DepartmentFormModel>>({
@@ -28,7 +29,7 @@ export default function DepartmentCreate({ user, navMain, navSecondary }: NavBar
             <div className="@container/main flex flex-1 flex-col gap-2">
                 <div className="flex flex-col gap-4 py-4 md:gap-6 md:py-6">
                     <div className="px-10 lg:px-25">
-                        <div className="rounded-xl bg-white px-14 py-7 pb-10 text-left shadow-md">
+                        <Card className="rounded-xl bg-white px-14 py-7 pb-10 text-left shadow-md"> {/* Usar Card */}
                             <div className="flex items-center justify-between">
                                 <Link href="/department" className="inline-block text-sm text-gray-500 hover:text-gray-700">
                                     <FontAwesomeIcon icon={faChevronLeft} />
@@ -47,7 +48,7 @@ export default function DepartmentCreate({ user, navMain, navSecondary }: NavBar
                                                 value={data.code}
                                                 onChange={(e) => setData('code', e.target.value)}
                                                 placeholder="Código del Departamento"
-                                                className="mt-1 rounded-xl border border-gray-300 py-7 text-[#8b8b8b] shadow-sm focus:border-gray-300"
+                                                className="rounded-xl py-7 text-[#8b8b8b] shadow-sm rounded-[8px] border border-zinc-200 bg-white text-base text-neutral-900 placeholder:text-neutral-500 focus-visible:ring-2 focus-visible:ring-teal-500 focus-visible:outline-none"
                                             />
                                             <InputError message={errors.code} />
                                         </div>
@@ -59,7 +60,7 @@ export default function DepartmentCreate({ user, navMain, navSecondary }: NavBar
                                                 onChange={(e) => setData('name', e.target.value)}
                                                 placeholder="Nombre del Departamento"
                                                 required
-                                                className="mt-1 rounded-xl border border-gray-300 py-7 text-[#8b8b8b] shadow-sm focus:border-gray-300"
+                                                className="rounded-xl py-7 text-[#8b8b8b] shadow-sm rounded-[8px] border border-zinc-200 bg-white text-base text-neutral-900 placeholder:text-neutral-500 focus-visible:ring-2 focus-visible:ring-teal-500 focus-visible:outline-none"
                                             />
                                             <InputError message={errors.name} />
                                         </div>
@@ -80,7 +81,7 @@ export default function DepartmentCreate({ user, navMain, navSecondary }: NavBar
                                     </Button>
                                 </div>
                             </form>
-                        </div>
+                        </Card> {/* Cerrar Card */}
                     </div>
                 </div>
             </div>

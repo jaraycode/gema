@@ -1,4 +1,4 @@
-import InputError from '@/components/input-error';
+     import InputError from '@/components/input-error';
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { EquipmentFormData, EquipmentFormProps, EquipmentModel, TechnicalLocationModel } from '@/types';
@@ -6,6 +6,7 @@ import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Link, useForm } from '@inertiajs/react';
 import { FormEventHandler, useState } from 'react';
+import { Card } from '@/components/ui/card'; // Importar Card
 
 type EquipmentFormProp = Pick<EquipmentFormProps, 'equipment_type' | 'locations' | 'technical_locations'>;
 
@@ -26,9 +27,6 @@ export default function EquipmentEditForm({ equipment_type, locations, technical
     ];
 
     const [locationOptions] = useState<TechnicalLocationModel[]>(technical_locations);
-    // const [query, setQuery] = useState('');
-
-    // const filteredLocations = query === '' ? locationOptions : locationOptions.filter((loc) => loc.toLowerCase().includes(query.toLowerCase()));
 
     const handleInputChange = (field: keyof EquipmentFormData, value: string | number) => {
         setData(field, value);
@@ -42,7 +40,7 @@ export default function EquipmentEditForm({ equipment_type, locations, technical
     };
 
     return (
-        <div className="mx-auto rounded-xl bg-white px-14 py-7 pb-10 shadow-md">
+        <Card className="mx-auto rounded-xl bg-white px-14 py-7 pb-10 shadow-md"> {/* Cambiar 'card' por 'Card' */}
             {/* Header */}
             <div className="mb-4 flex items-start justify-between">
                 <Link href={route('equipment.index')} className="mb-4 inline-block text-sm text-gray-500 hover:text-gray-700">
@@ -65,7 +63,7 @@ export default function EquipmentEditForm({ equipment_type, locations, technical
                             placeholder="Ej: Aire acondicionado"
                             value={data.brand}
                             onChange={(e) => handleInputChange('brand', e.target.value)}
-                            className="w-full resize-none rounded-[8px] border border-zinc-200 bg-white px-4 py-3 text-base text-neutral-900 placeholder:text-neutral-500 focus-visible:ring-2 focus-visible:ring-teal-500 focus-visible:outline-none"
+                            className="rounded-xl py-7 text-[#8b8b8b] shadow-sm rounded-[8px] border border-zinc-200 bg-white text-base text-neutral-900 placeholder:text-neutral-500 focus-visible:ring-2 focus-visible:ring-teal-500 focus-visible:outline-none"
                         />
                         <InputError message={errors.brand} />
                     </div>
@@ -79,7 +77,7 @@ export default function EquipmentEditForm({ equipment_type, locations, technical
                             placeholder="Ej: Aire acondicionado"
                             value={data.model}
                             onChange={(e) => handleInputChange('model', e.target.value)}
-                            className="w-full resize-none rounded-[8px] border border-zinc-200 bg-white px-4 py-3 text-base text-neutral-900 placeholder:text-neutral-500 focus-visible:ring-2 focus-visible:ring-teal-500 focus-visible:outline-none"
+                            className="rounded-xl py-7 text-[#8b8b8b] shadow-sm rounded-[8px] border border-zinc-200 bg-white text-base text-neutral-900 placeholder:text-neutral-500 focus-visible:ring-2 focus-visible:ring-teal-500 focus-visible:outline-none"
                         />
                         <InputError message={errors.model} />
                     </div>
@@ -94,7 +92,7 @@ export default function EquipmentEditForm({ equipment_type, locations, technical
                             value={data.serial}
                             onChange={(e) => handleInputChange('serial', e.target.value)}
                             disabled
-                            className="w-full resize-none rounded-[8px] border border-zinc-200 bg-white px-4 py-3 text-base text-neutral-900 placeholder:text-neutral-500 focus-visible:ring-2 focus-visible:ring-teal-500 focus-visible:outline-none"
+                            className="rounded-xl py-7 text-[#8b8b8b] shadow-sm rounded-[8px] border border-zinc-200 bg-white text-base text-neutral-900 placeholder:text-neutral-500 focus-visible:ring-2 focus-visible:ring-teal-500 focus-visible:outline-none"
                         />
                         <InputError message={errors.serial} />
                     </div>
@@ -150,57 +148,6 @@ export default function EquipmentEditForm({ equipment_type, locations, technical
                 </div>
 
                 <div className="mt-5 mb-4">
-                    <p className="mb-5 text-center text-neutral-700">Coloca la ubicación técnica</p>
-                    <div className="grid grid-cols-4 gap-4">
-                        <Select>
-                            <SelectTrigger className="mt-1 w-full rounded-xl border border-gray-300 py-7 shadow-sm hover:text-black focus-visible:border-gray-300 focus-visible:ring-2 focus-visible:ring-teal-500 focus-visible:ring-offset-0">
-                                <SelectValue placeholder="Seleccione un edificio" className="text-[#8b8b8b]" />
-                            </SelectTrigger>
-                            <SelectContent className="rounded-xl bg-white shadow-sm">
-                                {locations.module.map((value, key) => (
-                                    <SelectItem value={String(value.id)} key={key}>
-                                        {value.name}
-                                    </SelectItem>
-                                ))}
-                            </SelectContent>
-                        </Select>
-                        <Select>
-                            <SelectTrigger className="mt-1 w-full rounded-xl border border-gray-300 py-7 shadow-sm hover:text-black focus-visible:border-gray-300 focus-visible:ring-2 focus-visible:ring-teal-500 focus-visible:ring-offset-0">
-                                <SelectValue placeholder="Seleccione un piso" className="text-[#8b8b8b]" />
-                            </SelectTrigger>
-                            <SelectContent className="rounded-xl bg-white shadow-sm">
-                                {locations.floor.map((value, key) => (
-                                    <SelectItem value={String(value.id)} key={key}>
-                                        {value.name}
-                                    </SelectItem>
-                                ))}
-                            </SelectContent>
-                        </Select>
-                        <Select>
-                            <SelectTrigger className="mt-1 w-full rounded-xl border border-gray-300 py-7 shadow-sm hover:text-black focus-visible:border-gray-300 focus-visible:ring-2 focus-visible:ring-teal-500 focus-visible:ring-offset-0">
-                                <SelectValue placeholder="Seleccione un área" className="text-[#8b8b8b]" />
-                            </SelectTrigger>
-                            <SelectContent className="rounded-xl bg-white shadow-sm">
-                                {locations.area.map((value, key) => (
-                                    <SelectItem value={String(value.id)} key={key}>
-                                        {value.name}
-                                    </SelectItem>
-                                ))}
-                            </SelectContent>
-                        </Select>
-                        <Select>
-                            <SelectTrigger className="mt-1 w-full rounded-xl border border-gray-300 py-7 shadow-sm hover:text-black focus-visible:border-gray-300 focus-visible:ring-2 focus-visible:ring-teal-500 focus-visible:ring-offset-0">
-                                <SelectValue placeholder="Seleccione un equipo" className="text-[#8b8b8b]" />
-                            </SelectTrigger>
-                            <SelectContent className="rounded-xl bg-white shadow-sm">
-                                {locations.equipment.map((value, key) => (
-                                    <SelectItem value={String(value.id)} key={key}>
-                                        {value.name}
-                                    </SelectItem>
-                                ))}
-                            </SelectContent>
-                        </Select>
-                    </div>
                     <Select
                         value={data.technical_location}
                         onValueChange={(value) => handleInputChange('technical_location', value)}
@@ -238,6 +185,6 @@ export default function EquipmentEditForm({ equipment_type, locations, technical
                     </button>
                 </div>
             </form>
-        </div>
+        </Card> 
     );
 }

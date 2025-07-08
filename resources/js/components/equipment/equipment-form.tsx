@@ -1,6 +1,7 @@
-import InputError from '@/components/input-error';
+ import InputError from '@/components/input-error';
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Card } from '@/components/ui/card'; // Importando Card
 import { EquipmentFormData, EquipmentFormProps, TechnicalLocationModel } from '@/types';
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -32,13 +33,9 @@ export default function EquipmentForm({ equipment_type, locations, technical_loc
     const [queryFloor, setQueryFloor] = useState('');
     const [queryBuilding, setQueryBuilding] = useState('');
 
-    // const filteredLocations = query === '' ? locationOptions : locationOptions.filter((loc) => loc.toLowerCase().includes(query.toLowerCase()));
-
     const handleFilter = (valueQuery: string, setValue: React.Dispatch<React.SetStateAction<string>>) => {
         setValue(valueQuery);
-
         const model = locationOptions.filter((value) => value.code.includes(valueQuery));
-
         setLocationOptions(model);
     };
 
@@ -59,7 +56,7 @@ export default function EquipmentForm({ equipment_type, locations, technical_loc
     };
 
     return (
-        <div className="mx-auto rounded-xl bg-white px-14 py-7 pb-10 shadow-md">
+        <Card className="mx-auto rounded-xl bg-white px-14 py-7 pb-10 shadow-md"> {/* Usando Card */}
             {/* Header */}
             <div className="mb-4 flex items-start justify-between">
                 <Link href={route('equipment.index')} className="mb-4 inline-block text-sm text-gray-500 hover:text-gray-700">
@@ -82,7 +79,7 @@ export default function EquipmentForm({ equipment_type, locations, technical_loc
                             placeholder="Ej: Aire acondicionado"
                             value={data.brand}
                             onChange={(e) => handleInputChange('brand', e.target.value)}
-                            className="w-full resize-none rounded-[8px] border border-zinc-200 bg-white px-4 py-3 text-base text-neutral-900 placeholder:text-neutral-500 focus-visible:ring-2 focus-visible:ring-teal-500 focus-visible:outline-none"
+                            className="rounded-xl py-7 text-[#8b8b8b] shadow-sm rounded-[8px] border border-zinc-200 bg-white text-base text-neutral-900 placeholder:text-neutral-500 focus-visible:ring-2 focus-visible:ring-teal-500 focus-visible:outline-none"
                         />
                         <InputError message={errors.brand} />
                     </div>
@@ -96,7 +93,7 @@ export default function EquipmentForm({ equipment_type, locations, technical_loc
                             placeholder="Ej: Aire acondicionado"
                             value={data.model}
                             onChange={(e) => handleInputChange('model', e.target.value)}
-                            className="w-full resize-none rounded-[8px] border border-zinc-200 bg-white px-4 py-3 text-base text-neutral-900 placeholder:text-neutral-500 focus-visible:ring-2 focus-visible:ring-teal-500 focus-visible:outline-none"
+                            className="rounded-xl py-7 text-[#8b8b8b] shadow-sm rounded-[8px] border border-zinc-200 bg-white text-base text-neutral-900 placeholder:text-neutral-500 focus-visible:ring-2 focus-visible:ring-teal-500 focus-visible:outline-none"
                         />
                         <InputError message={errors.model} />
                     </div>
@@ -110,7 +107,7 @@ export default function EquipmentForm({ equipment_type, locations, technical_loc
                             placeholder="Número de Serial"
                             value={data.serial}
                             onChange={(e) => handleInputChange('serial', e.target.value)}
-                            className="w-full resize-none rounded-[8px] border border-zinc-200 bg-white px-4 py-3 text-base text-neutral-900 placeholder:text-neutral-500 focus-visible:ring-2 focus-visible:ring-teal-500 focus-visible:outline-none"
+                            className="rounded-xl py-7 text-[#8b8b8b] shadow-sm rounded-[8px] border border-zinc-200 bg-white text-base text-neutral-900 placeholder:text-neutral-500 focus-visible:ring-2 focus-visible:ring-teal-500 focus-visible:outline-none"
                         />
                         <InputError message={errors.serial} />
                     </div>
@@ -167,9 +164,9 @@ export default function EquipmentForm({ equipment_type, locations, technical_loc
 
                 <div className="mt-5 mb-4">
                     <p className="mb-5 text-center text-neutral-700">Coloca la ubicación técnica</p>
-                    <div className="grid grid-cols-4 gap-4">
-                        <Select value={queryBuilding} onValueChange={(value) => handleFilter(value, setQueryBuilding)}>
-                            <SelectTrigger className="mt-1 w-full rounded-xl border border-gray-300 py-7 shadow-sm hover:text-black focus-visible:border-gray-300 focus-visible:ring-2 focus-visible:ring-teal-500 focus-visible:ring-offset-0">
+                    <div className="grid grid-cols-5 gap-4 mb-15">
+                         <Select value={queryBuilding} onValueChange={(value) => handleFilter(value, setQueryBuilding)}>
+                            <SelectTrigger className="mt-1 w-[200px] rounded-xl border border-gray-300 py-7 shadow-sm hover:text-black focus-visible:border-gray-300 focus-visible:ring-2 focus-visible:ring-teal-500 focus-visible:ring-offset-0">
                                 <SelectValue placeholder="Seleccione un edificio" className="text-[#8b8b8b]" />
                             </SelectTrigger>
                             <SelectContent className="rounded-xl bg-white shadow-sm">
@@ -181,7 +178,7 @@ export default function EquipmentForm({ equipment_type, locations, technical_loc
                             </SelectContent>
                         </Select>
                         <Select value={queryFloor} onValueChange={(value) => handleFilter(value, setQueryFloor)}>
-                            <SelectTrigger className="mt-1 w-full rounded-xl border border-gray-300 py-7 shadow-sm hover:text-black focus-visible:border-gray-300 focus-visible:ring-2 focus-visible:ring-teal-500 focus-visible:ring-offset-0">
+                            <SelectTrigger className="mt-1 w-[200px] rounded-xl border border-gray-300 py-7 shadow-sm hover:text-black focus-visible:border-gray-300 focus-visible:ring-2 focus-visible:ring-teal-500 focus-visible:ring-offset-0">
                                 <SelectValue placeholder="Seleccione un piso" className="text-[#8b8b8b]" />
                             </SelectTrigger>
                             <SelectContent className="rounded-xl bg-white shadow-sm">
@@ -193,7 +190,7 @@ export default function EquipmentForm({ equipment_type, locations, technical_loc
                             </SelectContent>
                         </Select>
                         <Select value={queryOffice} onValueChange={(value) => handleFilter(value, setQueryOffice)}>
-                            <SelectTrigger className="mt-1 w-full rounded-xl border border-gray-300 py-7 shadow-sm hover:text-black focus-visible:border-gray-300 focus-visible:ring-2 focus-visible:ring-teal-500 focus-visible:ring-offset-0">
+                            <SelectTrigger className="mt-1 w-[200px] rounded-xl border border-gray-300 py-7 shadow-sm hover:text-black focus-visible:border-gray-300 focus-visible:ring-2 focus-visible:ring-teal-500 focus-visible:ring-offset-0">
                                 <SelectValue placeholder="Seleccione un área" className="text-[#8b8b8b]" />
                             </SelectTrigger>
                             <SelectContent className="rounded-xl bg-white shadow-sm">
@@ -205,7 +202,7 @@ export default function EquipmentForm({ equipment_type, locations, technical_loc
                             </SelectContent>
                         </Select>
                         <Select value={queryEquipment} onValueChange={(value) => handleFilter(value, setQueryEquipment)}>
-                            <SelectTrigger className="mt-1 w-full rounded-xl border border-gray-300 py-7 shadow-sm hover:text-black focus-visible:border-gray-300 focus-visible:ring-2 focus-visible:ring-teal-500 focus-visible:ring-offset-0">
+                            <SelectTrigger className="mt-1 w-[200px] rounded-xl border border-gray-300 py-7 shadow-sm hover:text-black focus-visible:border-gray-300 focus-visible:ring-2 focus-visible:ring-teal-500 focus-visible:ring-offset-0">
                                 <SelectValue placeholder="Seleccione un equipo" className="text-[#8b8b8b]" />
                             </SelectTrigger>
                             <SelectContent className="rounded-xl bg-white shadow-sm">
@@ -216,6 +213,13 @@ export default function EquipmentForm({ equipment_type, locations, technical_loc
                                 ))}
                             </SelectContent>
                         </Select>
+                        <button
+                            type="button"
+                            onClick={() => clearFilter([setQueryBuilding, setQueryEquipment, setQueryFloor, setQueryOffice])}
+                            className="h-12 rounded-xl bg-[#1e9483] px-10 mt-2 text-base text-white transition hover:bg-[#1e9483]/90"
+                        >
+                            Limpiar filtros
+                        </button>
                     </div>
                     <Select value={data.technical_location} onValueChange={(value) => handleInputChange('technical_location', value)} required>
                         <SelectTrigger className="mt-5 w-full rounded-xl border border-gray-300 py-7 shadow-sm hover:text-black focus-visible:border-gray-300 focus-visible:ring-2 focus-visible:ring-teal-500 focus-visible:ring-offset-0">
@@ -230,13 +234,6 @@ export default function EquipmentForm({ equipment_type, locations, technical_loc
                         </SelectContent>
                     </Select>
                     <InputError message={errors.technical_location} />
-                    <button
-                        type="button"
-                        onClick={() => clearFilter([setQueryBuilding, setQueryEquipment, setQueryFloor, setQueryOffice])}
-                        className="h-12 rounded-xl bg-[#1e9483] px-36 text-base text-white transition hover:bg-[#1e9483]/90"
-                    >
-                        Limpiar filtro
-                    </button>
                 </div>
 
                 {/* Botones */}
@@ -256,6 +253,6 @@ export default function EquipmentForm({ equipment_type, locations, technical_loc
                     </button>
                 </div>
             </form>
-        </div>
+        </Card>
     );
 }
