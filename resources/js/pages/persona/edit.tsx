@@ -2,7 +2,7 @@ import { AppSidebar } from '@/components/app-sidebar';
 import { Editform } from '@/components/personel/edit/edit-form';
 import { SiteHeader } from '@/components/site-header';
 import { SidebarInset, SidebarProvider } from '@/components/ui/sidebar';
-import { useForm } from '@inertiajs/react';
+import { NavBarProps, PersonnelStoreProps } from '@/types';
 
 interface Departments {
     id: number;
@@ -10,45 +10,12 @@ interface Departments {
     code: string;
 }
 
-interface EditPersonelPageProps {
-    user: any;
-    navMain: any[];
-    navSecondary: any[];
-    personel: any;
+interface EditPersonelPageProps extends NavBarProps {
+    personnel: PersonnelStoreProps;
     departamentos: Departments[];
 }
 
-export default function EditPersonelPage(props: EditPersonelPageProps) {
-    const { put, processing } = useForm(props.personel);
-
-    const handleSubmit = (formData: any) => {
-        const [firstName, ...lastNames] = formData.name.split(' ');
-        const lastName = lastNames.join(' ');
-
-        const transformedData = {
-            email: formData.email,
-            dni: formData.dni,
-            phone_number: formData.phone_number,
-            first_name: firstName,
-            last_name: lastName,
-            second_name: '',
-            second_last_name: '',
-            department: formData.department,
-        };
-        console.log(transformedData);
-        console.log(props.personel.id);
-        put(route('personel.update', { id: props.personel.id }), {
-            ...transformedData,
-            preserveScroll: true,
-            onSuccess: () => {
-                window.location.href = route('personel.show', { id: props.personel.id });
-            },
-            onError: (errors) => {
-                console.error('Error al actualizar:', errors);
-            },
-        });
-    };
-
+export default function EditPersonelPage({ personnel, departamentos, navMain, navSecondary, user }: EditPersonelPageProps) {
     return (
         <SidebarProvider
             style={
@@ -58,7 +25,7 @@ export default function EditPersonelPage(props: EditPersonelPageProps) {
                 } as React.CSSProperties
             }
         >
-            <AppSidebar variant="inset" user={props.user} navMain={props.navMain} navSecondary={props.navSecondary} />
+            <AppSidebar variant="inset" user={user} navMain={navMain} navSecondary={navSecondary} />
 
             <SidebarInset>
                 <SiteHeader />
@@ -66,12 +33,7 @@ export default function EditPersonelPage(props: EditPersonelPageProps) {
                     <div className="@container/main flex flex-1 flex-col gap-2">
                         <div className="flex flex-col gap-4 py-4 md:gap-6 md:py-6">
                             <div className="px-10 lg:px-25">
-                                <Editform
-                                    departamentos={props.departamentos}
-                                    personel={props.personel}
-                                    onSubmit={handleSubmit}
-                                    processing={processing}
-                                />
+                                <Editform departments={departamentos} personnel={personnel} />
                             </div>
                         </div>
                     </div>
