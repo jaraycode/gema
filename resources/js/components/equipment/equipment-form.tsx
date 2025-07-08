@@ -26,10 +26,26 @@ export default function EquipmentForm({ equipment_type, locations, technical_loc
         { code: 0, name: 'inactivo' },
     ];
 
-    const [locationOptions] = useState<TechnicalLocationModel[]>(technical_locations);
-    // const [query, setQuery] = useState('');
+    const [locationOptions, setLocationOptions] = useState<TechnicalLocationModel[]>(technical_locations);
+    const [queryEquipment, setQueryEquipment] = useState('');
+    const [queryOffice, setQueryOffice] = useState('');
+    const [queryFloor, setQueryFloor] = useState('');
+    const [queryBuilding, setQueryBuilding] = useState('');
 
     // const filteredLocations = query === '' ? locationOptions : locationOptions.filter((loc) => loc.toLowerCase().includes(query.toLowerCase()));
+
+    const handleFilter = (valueQuery: string, setValue: React.Dispatch<React.SetStateAction<string>>) => {
+        setValue(valueQuery);
+
+        const model = locationOptions.filter((value) => value.code.includes(valueQuery));
+
+        setLocationOptions(model);
+    };
+
+    const clearFilter = (setsQuerys: Array<React.Dispatch<React.SetStateAction<string>>>) => {
+        setsQuerys.forEach((setValue) => setValue(''));
+        setLocationOptions(technical_locations);
+    };
 
     const handleInputChange = (field: keyof EquipmentFormData, value: string | number) => {
         setData(field, value);
@@ -152,7 +168,7 @@ export default function EquipmentForm({ equipment_type, locations, technical_loc
                 <div className="mt-5 mb-4">
                     <p className="mb-5 text-center text-neutral-700">Coloca la ubicación técnica</p>
                     <div className="grid grid-cols-4 gap-4">
-                        <Select>
+                        <Select value={queryBuilding} onValueChange={(value) => handleFilter(value, setQueryBuilding)}>
                             <SelectTrigger className="mt-1 w-full rounded-xl border border-gray-300 py-7 shadow-sm hover:text-black focus-visible:border-gray-300 focus-visible:ring-2 focus-visible:ring-teal-500 focus-visible:ring-offset-0">
                                 <SelectValue placeholder="Seleccione un edificio" className="text-[#8b8b8b]" />
                             </SelectTrigger>
@@ -164,7 +180,7 @@ export default function EquipmentForm({ equipment_type, locations, technical_loc
                                 ))}
                             </SelectContent>
                         </Select>
-                        <Select>
+                        <Select value={queryFloor} onValueChange={(value) => handleFilter(value, setQueryFloor)}>
                             <SelectTrigger className="mt-1 w-full rounded-xl border border-gray-300 py-7 shadow-sm hover:text-black focus-visible:border-gray-300 focus-visible:ring-2 focus-visible:ring-teal-500 focus-visible:ring-offset-0">
                                 <SelectValue placeholder="Seleccione un piso" className="text-[#8b8b8b]" />
                             </SelectTrigger>
@@ -176,25 +192,25 @@ export default function EquipmentForm({ equipment_type, locations, technical_loc
                                 ))}
                             </SelectContent>
                         </Select>
-                        <Select>
+                        <Select value={queryOffice} onValueChange={(value) => handleFilter(value, setQueryOffice)}>
                             <SelectTrigger className="mt-1 w-full rounded-xl border border-gray-300 py-7 shadow-sm hover:text-black focus-visible:border-gray-300 focus-visible:ring-2 focus-visible:ring-teal-500 focus-visible:ring-offset-0">
                                 <SelectValue placeholder="Seleccione un área" className="text-[#8b8b8b]" />
                             </SelectTrigger>
                             <SelectContent className="rounded-xl bg-white shadow-sm">
                                 {locations.area.map((value, key) => (
-                                    <SelectItem value={String(value.id)} key={key}>
+                                    <SelectItem value={value.code} key={key}>
                                         {value.name}
                                     </SelectItem>
                                 ))}
                             </SelectContent>
                         </Select>
-                        <Select>
+                        <Select value={queryEquipment} onValueChange={(value) => handleFilter(value, setQueryEquipment)}>
                             <SelectTrigger className="mt-1 w-full rounded-xl border border-gray-300 py-7 shadow-sm hover:text-black focus-visible:border-gray-300 focus-visible:ring-2 focus-visible:ring-teal-500 focus-visible:ring-offset-0">
                                 <SelectValue placeholder="Seleccione un equipo" className="text-[#8b8b8b]" />
                             </SelectTrigger>
                             <SelectContent className="rounded-xl bg-white shadow-sm">
                                 {locations.equipment.map((value, key) => (
-                                    <SelectItem value={String(value.id)} key={key}>
+                                    <SelectItem value={value.code} key={key}>
                                         {value.name}
                                     </SelectItem>
                                 ))}
@@ -214,6 +230,13 @@ export default function EquipmentForm({ equipment_type, locations, technical_loc
                         </SelectContent>
                     </Select>
                     <InputError message={errors.technical_location} />
+                    <button
+                        type="button"
+                        onClick={() => clearFilter([setQueryBuilding, setQueryEquipment, setQueryFloor, setQueryOffice])}
+                        className="h-12 rounded-xl bg-[#1e9483] px-36 text-base text-white transition hover:bg-[#1e9483]/90"
+                    >
+                        Limpiar filtro
+                    </button>
                 </div>
 
                 {/* Botones */}
