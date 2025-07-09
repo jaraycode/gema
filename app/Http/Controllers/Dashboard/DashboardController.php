@@ -18,7 +18,16 @@ class DashboardController extends Controller
   public function index()
   {
     $dashboardProps = $this->dashboardService->getMenu();
-    return Inertia::render('dashboard/dashboard', $dashboardProps);
+    $kpis = $this->dashboardService->getKpis();
+    return Inertia::render('dashboard/dashboard', array_merge($dashboardProps, ['kpis' => $kpis]));
+  }
+
+  /**
+   * Get all the kpis for the dashboard
+   */
+
+  public function getAllKpis() {
+      return $this->dashboardService->getKpis();
   }
 
   /**

@@ -2,6 +2,10 @@
 
 namespace App\Service\Dashboard;
 
+use App\Models\Department;
+use App\Models\Equipment;
+use App\Models\Personel;
+use App\Models\TechnicalLocation;
 use App\Repository\Core\SidebarRepository;
 
 class DashboardService
@@ -14,5 +18,15 @@ class DashboardService
     public function getMenu(): array
     {
         return setActiveRoute(menu: $this->menu->getSidebarMenu(), title: $this->title);
+    }
+
+    public function getKpis(): array {
+        return [
+            "registeredEquipment"=> Equipment::count(),
+            "technicalLocations" => TechnicalLocation::count(),
+            "registeredPersonnel" => Personel::count(),
+            "Departments" => Department::count(),
+        ];
+
     }
 }
