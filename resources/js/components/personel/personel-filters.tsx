@@ -108,9 +108,9 @@ export function PersonelFilters({ dateRange, onDateRangeChange, department, sele
             </div>
 
             {/* Filtro por departamento (equipo) */}
-            <div className="gap-2border flex items-center rounded-xl border-none bg-[#e2e2e3] shadow-sm">
+            <div className="flex items-center gap-2 rounded-xl border border-none bg-[#e2e2e3] shadow-sm">
                 <span className="mr-2 ml-3 h-full w-full text-sm font-medium text-black">Departamento:</span>
-                <div className="dropdown-wrapper rounded-r-xl bg-[#f0f2f5] text-[#8b8b8b]">
+                <div className="dropdown-wrapper rounded-r-xl bg-[#f0f2f5] text-[#8b8b8b] pr-10">
                     <DropdownFilter
                         label="Todos los Departamentos"
                         options={department}

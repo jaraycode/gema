@@ -35,7 +35,7 @@ export default function DepartmentEdit({ user, navMain, navSecondary, department
                             {' '}
                             {/* Usar Card */}
                             <div className="flex items-center justify-between">
-                                <Link href="/department" className="inline-block text-sm text-gray-500 hover:text-gray-700">
+                                <Link href={route('department.index')} className="inline-block text-sm text-gray-500 hover:text-gray-700">
                                     <FontAwesomeIcon icon={faChevronLeft} />
                                 </Link>
                             </div>
@@ -73,7 +73,7 @@ export default function DepartmentEdit({ user, navMain, navSecondary, department
                                     </div>
                                 </div>
                                 <div className="mt-15 flex justify-center gap-4 border-b-1 pb-6">
-                                    <Link href="/department">
+                                    <Link href={route('department.index')}>
                                         <Button type="button" className="h-12 w-10 rounded-xl border-gray-500 bg-gray-200 px-36 hover:bg-gray-300/90">
                                             Cancelar
                                         </Button>

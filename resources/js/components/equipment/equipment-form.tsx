@@ -216,7 +216,7 @@ export default function EquipmentForm({ equipment_type, locations, technical_loc
                         <button
                             type="button"
                             onClick={() => clearFilter([setQueryBuilding, setQueryEquipment, setQueryFloor, setQueryOffice])}
-                            className="mt-2 h-12 rounded-xl bg-[#1e9483] px-10 text-base text-white transition hover:bg-[#1e9483]/90"
+                            className="mt-1 h-14 rounded-xl bg-[#1e9483] px-10 text-base text-white transition hover:bg-[#1e9483]/90"
                         >
                             Limpiar filtros
                         </button>

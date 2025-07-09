@@ -49,7 +49,7 @@ export default function DepartmentCreate({ user, navMain, navSecondary }: NavBar
                                                 id="code"
                                                 value={data.code}
                                                 onChange={(e) => setData('code', e.target.value)}
-                                                placeholder="Código del Departamento"
+                                                placeholder="Abreviatura del Departamento"
                                                 className="rounded-[8px] border border-zinc-200 bg-white py-7 text-base text-neutral-900 shadow-sm placeholder:text-neutral-500 focus-visible:ring-2 focus-visible:ring-teal-500 focus-visible:outline-none"
                                             />
                                             <InputError message={errors.code} />

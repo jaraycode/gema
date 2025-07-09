@@ -60,7 +60,7 @@ export default function EquipmentEditForm({ equipment_type, technical_locations,
                         </label>
                         <Input
                             type="text"
-                            placeholder="Ej: Aire acondicionado"
+                            placeholder="Marca del Equipo"
                             value={data.brand}
                             onChange={(e) => handleInputChange('brand', e.target.value)}
                             className="rounded-[8px] border border-zinc-200 bg-white py-7 text-base text-neutral-900 shadow-sm placeholder:text-neutral-500 focus-visible:ring-2 focus-visible:ring-teal-500 focus-visible:outline-none"
@@ -74,7 +74,7 @@ export default function EquipmentEditForm({ equipment_type, technical_locations,
                         </label>
                         <Input
                             type="text"
-                            placeholder="Ej: Aire acondicionado"
+                            placeholder="Modelo del Equipo"
                             value={data.model}
                             onChange={(e) => handleInputChange('model', e.target.value)}
                             className="rounded-[8px] border border-zinc-200 bg-white py-7 text-base text-neutral-900 shadow-sm placeholder:text-neutral-500 focus-visible:ring-2 focus-visible:ring-teal-500 focus-visible:outline-none"
