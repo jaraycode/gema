@@ -1,15 +1,15 @@
 <?php
 
-use App\Models\User;
+use App\Models\Personel;
 
 uses(\Illuminate\Foundation\Testing\RefreshDatabase::class);
 
-test('guests are redirected to the login page', function () {
-    $this->get('/dashboard')->assertRedirect('/login');
+test(description: 'Usuarios sin permiso son redirigidos al login', closure: function (): void {
+    $this->get('/')->assertRedirect('/login');
 });
 
-test('authenticated users can visit the dashboard', function () {
-    $this->actingAs($user = User::factory()->create());
+test(description: 'Usuarios autenticados pueden entrar al dashboard', closure: function (): void {
+    $this->actingAs($user = Personel::factory()->create());
 
-    $this->get('/dashboard')->assertOk();
+    $this->get('/')->assertOk();
 });

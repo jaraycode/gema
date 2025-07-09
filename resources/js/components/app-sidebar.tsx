@@ -1,55 +1,73 @@
-import { NavFooter } from '@/components/nav-footer';
-import { NavMain } from '@/components/nav-main';
+// import { IconDashboard, IconHelp, IconReport, IconSettings, IconUser, IconMapPin } from '@tabler/icons-react';
+import * as React from 'react';
+
 import { NavUser } from '@/components/nav-user';
 import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from '@/components/ui/sidebar';
-import { type NavItem } from '@/types';
+import { NavBarProps } from '@/types';
 import { Link } from '@inertiajs/react';
-import { BookOpen, Folder, LayoutGrid } from 'lucide-react';
-import AppLogo from './app-logo';
+import { IconAirConditioning, IconBuilding, IconDashboard, IconHelp, IconMapPin, IconReport, IconSettings, IconUser } from '@tabler/icons-react';
 
-const mainNavItems: NavItem[] = [
-    {
-        title: 'Dashboard',
-        href: '/dashboard',
-        icon: LayoutGrid,
-    },
-];
+type AppSidebarProps = NavBarProps & React.ComponentProps<typeof Sidebar>;
 
-const footerNavItems: NavItem[] = [
-    {
-        title: 'Repository',
-        href: 'https://github.com/laravel/react-starter-kit',
-        icon: Folder,
-    },
-    {
-        title: 'Documentation',
-        href: 'https://laravel.com/docs/starter-kits#react',
-        icon: BookOpen,
-    },
-];
+export function AppSidebar({ user, navMain, navSecondary, ...props }: AppSidebarProps) {
+    const navUser = { name: user.name, email: user.email, avatar: user.avatar };
 
-export function AppSidebar() {
+    const iconMap = {
+        IconDashboard: IconDashboard,
+        IconReport: IconReport,
+        IconUser: IconUser,
+        IconSettings: IconSettings,
+        IconHelp: IconHelp,
+        IconBuilding: IconBuilding,
+        IconAirConditioning: IconAirConditioning,
+        IconMapPin: IconMapPin,
+    };
+
     return (
-        <Sidebar collapsible="icon" variant="inset">
+        <Sidebar collapsible="offcanvas" {...props}>
             <SidebarHeader>
                 <SidebarMenu>
                     <SidebarMenuItem>
-                        <SidebarMenuButton size="lg" asChild>
-                            <Link href="/dashboard" prefetch>
-                                <AppLogo />
-                            </Link>
-                        </SidebarMenuButton>
+                        <a href="#" className="flex justify-center">
+                            <img src="/images/gemaLogo.png" alt="Logo de Gema" className="h-20 w-auto" />
+                        </a>
                     </SidebarMenuItem>
                 </SidebarMenu>
             </SidebarHeader>
-
             <SidebarContent>
-                <NavMain items={mainNavItems} />
+                <SidebarMenu>
+                    {navMain.map((item) => {
+                        const Icon = iconMap[item.icon as keyof typeof iconMap] || IconUser;
+                        return (
+                            <SidebarMenuItem key={item.title}>
+                                <SidebarMenuButton className="rounded-[8px] py-6 transition" isActive={item.isActive} asChild>
+                                    <Link href={route(item.href)} className="rounded-[8px]">
+                                        <Icon className="h-5 w-5" />
+                                        <span>{item.title}</span>
+                                    </Link>
+                                </SidebarMenuButton>
+                            </SidebarMenuItem>
+                        );
+                    })}
+                </SidebarMenu>
             </SidebarContent>
-
             <SidebarFooter>
-                <NavFooter items={footerNavItems} className="mt-auto" />
-                <NavUser />
+                <SidebarMenu>
+                    {navSecondary.map((item) => {
+                        const Icon = iconMap[item.icon as unknown as keyof typeof iconMap] || IconUser;
+                        return (
+                            <SidebarMenuItem key={item.title}>
+                                <SidebarMenuButton className="py-6" asChild>
+                                    <a href={route(item.href)} onClick={(e) => e.preventDefault()}>
+                                        <Icon className="h-5 w-5" />
+                                        <span>{item.title}</span>
+                                    </a>
+                                </SidebarMenuButton>
+                            </SidebarMenuItem>
+                        );
+                    })}
+                </SidebarMenu>
+                <NavUser user={navUser} />
             </SidebarFooter>
         </Sidebar>
     );

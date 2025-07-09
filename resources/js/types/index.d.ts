@@ -1,5 +1,10 @@
 import { LucideIcon } from 'lucide-react';
 import type { Config } from 'ziggy-js';
+export * from '@/types/department/department';
+export * from '@/types/equipment/equipment';
+export * from '@/types/location/location';
+export * from '@/types/maintenance/maintenance';
+export * from '@/types/personnel/personnel';
 
 export interface Auth {
     user: User;
@@ -22,6 +27,8 @@ export interface NavItem {
     isActive?: boolean;
 }
 
+export type NavSecondary = Omit<NavItem, 'isActive'>;
+
 export interface SharedData {
     name: string;
     quote: { message: string; author: string };
@@ -35,9 +42,50 @@ export interface User {
     id: number;
     name: string;
     email: string;
-    avatar?: string;
-    email_verified_at: string | null;
+    phone_number: string;
+    avatar: string;
     created_at: string;
     updated_at: string;
     [key: string]: unknown; // This allows for additional properties...
+}
+
+export interface NavUserProps {
+    user: Pick<User, 'name' | 'email' | 'avatar'>;
+}
+
+export interface NavBarProps {
+    user: User;
+    navMain: NavMain[];
+    navSecondary: NavSecondary[];
+}
+
+export interface Links {
+    url: string;
+    label: string;
+    active: bool;
+}
+
+export interface PaginatedData<T> {
+    data: T[];
+    to: number;
+    links: Links[];
+    total: number;
+    from: number;
+    last_page: number;
+    per_page: number;
+    current_page: number;
+    [key: string]: unknown; // This allows for additional properties...
+}
+
+export interface ResponseHandlerProps {
+    flash?: {
+        success?: string;
+        error?: string;
+    };
+    [key: string]: unknown; // This allows for additional properties...
+}
+
+export interface BaseModel {
+    created_at: Date;
+    updated_at?: Date;
 }
