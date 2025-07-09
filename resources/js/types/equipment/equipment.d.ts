@@ -22,7 +22,7 @@ export interface EquipmentFormProps extends NavBarProps {
 }
 
 export interface EquipmentEditFormProps extends EquipmentFormProps {
-    props: EquipmentFormData;
+    props: EquipmentModel;
 }
 
 export type EquipmentnFormData = Omit<EquipmentnModel, 'id'>;
