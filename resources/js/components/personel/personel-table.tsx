@@ -106,7 +106,7 @@ export function PersonelTable({ data }: PersonnelTableProps) {
                                 <TableHead>Fecha</TableHead>
                                 <TableHead>Cédula</TableHead>
                                 <TableHead>Nombre</TableHead>
-                                <TableHead>Cargo</TableHead>
+
                                 <TableHead>Departamento</TableHead>
                                 <TableHead>Teléfono</TableHead>
                                 <TableHead></TableHead>
@@ -124,7 +124,7 @@ export function PersonelTable({ data }: PersonnelTableProps) {
                                             {` ${item.last_name}`}
                                             {item.second_last_name && ` ${item.second_last_name}`}
                                         </TableCell>
-                                        <TableCell>Jefe</TableCell>
+
                                         <TableCell className="capitalize">{item.departments}</TableCell>
                                         <TableCell>{item.phone_number}</TableCell>
                                         <TableCell>
