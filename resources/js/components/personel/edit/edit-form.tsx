@@ -50,7 +50,7 @@ export function Editform({ departments, personnel }: EditPersonelFormProps) {
                     <FontAwesomeIcon icon={faChevronLeft} />
                 </Link>
             </div>
-            <h1 className="mb-4 text-2xl font-bold">Registrar Nuevo Personal</h1>
+            <h1 className="mb-4 text-2xl font-bold">Actualizar Informacion de Personal</h1>
             <p className="mb-5 text-gray-600">Complete la información del Personal</p>
 
             <form onSubmit={handleSubmit} className="space-y-8 border-t-1 pt-7">
