@@ -34,10 +34,12 @@ class PersonelSeeder extends Seeder
                 'email' => 'jortiz.20@est.ucab.edu.ve',
                 'username' => 'jortiz.20',
                 'password' => Hash::make('administrador'),
-                'dni' => 'V-29611454',
+                'dni' => 'V-29611453',
                 'phone_number' => '04121164027',
                 'first_name' => 'Jesús',
+                'second_name' => null,
                 'last_name' => 'Ortiz',
+                'second_last_name' => null,
                 'avatar' => '/avatars/shadcn.jpg',
                 'created_at' => now(),
                 'updated_at' => now()
