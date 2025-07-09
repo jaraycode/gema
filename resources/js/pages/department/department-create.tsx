@@ -43,7 +43,7 @@ export default function DepartmentCreate({ user, navMain, navSecondary }: NavBar
                                     <div className="grid grid-cols-1 gap-9 gap-y-8 md:grid-cols-2">
                                         <div className="space-y-3">
                                             <Label htmlFor="codigo">
-                                                Código <span className="text-red-500">*</span>
+                                                Abreviatura <span className="text-red-500">*</span>
                                             </Label>
                                             <Input
                                                 id="code"

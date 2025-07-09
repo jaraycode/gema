@@ -22,9 +22,7 @@ interface EditPersonelFormProps {
 }
 
 export function Editform({ departments, personnel }: EditPersonelFormProps) {
-    console.log(personnel.departments[0].id);
-
-    const { data, setData, errors, put, processing } = useForm<Required<PersonnelStoreProps>>({
+    const { data, setData, errors, put, processing, reset } = useForm<Required<PersonnelStoreProps>>({
         name: personnel.second_name ? `${personnel.first_name} ${personnel.second_name}` : personnel.first_name,
         last_name: personnel.second_last_name ? `${personnel.last_name} ${personnel.second_last_name}` : personnel.last_name,
         password: 'password123',
@@ -38,7 +36,11 @@ export function Editform({ departments, personnel }: EditPersonelFormProps) {
 
     const handleSubmit: FormEventHandler = (e) => {
         e.preventDefault();
-        put(route('location.update', { id }));
+        put(route('personel.update', { id }), {
+            onFinish: () => {
+                reset('department');
+            },
+        });
     };
 
     return (
@@ -89,6 +91,7 @@ export function Editform({ departments, personnel }: EditPersonelFormProps) {
                                 onValueChange={(value) => {
                                     setData('national_status', value);
                                 }}
+                                disabled
                             >
                                 <SelectTrigger className="w-20 rounded-xl border border-gray-300 py-7 shadow-sm hover:text-black focus:border-gray-300 focus:ring-0 focus:ring-offset-0">
                                     <SelectValue />
@@ -109,41 +112,43 @@ export function Editform({ departments, personnel }: EditPersonelFormProps) {
                                 placeholder="Número de documento"
                                 maxLength={data.national_status === 'V' ? 8 : 10} // Ejemplo: diferentes longitudes máximas
                                 required
+                                disabled
                                 className="rounded-[8px] border border-zinc-200 bg-white py-7 text-base text-neutral-900 shadow-sm placeholder:text-neutral-500 focus-visible:ring-2 focus-visible:ring-teal-500 focus-visible:outline-none"
                             />
                             <InputError message={errors.dni} />
                         </div>
                     </div>
 
-                    <div className="grid grid-cols-1 gap-9 gap-y-8 md:grid-cols-2">
-                        <div className="space-y-3">
-                            <Label htmlFor="email">
-                                Correo electrónico <span className="text-red-500">*</span>
-                            </Label>
-                            <Input
-                                id="email"
-                                type="email"
-                                value={data.email}
-                                onChange={(e) => setData('email', e.target.value)}
-                                placeholder="Ingresar correo electrónico"
-                                required
-                                className="rounded-[8px] border border-zinc-200 bg-white py-7 text-base text-neutral-900 shadow-sm placeholder:text-neutral-500 focus-visible:ring-2 focus-visible:ring-teal-500 focus-visible:outline-none"
-                            />
-                        </div>
-                        <div className="space-y-3">
-                            <Label htmlFor="telefono">
-                                Teléfono <span className="text-red-500">*</span>
-                            </Label>
-                            <Input
-                                id="telefono"
-                                value={data.phone_number}
-                                onChange={(e) => setData('phone_number', e.target.value)}
-                                placeholder="Teléfono"
-                                maxLength={11}
-                                required
-                                className="rounded-[8px] border border-zinc-200 bg-white py-7 text-base text-neutral-900 shadow-sm placeholder:text-neutral-500 focus-visible:ring-2 focus-visible:ring-teal-500 focus-visible:outline-none"
-                            />
-                        </div>
+                    <div className="space-y-3">
+                        <Label htmlFor="email">
+                            Correo electrónico <span className="text-red-500">*</span>
+                        </Label>
+                        <Input
+                            id="email"
+                            type="email"
+                            value={data.email}
+                            onChange={(e) => setData('email', e.target.value)}
+                            placeholder="Ingresar correo electrónico"
+                            required
+                            disabled
+                            className="rounded-[8px] border border-zinc-200 bg-white py-7 text-base text-neutral-900 shadow-sm placeholder:text-neutral-500 focus-visible:ring-2 focus-visible:ring-teal-500 focus-visible:outline-none"
+                        />
+                        <InputError message={errors.email} />
+                    </div>
+                    <div className="space-y-3">
+                        <Label htmlFor="telefono">
+                            Teléfono <span className="text-red-500">*</span>
+                        </Label>
+                        <Input
+                            id="telefono"
+                            value={data.phone_number}
+                            onChange={(e) => setData('phone_number', e.target.value)}
+                            placeholder="Teléfono"
+                            maxLength={11}
+                            required
+                            className="rounded-[8px] border border-zinc-200 bg-white py-7 text-base text-neutral-900 shadow-sm placeholder:text-neutral-500 focus-visible:ring-2 focus-visible:ring-teal-500 focus-visible:outline-none"
+                        />
+                        <InputError message={errors.phone_number} />
                     </div>
                     <div className="space-y-3">
                         <Label htmlFor="departamento">
@@ -172,7 +177,7 @@ export function Editform({ departments, personnel }: EditPersonelFormProps) {
                         Cancelar
                     </Link>
                     <Button type="submit" disabled={processing} className="h-12 w-10 rounded-xl bg-[#1e9483] px-36 text-white hover:bg-[#1e9483]/90">
-                        Crear Personal
+                        Actualizar Personal
                     </Button>
                 </div>
             </form>

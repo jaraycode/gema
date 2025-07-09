@@ -81,7 +81,7 @@ export function PersonelTable({ data }: PersonnelTableProps) {
                 </div>
 
                 {/* Filtros */}
-                <div className="w-full flex-grow flex-nowrap items-center justify-between">
+                <div className="w-full flex-grow flex-nowrap items-center">
                     <PersonelFilters
                         dateRange={dateRange}
                         onDateRangeChange={setDateRange}

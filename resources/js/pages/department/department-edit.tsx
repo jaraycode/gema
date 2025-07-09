@@ -45,7 +45,7 @@ export default function DepartmentEdit({ user, navMain, navSecondary, department
                                 <div className="space-y-8">
                                     <div className="grid grid-cols-1 gap-9 gap-y-8 md:grid-cols-2">
                                         <div className="space-y-3">
-                                            <Label htmlFor="codigo">Código</Label>
+                                            <Label htmlFor="codigo">Abreviatura</Label>
                                             <Input
                                                 id="code"
                                                 value={data.code}

@@ -22,24 +22,40 @@ class UpdatePersonelRequest extends FormRequest
   public function rules(): array
   {
     return [
-      "phone_number" => "string",
-      "first_name" => "string",
-      "last_name" => "string",
-      "dni" => "string",
-      "department" => "string",
+      "email" => "sometimes|email|string",
+      "password" => "sometimes|string",
+      "national_status" => "sometimes|string",
+      "dni" => "sometimes|integer",
+      "phone_number" => "sometimes|string", // max 13 caracteres usando el formato para +584121164027
+      // "first_name" => "sometimes|string",
+      // "second_name" => "sometimes|string",
+      // "second_last_name" => "sometimes|string",
+      "name" => "sometimes|string",
+      "last_name" => "sometimes|string",
+      "department" => "sometimes|string",
     ];
   }
 
   public function messages(): array
   {
     return [
-      "phone_number.string" => "The phone number must be a string.",
-      "first_name.string" => "The first name must be a string.",
-      "second_name.string" => "The second name must be a string.",
-      "last_name.string" => "The last name must be a string.",
-      "second_last_name.string" => "The second last name must be a string.",
-      "dni.string" => "The dni must be a string.",
-      "department.string" => "The department must be a string.",
+      'email.sometimes' => 'El correo es un campo obligatorio.',
+      'email.email' => 'El correo tiene que ser un formato válido de correo.',
+      'email.string' => 'El correo tiene que ser un campo de texto.',
+      'national_status.sometimes' => 'El estatuto nacional es obligatorio.',
+      'national_status.integer' => 'El estatuto nacional debe ser un valor numérico.',
+      'dni.sometimes' => 'La cédula es un campo obligatorio.',
+      'dni.string' => 'La cédula debe ser un campo de texto.',
+      'password.sometimes' => 'La contraseña es un campo obligatorio.',
+      'password.string' => 'La contraseña debe ser un campo de texto.',
+      'phone_number.sometimes' => 'El número de teléfono es obligatorio.',
+      'phone_number.string' => 'El número de teléfono tiene que ser una cadena de texto.',
+      'name.sometimes' => 'El nombre es obligatorio.',
+      'name.string' => 'El nombre tiene que ser una cadena de texto.',
+      'department.sometimes' => 'El departamento es obligatorio.',
+      'department.string' => 'El departamento tiene que ser una cadena de texto.',
+      'last_name.sometimes' => 'El apellido es un campo obligatorio.',
+      'last_name.string' => 'El apellido debe ser un campo de texto.',
     ];
   }
 }

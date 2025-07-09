@@ -80,7 +80,7 @@ interface PersonelFiltersProps {
 
 export function PersonelFilters({ dateRange, onDateRangeChange, department, selectedDepartment, onDepartmentChange }: PersonelFiltersProps) {
     return (
-        <div className="m-0 flex flex-wrap items-center justify-between gap-4 bg-white p-4 [&_button]:border-none [&_button]:bg-transparent [&_button]:shadow-none">
+        <div className="m-0 flex flex-wrap items-center gap-4 bg-white p-4 [&_button]:border-none [&_button]:bg-transparent [&_button]:shadow-none">
             {/* Filtro de fecha desde */}
             <div className="flex items-center gap-2 rounded-xl border border-none bg-[#e2e2e3] shadow-sm">
                 <span className="mr-2 ml-3 h-full w-full text-sm font-medium text-black">Desde:</span>

@@ -108,35 +108,35 @@ export function PersonnelCreateForm({ departments }: CreatePersonelFormProps) {
                         </div>
                     </div>
 
-                    <div className="grid grid-cols-1 gap-9 gap-y-8 md:grid-cols-2">
-                        <div className="space-y-3">
-                            <Label htmlFor="email">
-                                Correo electrónico <span className="text-red-500">*</span>
-                            </Label>
-                            <Input
-                                id="email"
-                                type="email"
-                                value={data.email}
-                                onChange={(e) => setData('email', e.target.value)}
-                                placeholder="Ingresar correo electrónico"
-                                required
-                                className="rounded-[8px] border border-zinc-200 bg-white py-7 text-base text-neutral-900 shadow-sm placeholder:text-neutral-500 focus-visible:ring-2 focus-visible:ring-teal-500 focus-visible:outline-none"
-                            />
-                        </div>
-                        <div className="space-y-3">
-                            <Label htmlFor="telefono">
-                                Teléfono <span className="text-red-500">*</span>
-                            </Label>
-                            <Input
-                                id="telefono"
-                                value={data.phone_number}
-                                onChange={(e) => setData('phone_number', e.target.value)}
-                                placeholder="Teléfono"
-                                maxLength={11}
-                                required
-                                className="rounded-[8px] border border-zinc-200 bg-white py-7 text-base text-neutral-900 shadow-sm placeholder:text-neutral-500 focus-visible:ring-2 focus-visible:ring-teal-500 focus-visible:outline-none"
-                            />
-                        </div>
+                    <div className="space-y-3">
+                        <Label htmlFor="email">
+                            Correo electrónico <span className="text-red-500">*</span>
+                        </Label>
+                        <Input
+                            id="email"
+                            type="email"
+                            value={data.email}
+                            onChange={(e) => setData('email', e.target.value)}
+                            placeholder="Ingresar correo electrónico"
+                            required
+                            className="rounded-[8px] border border-zinc-200 bg-white py-7 text-base text-neutral-900 shadow-sm placeholder:text-neutral-500 focus-visible:ring-2 focus-visible:ring-teal-500 focus-visible:outline-none"
+                        />
+                        <InputError message={errors.email} />
+                    </div>
+                    <div className="space-y-3">
+                        <Label htmlFor="telefono">
+                            Teléfono <span className="text-red-500">*</span>
+                        </Label>
+                        <Input
+                            id="telefono"
+                            value={data.phone_number}
+                            onChange={(e) => setData('phone_number', e.target.value)}
+                            placeholder="Teléfono"
+                            maxLength={11}
+                            required
+                            className="rounded-[8px] border border-zinc-200 bg-white py-7 text-base text-neutral-900 shadow-sm placeholder:text-neutral-500 focus-visible:ring-2 focus-visible:ring-teal-500 focus-visible:outline-none"
+                        />
+                        <InputError message={errors.phone_number} />
                     </div>
                     <div className="space-y-3">
                         <Label htmlFor="departamento">

@@ -86,8 +86,15 @@ class PersonelService
   {
     DB::beginTransaction();
     try {
+      $personnel['password'] = Hash::make(value: $personnel['password']);
+      $names = explode(separator: ' ', string: $personnel['name']);
+      $personnel['first_name'] = $names[0];
+      $personnel['second_name'] = $names[1] ?? null;
+      $names = explode(separator: ' ', string: $personnel['last_name']);
+      $personnel['last_name'] = $names[0];
+      $personnel['second_last_name'] = $names[1] ?? null;
       $newDepartmentId = $personnel['department'];
-      unset($personnel['department']);
+      unset($personnel['department'], $personnel['email'], $personnel['name'], $personnel['national_status'], $personnel['dni']);
       $personnelRecord = Personel::findOrFail($id);
       $personnelRecord->update($personnel);
       $currentDepartment = $personnelRecord->departments()

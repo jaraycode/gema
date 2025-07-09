@@ -84,22 +84,10 @@ class PersonelController extends Controller
   public function update(UpdatePersonelRequest $request, string $id)
   {
     $validated = $request->validated();
-    $personnel = [
-      "email" => $request->get("email"),
-      "phone_number" => $request->get("phone_number"),
-      "dni" => $request->get("dni"),
-      "first_name" => $request->get("first_name"),
-      "last_name" => $request->get("last_name"),
-      "department" => $request->get("department"),
-    ];
-
-    if ($request->has('password')) {
-      $personnel['password'] = Hash::make($request->get('password'));
-    }
 
     return $this->personelService->updatePersonnel(
       id: intval($id),
-      personnel: $personnel
+      personnel: $validated
     );
   }
   /**
