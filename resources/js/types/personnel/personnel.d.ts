@@ -1,4 +1,4 @@
-import { BaseModel, NavBarProps, PaginatedData } from '..';
+import { BaseModel, DepartmentModel, NavBarProps, PaginatedData } from '..';
 
 export interface PersonnelModel extends BaseModel {
     id: number;
@@ -46,6 +46,21 @@ export interface PersonnelStoreProps {
     name: string;
     last_name: string;
     department: string;
+    dni: string;
+    national_status: string;
+    password: string;
+    email: string;
+    national_status: string;
+    phone_number: string;
+}
+
+export interface PersonnelEditProps {
+    id: number;
+    first_name: string;
+    second_name: string;
+    second_last_name: string;
+    last_name: string;
+    departments: DepartmentModel[];
     dni: string;
     national_status: string;
     password: string;

@@ -8,7 +8,7 @@ import { NavBarProps } from '@/types';
 import { DepartmentFormModel } from '@/types/department/department';
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Head, Link, useForm } from '@inertiajs/react';
+import { Link, useForm } from '@inertiajs/react';
 import { FormEventHandler } from 'react';
 
 export default function DepartmentCreate({ user, navMain, navSecondary }: NavBarProps) {
@@ -24,8 +24,7 @@ export default function DepartmentCreate({ user, navMain, navSecondary }: NavBar
         });
     };
     return (
-        <AppLayout user={user} navMain={navMain} navSecondary={navSecondary}>
-            <Head title="Departamento" />
+        <AppLayout user={user} navMain={navMain} navSecondary={navSecondary} title="Departamento">
             <div className="@container/main flex flex-1 flex-col gap-2">
                 <div className="flex flex-col gap-4 py-4 md:gap-6 md:py-6">
                     <div className="px-10 lg:px-25">
@@ -33,7 +32,7 @@ export default function DepartmentCreate({ user, navMain, navSecondary }: NavBar
                             {' '}
                             {/* Usar Card */}
                             <div className="flex items-center justify-between">
-                                <Link href="/department" className="inline-block text-sm text-gray-500 hover:text-gray-700">
+                                <Link href={route('department.index')} className="inline-block text-sm text-gray-500 hover:text-gray-700">
                                     <FontAwesomeIcon icon={faChevronLeft} />
                                 </Link>
                             </div>
@@ -72,7 +71,7 @@ export default function DepartmentCreate({ user, navMain, navSecondary }: NavBar
                                     </div>
                                 </div>
                                 <div className="mt-15 flex justify-center gap-4 border-b-1 pb-6">
-                                    <Link href="/department">
+                                    <Link href={route('department.index')}>
                                         <Button type="button" className="h-12 w-10 rounded-xl border-gray-500 bg-gray-200 px-36 hover:bg-gray-300/90">
                                             Cancelar
                                         </Button>

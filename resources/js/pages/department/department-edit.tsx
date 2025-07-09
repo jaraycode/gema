@@ -7,7 +7,7 @@ import { AppLayout } from '@/layouts/app-layout';
 import { DepartmentEditProps, DepartmentFormModel } from '@/types/department/department';
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Head, Link, useForm, usePage } from '@inertiajs/react';
+import { Link, useForm, usePage } from '@inertiajs/react';
 import { FormEventHandler } from 'react';
 
 export default function DepartmentEdit({ user, navMain, navSecondary, department }: DepartmentEditProps) {
@@ -27,8 +27,7 @@ export default function DepartmentEdit({ user, navMain, navSecondary, department
     };
 
     return (
-        <AppLayout user={user} navMain={navMain} navSecondary={navSecondary}>
-            <Head title="Departamento" />
+        <AppLayout user={user} navMain={navMain} navSecondary={navSecondary} title="Departamento">
             <div className="@container/main flex flex-1 flex-col gap-2">
                 <div className="flex flex-col gap-4 py-4 md:gap-6 md:py-6">
                     <div className="px-10 lg:px-25">

@@ -4,7 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { AppLayout } from '@/layouts/app-layout';
 import { ResponseHandlerProps } from '@/types';
 import { DepartmentIndexProps } from '@/types/department/department';
-import { Head, Link, usePage } from '@inertiajs/react';
+import { Link, usePage } from '@inertiajs/react';
 import { useEffect, useState } from 'react';
 
 export default function DepartmentPage({ data, ...props }: DepartmentIndexProps) {
@@ -17,8 +17,7 @@ export default function DepartmentPage({ data, ...props }: DepartmentIndexProps)
         setTimeout(() => setShowAlert(false), 3000);
     }, [setShowAlert, flashMessage]);
     return (
-        <AppLayout {...props}>
-            <Head title="Departamento" />
+        <AppLayout {...props} title="Departamento">
             <div className="@container/main flex flex-1 flex-col gap-2">
                 <div className="flex flex-col gap-4 py-4 md:gap-6 md:py-6">
                     <div className="mx-4 grid grid-cols-1 gap-4 md:mx-8">

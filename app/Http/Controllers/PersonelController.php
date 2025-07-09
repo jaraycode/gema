@@ -112,7 +112,7 @@ class PersonelController extends Controller
       $personelProps = $this->personelService->getMenu();
 
       return Inertia::render('persona/edit', array_merge($personelProps, [
-        'personel' => $personnel,
+        'personnel' => $personnel,
         'departamentos' => $this->department::all(),
         'cargos' => $this->role::all(),
       ]));

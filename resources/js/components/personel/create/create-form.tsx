@@ -8,7 +8,6 @@ import { DepartmentModel, PersonnelStoreProps } from '@/types';
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Link, useForm } from '@inertiajs/react';
-import { useState } from 'react';
 
 type Departments = Pick<DepartmentModel, 'id' | 'code' | 'name'>;
 
@@ -20,26 +19,25 @@ export function PersonnelCreateForm({ departments }: CreatePersonelFormProps) {
     const { data, setData, errors, post, processing, reset } = useForm<Required<PersonnelStoreProps>>({
         name: '',
         last_name: '',
-        password: '',
+        password: 'password123',
         department: '',
         email: '',
         dni: '',
         national_status: 'V',
         phone_number: '',
     });
-    const [showPassword] = useState(false);
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
         post(route('personel.store'), {
-            onFinish: () => reset('password'),
+            onFinish: () => reset('name'),
         });
     };
 
     return (
         <Card className="mx-auto rounded-xl bg-white px-14 py-7 pb-10 text-center shadow-md">
             <div className="mb-4 flex items-center justify-between">
-                <Link href="/personel" className="inline-block text-sm text-gray-500 hover:text-gray-700">
+                <Link href={route('personel.index')} className="inline-block text-sm text-gray-500 hover:text-gray-700">
                     <FontAwesomeIcon icon={faChevronLeft} />
                 </Link>
             </div>
@@ -58,7 +56,6 @@ export function PersonnelCreateForm({ departments }: CreatePersonelFormProps) {
                             required
                             className="rounded-[8px] border border-zinc-200 bg-white py-7 text-base text-neutral-900 shadow-sm placeholder:text-neutral-500 focus-visible:ring-2 focus-visible:ring-teal-500 focus-visible:outline-none"
                         />
-                        <InputError />
                         <InputError message={errors.name} />
                     </div>
 
@@ -123,7 +120,7 @@ export function PersonnelCreateForm({ departments }: CreatePersonelFormProps) {
                                 onChange={(e) => setData('email', e.target.value)}
                                 placeholder="Ingresar correo electrónico"
                                 required
-                                className="rounded-[8px] rounded-xl border border-zinc-200 bg-white py-7 text-base text-[#8b8b8b] text-neutral-900 shadow-sm placeholder:text-neutral-500 focus-visible:ring-2 focus-visible:ring-teal-500 focus-visible:outline-none"
+                                className="rounded-[8px] border border-zinc-200 bg-white py-7 text-base text-neutral-900 shadow-sm placeholder:text-neutral-500 focus-visible:ring-2 focus-visible:ring-teal-500 focus-visible:outline-none"
                             />
                         </div>
                         <div className="space-y-3">
@@ -132,12 +129,12 @@ export function PersonnelCreateForm({ departments }: CreatePersonelFormProps) {
                             </Label>
                             <Input
                                 id="telefono"
-                                value={data.telefono}
-                                onChange={(e) => setData('telefono', e.target.value)}
+                                value={data.phone_number}
+                                onChange={(e) => setData('phone_number', e.target.value)}
                                 placeholder="Teléfono"
                                 maxLength={11}
                                 required
-                                className="rounded-[8px] rounded-xl border border-zinc-200 bg-white py-7 text-base text-[#8b8b8b] text-neutral-900 shadow-sm placeholder:text-neutral-500 focus-visible:ring-2 focus-visible:ring-teal-500 focus-visible:outline-none"
+                                className="rounded-[8px] border border-zinc-200 bg-white py-7 text-base text-neutral-900 shadow-sm placeholder:text-neutral-500 focus-visible:ring-2 focus-visible:ring-teal-500 focus-visible:outline-none"
                             />
                         </div>
                     </div>
@@ -157,7 +154,7 @@ export function PersonnelCreateForm({ departments }: CreatePersonelFormProps) {
                                 ))}
                             </SelectContent>
                         </Select>
-                        <InputError message={errors.department} />
+                        <InputError message={errors.password} />
                     </div>
                 </div>
                 <div className="mt-8 flex justify-center gap-4 border-b-1 pb-6">

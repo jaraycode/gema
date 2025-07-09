@@ -23,7 +23,7 @@ class StorePersonelRequest extends FormRequest
     {
         return [
             "email" => "required|email|unique:personel,email|string",
-            "password" => "required|string",
+            "password" => "sometimes|string",
             "national_status" => "required|string",
             "dni" => "required|integer",
             "phone_number" => "required|string", // max 13 caracteres usando el formato para +584121164027
@@ -39,25 +39,28 @@ class StorePersonelRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'email.required' => 'The email field is required.',
-            'email.email' => 'The email must be a valid email address.',
-            'email.unique' => 'The email has already been taken.',
-            'email.string' => 'The email must be a string.',
+            'email.required' => 'El correo es un campo obligatorio.',
+            'email.email' => 'El correo tiene que ser un formato válido de correo.',
+            'email.unique' => 'El correo tiene que ser único.',
+            'email.string' => 'El correo tiene que ser un campo de texto.',
 
             'national_status.required' => 'El estatuto nacional es obligatorio.',
             'national_status.integer' => 'El estatuto nacional debe ser un valor numérico.',
 
-            'dni.required' => 'The dni field is required.',
-            'dni.string' => 'The dni must be a string.',
+            'dni.required' => 'La cédula es un campo obligatorio.',
+            'dni.string' => 'La cédula debe ser un campo de texto.',
 
-            'password.required' => 'The password field is required.',
-            'password.string' => 'The password must be a string.',
+            'password.required' => 'La contraseña es un campo obligatorio.',
+            'password.string' => 'La contraseña debe ser un campo de texto.',
 
-            'phone_number.required' => 'The phone number field is required.',
-            'phone_number.string' => 'The phone number must be a string.',
+            'phone_number.required' => 'El número de teléfono es obligatorio.',
+            'phone_number.string' => 'El número de teléfono tiene que ser una cadena de texto.',
 
             'name.required' => 'El nombre es obligatorio.',
             'name.string' => 'El nombre tiene que ser una cadena de texto.',
+
+            'department.required' => 'El departamento es obligatorio.',
+            'department.string' => 'El departamento tiene que ser una cadena de texto.',
 
             // 'first_name.required' => 'The first name field is required.',
             // 'first_name.string' => 'The first name must be a string.',
@@ -65,8 +68,8 @@ class StorePersonelRequest extends FormRequest
             // 'second_name.required' => 'The second name field is required.',
             // 'second_name.string' => 'The second name must be a string.',
 
-            // 'last_name.required' => 'The last name field is required.',
-            // 'last_name.string' => 'The last name must be a string.',
+            'last_name.required' => 'El apellido es un campo obligatorio.',
+            'last_name.string' => 'El apellido debe ser un campo de texto.',
 
             // 'second_last_name.required' => 'The second last name field is required.',
             // 'second_last_name.string' => 'The second last name must be a string.',

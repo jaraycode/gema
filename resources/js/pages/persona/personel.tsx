@@ -9,8 +9,6 @@ export default function PersonelPage({ user, navMain, navSecondary, personels }:
         ...item,
         departments: item.departments || 'Sin departamento',
     }));
-
-    console.log(user, navMain, navSecondary, transformedData);
     return (
         <SidebarProvider
             style={

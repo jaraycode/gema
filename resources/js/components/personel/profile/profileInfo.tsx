@@ -10,7 +10,7 @@ export function ProfileInfo({ data }: ProfileInfoProps) {
     return (
         <div className="bg-card text-card-foreground rounded-xl border shadow-sm">
             <div className="px-24 py-10">
-                <Link href="/personel" className="mb-6 flex items-center justify-start">
+                <Link href={route('personel.index')} className="mb-6 flex items-center justify-start">
                     <FontAwesomeIcon icon={faChevronLeft} />
                 </Link>
                 <div className="mb-8 flex flex-col items-center gap-6">

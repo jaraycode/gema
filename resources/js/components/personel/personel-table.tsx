@@ -7,7 +7,6 @@ import { Eye } from 'lucide-react';
 import { useMemo, useState } from 'react';
 import { PersonelFilters } from './personel-filters';
 import { PersonelSearch } from './personel-search';
-import { IconBackground } from '@tabler/icons-react';
 
 export function PersonelTable({ data }: PersonnelTableProps) {
     const [searchTerm, setSearchTerm] = useState('');
@@ -74,7 +73,7 @@ export function PersonelTable({ data }: PersonnelTableProps) {
                 <div className="mb-2 flex items-center justify-between">
                     <CardTitle className="text-lg font-semibold">Gestión de Personal</CardTitle>
                     <Link
-                        href="/personel/create"
+                        href={route('personel.create')}
                         className="flex w-60 items-center justify-center rounded-[20px] bg-[#1E9483] p-3 text-white transition duration-200 hover:shadow hover:shadow-[#1E9483]"
                     >
                         Agregar Personal
