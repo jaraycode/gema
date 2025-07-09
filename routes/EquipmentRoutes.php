@@ -3,7 +3,7 @@
 use App\Http\Controllers\Equipment\EquipmentController;
 use Illuminate\Support\Facades\Route;
 
-Route::middleware('auth')->prefix('equipment')->name('equipment.')->group(callback: function (): void {
+Route::middleware('auth')->prefix('equipos')->name('equipment.')->group(callback: function (): void {
     Route::get(uri: '/', action: [EquipmentController::class, 'index'])->name(name: 'index');
     Route::get(uri: '/show/{id}', action: [EquipmentController::class, 'show'])->name(name: 'show');
     Route::get(uri: '/create', action: [EquipmentController::class, 'create'])->name(name: 'create');

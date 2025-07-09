@@ -1,4 +1,3 @@
-    import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { EquipmentModel } from '@/types';
 import { faChevronLeft, faChevronRight, faPen, faTrash } from '@fortawesome/free-solid-svg-icons';
@@ -196,6 +195,6 @@ export function EquipmentTable({ data }: { data: EquipmentModel[] }) {
                     </div>
                 </div>
             </div>
-        </Card>
+        </div>
     );
 }

@@ -3,7 +3,7 @@
 use App\Http\Controllers\Location\LocationController;
 use Illuminate\Support\Facades\Route;
 
-Route::middleware('auth')->prefix('location')->name('location.')->group(callback: function (): void {
+Route::middleware('auth')->prefix('ubicacion')->name('location.')->group(callback: function (): void {
     Route::get(uri: '/', action: [LocationController::class, 'index'])->name(name: 'index');
     Route::get(uri: '/show/{id}', action: [LocationController::class, 'show'])->name(name: 'show');
     Route::get(uri: '/create', action: [LocationController::class, 'create'])->name(name: 'create');

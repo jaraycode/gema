@@ -3,7 +3,7 @@
 use App\Http\Controllers\Department\DepartmentController;
 use Illuminate\Support\Facades\Route;
 
-Route::middleware('auth')->prefix('department')->name('department.')->group(callback: function (): void {
+Route::middleware('auth')->prefix('departamentos')->name('department.')->group(callback: function (): void {
     Route::get(uri: '/', action: [DepartmentController::class, 'index'])->name(name: 'index');
     Route::get(uri: '/show/{id}', action: [DepartmentController::class, 'show'])->name(name: 'show');
     Route::get(uri: '/create', action: [DepartmentController::class, 'create'])->name(name: 'create');

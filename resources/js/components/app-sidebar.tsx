@@ -40,8 +40,8 @@ export function AppSidebar({ user, navMain, navSecondary, ...props }: AppSidebar
                         const Icon = iconMap[item.icon as keyof typeof iconMap] || IconUser;
                         return (
                             <SidebarMenuItem key={item.title}>
-                                <SidebarMenuButton className="py-6" isActive={item.isActive} asChild>
-                                    <Link href={route(item.href)}>
+                                <SidebarMenuButton className="rounded-[8px] py-6 transition" isActive={item.isActive} asChild>
+                                    <Link href={route(item.href)} className="rounded-[8px]">
                                         <Icon className="h-5 w-5" />
                                         <span>{item.title}</span>
                                     </Link>
