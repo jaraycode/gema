@@ -1,5 +1,5 @@
-  'use client';
 import InputError from '@/components/input-error';
+import { Card } from '@/components/ui/card'; // Importar Card
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { LocationStoreFormData } from '@/types';
@@ -7,7 +7,6 @@ import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Link, useForm } from '@inertiajs/react';
 import { FormEventHandler } from 'react';
-import { Card } from '@/components/ui/card'; // Importar Card
 
 export function StoreLocationForm() {
     const { data, setData, post, processing, errors, reset } = useForm<Required<LocationStoreFormData>>({
@@ -24,14 +23,14 @@ export function StoreLocationForm() {
     };
 
     return (
-        <Card className="mx-auto rounded-xl bg-white px-14 py-7 pb-10 shadow-md"> {/* Usar Card */}
+        <Card className="mx-auto rounded-xl bg-white px-14 py-7 pb-10 shadow-md">
+            {' '}
+            {/* Usar Card */}
             <Link href={route('location.index')} className="mb-4 inline-block text-sm text-gray-500 hover:text-gray-700">
                 <FontAwesomeIcon icon={faChevronLeft} />
             </Link>
-
             <h1 className="mb-4 text-center text-2xl font-bold">Registrar Nueva Ubicación</h1>
             <p className="mb-5 text-center text-gray-600">Complete la información de la ubicación</p>
-
             <form onSubmit={submit} className="space-y-8 border-t pt-7">
                 <div className="grid grid-cols-1 gap-9 gap-y-8 md:grid-cols-2">
                     {/* Nombre */}
@@ -44,7 +43,7 @@ export function StoreLocationForm() {
                             value={data.name}
                             onChange={(e) => setData('name', e.target.value)}
                             placeholder="Nombre"
-                            className="rounded-xl py-7 text-[#8b8b8b] shadow-sm rounded-[8px] border border-zinc-200 bg-white text-base text-neutral-900 placeholder:text-neutral-500 focus-visible:ring-2 focus-visible:ring-teal-500 focus-visible:outline-none"
+                            className="rounded-[8px] border border-zinc-200 bg-white py-7 text-base text-neutral-900 shadow-sm placeholder:text-neutral-500 focus-visible:ring-2 focus-visible:ring-teal-500 focus-visible:outline-none"
                         />
                         <InputError message={errors.name} />
                     </div>
@@ -59,7 +58,7 @@ export function StoreLocationForm() {
                             value={data.code}
                             onChange={(e) => setData('code', e.target.value)}
                             placeholder="Ingresa el código"
-                            className="rounded-xl py-7 text-[#8b8b8b] shadow-sm rounded-[8px] border border-zinc-200 bg-white text-base text-neutral-900 placeholder:text-neutral-500 focus-visible:ring-2 focus-visible:ring-teal-500 focus-visible:outline-none"
+                            className="rounded-[8px] border border-zinc-200 bg-white py-7 text-base text-neutral-900 shadow-sm placeholder:text-neutral-500 focus-visible:ring-2 focus-visible:ring-teal-500 focus-visible:outline-none"
                         />
                         <InputError message={errors.code} />
                     </div>
@@ -109,6 +108,6 @@ export function StoreLocationForm() {
                     </button>
                 </div>
             </form>
-        </Card> 
+        </Card>
     );
-}        
+}

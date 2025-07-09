@@ -1,4 +1,5 @@
-     import InputError from '@/components/input-error';
+import InputError from '@/components/input-error';
+import { Card } from '@/components/ui/card'; // Importar Card
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { EquipmentFormData, EquipmentFormProps, EquipmentModel, TechnicalLocationModel } from '@/types';
@@ -6,7 +7,6 @@ import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Link, useForm } from '@inertiajs/react';
 import { FormEventHandler, useState } from 'react';
-import { Card } from '@/components/ui/card'; // Importar Card
 
 type EquipmentFormProp = Pick<EquipmentFormProps, 'equipment_type' | 'locations' | 'technical_locations'>;
 
@@ -14,7 +14,7 @@ export interface EquipmentEditProps extends EquipmentFormProp {
     props: EquipmentModel;
 }
 
-export default function EquipmentEditForm({ equipment_type, locations, technical_locations, props }: EquipmentEditProps) {
+export default function EquipmentEditForm({ equipment_type, technical_locations, props }: EquipmentEditProps) {
     const { data, setData, put, processing, errors, reset } = useForm<Required<EquipmentFormData>>({
         ...props,
         technical_location: String(props.technical_location),
@@ -40,17 +40,17 @@ export default function EquipmentEditForm({ equipment_type, locations, technical
     };
 
     return (
-        <Card className="mx-auto rounded-xl bg-white px-14 py-7 pb-10 shadow-md"> {/* Cambiar 'card' por 'Card' */}
+        <Card className="mx-auto rounded-xl bg-white px-14 py-7 pb-10 shadow-md">
+            {' '}
+            {/* Cambiar 'card' por 'Card' */}
             {/* Header */}
             <div className="mb-4 flex items-start justify-between">
                 <Link href={route('equipment.index')} className="mb-4 inline-block text-sm text-gray-500 hover:text-gray-700">
                     <FontAwesomeIcon icon={faChevronLeft} />
                 </Link>
             </div>
-
             <h1 className="mb-4 text-center text-2xl font-bold">Actualizar Equipo</h1>
             <p className="mb-6 text-center text-gray-600">Complete la información del equipo</p>
-
             <form onSubmit={submit} className="space-y-8 border-t pt-7">
                 <div className="grid grid-cols-1 gap-9 gap-y-8 md:grid-cols-2">
                     {/* Campos individuales */}
@@ -63,7 +63,7 @@ export default function EquipmentEditForm({ equipment_type, locations, technical
                             placeholder="Ej: Aire acondicionado"
                             value={data.brand}
                             onChange={(e) => handleInputChange('brand', e.target.value)}
-                            className="rounded-xl py-7 text-[#8b8b8b] shadow-sm rounded-[8px] border border-zinc-200 bg-white text-base text-neutral-900 placeholder:text-neutral-500 focus-visible:ring-2 focus-visible:ring-teal-500 focus-visible:outline-none"
+                            className="rounded-[8px] border border-zinc-200 bg-white py-7 text-base text-neutral-900 shadow-sm placeholder:text-neutral-500 focus-visible:ring-2 focus-visible:ring-teal-500 focus-visible:outline-none"
                         />
                         <InputError message={errors.brand} />
                     </div>
@@ -77,7 +77,7 @@ export default function EquipmentEditForm({ equipment_type, locations, technical
                             placeholder="Ej: Aire acondicionado"
                             value={data.model}
                             onChange={(e) => handleInputChange('model', e.target.value)}
-                            className="rounded-xl py-7 text-[#8b8b8b] shadow-sm rounded-[8px] border border-zinc-200 bg-white text-base text-neutral-900 placeholder:text-neutral-500 focus-visible:ring-2 focus-visible:ring-teal-500 focus-visible:outline-none"
+                            className="rounded-[8px] border border-zinc-200 bg-white py-7 text-base text-neutral-900 shadow-sm placeholder:text-neutral-500 focus-visible:ring-2 focus-visible:ring-teal-500 focus-visible:outline-none"
                         />
                         <InputError message={errors.model} />
                     </div>
@@ -92,7 +92,7 @@ export default function EquipmentEditForm({ equipment_type, locations, technical
                             value={data.serial}
                             onChange={(e) => handleInputChange('serial', e.target.value)}
                             disabled
-                            className="rounded-xl py-7 text-[#8b8b8b] shadow-sm rounded-[8px] border border-zinc-200 bg-white text-base text-neutral-900 placeholder:text-neutral-500 focus-visible:ring-2 focus-visible:ring-teal-500 focus-visible:outline-none"
+                            className="rounded-[8px] border border-zinc-200 bg-white py-7 text-base text-neutral-900 shadow-sm placeholder:text-neutral-500 focus-visible:ring-2 focus-visible:ring-teal-500 focus-visible:outline-none"
                         />
                         <InputError message={errors.serial} />
                     </div>
@@ -185,6 +185,6 @@ export default function EquipmentEditForm({ equipment_type, locations, technical
                     </button>
                 </div>
             </form>
-        </Card> 
+        </Card>
     );
 }

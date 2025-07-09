@@ -1,5 +1,6 @@
- import InputError from '@/components/input-error';
+import InputError from '@/components/input-error';
 import { Button } from '@/components/ui/button';
+import { Card } from '@/components/ui/card'; // Importar Card
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { AppLayout } from '@/layouts/app-layout';
@@ -8,7 +9,6 @@ import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Head, Link, useForm, usePage } from '@inertiajs/react';
 import { FormEventHandler } from 'react';
-import { Card } from '@/components/ui/card'; // Importar Card
 
 export default function DepartmentEdit({ user, navMain, navSecondary, department }: DepartmentEditProps) {
     const { data, setData, put, processing, errors, reset } = useForm<Required<DepartmentFormModel>>(
@@ -32,7 +32,9 @@ export default function DepartmentEdit({ user, navMain, navSecondary, department
             <div className="@container/main flex flex-1 flex-col gap-2">
                 <div className="flex flex-col gap-4 py-4 md:gap-6 md:py-6">
                     <div className="px-10 lg:px-25">
-                        <Card className="rounded-xl bg-white px-14 py-7 pb-10 text-left shadow-md"> {/* Usar Card */}
+                        <Card className="rounded-xl bg-white px-14 py-7 pb-10 text-left shadow-md">
+                            {' '}
+                            {/* Usar Card */}
                             <div className="flex items-center justify-between">
                                 <Link href="/department" className="inline-block text-sm text-gray-500 hover:text-gray-700">
                                     <FontAwesomeIcon icon={faChevronLeft} />
@@ -40,7 +42,6 @@ export default function DepartmentEdit({ user, navMain, navSecondary, department
                             </div>
                             <h1 className="mb-4 text-center text-2xl font-bold">Editar Departamento</h1>
                             <p className="mb-5 text-center text-gray-600">Complete la información del Departamento</p>
-
                             <form onSubmit={submit} className="space-y-8 border-t-1 pt-7">
                                 <div className="space-y-8">
                                     <div className="grid grid-cols-1 gap-9 gap-y-8 md:grid-cols-2">
@@ -51,7 +52,7 @@ export default function DepartmentEdit({ user, navMain, navSecondary, department
                                                 value={data.code}
                                                 onChange={(e) => setData('code', e.target.value)}
                                                 placeholder="Código del Departamento"
-                                                className="rounded-xl py-7 text-[#8b8b8b] shadow-sm rounded-[8px] border border-zinc-200 bg-white text-base text-neutral-900 placeholder:text-neutral-500 focus-visible:ring-2 focus-visible:ring-teal-500 focus-visible:outline-none"
+                                                className="rounded-[8px] border border-zinc-200 bg-white py-7 text-base text-neutral-900 shadow-sm placeholder:text-neutral-500 focus-visible:ring-2 focus-visible:ring-teal-500 focus-visible:outline-none"
                                                 disabled
                                             />
                                             <InputError message={errors.code} />
@@ -64,7 +65,7 @@ export default function DepartmentEdit({ user, navMain, navSecondary, department
                                                 onChange={(e) => setData('name', e.target.value)}
                                                 placeholder="Nombre del Departamento"
                                                 required
-                                                className="rounded-xl py-7 text-[#8b8b8b] shadow-sm rounded-[8px] border border-zinc-200 bg-white text-base text-neutral-900 placeholder:text-neutral-500 focus-visible:ring-2 focus-visible:ring-teal-500 focus-visible:outline-none"
+                                                className="rounded-[8px] border border-zinc-200 bg-white py-7 text-base text-neutral-900 shadow-sm placeholder:text-neutral-500 focus-visible:ring-2 focus-visible:ring-teal-500 focus-visible:outline-none"
                                             />
                                             <InputError message={errors.name} />
                                         </div>
@@ -85,7 +86,8 @@ export default function DepartmentEdit({ user, navMain, navSecondary, department
                                     </Button>
                                 </div>
                             </form>
-                        </Card> {/* Cerrar Card */}
+                        </Card>{' '}
+                        {/* Cerrar Card */}
                     </div>
                 </div>
             </div>

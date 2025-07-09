@@ -1,7 +1,7 @@
- import InputError from '@/components/input-error';
+import InputError from '@/components/input-error';
+import { Card } from '@/components/ui/card'; // Importando Card
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Card } from '@/components/ui/card'; // Importando Card
 import { EquipmentFormData, EquipmentFormProps, TechnicalLocationModel } from '@/types';
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -56,17 +56,17 @@ export default function EquipmentForm({ equipment_type, locations, technical_loc
     };
 
     return (
-        <Card className="mx-auto rounded-xl bg-white px-14 py-7 pb-10 shadow-md"> {/* Usando Card */}
+        <Card className="mx-auto rounded-xl bg-white px-14 py-7 pb-10 shadow-md">
+            {' '}
+            {/* Usando Card */}
             {/* Header */}
             <div className="mb-4 flex items-start justify-between">
                 <Link href={route('equipment.index')} className="mb-4 inline-block text-sm text-gray-500 hover:text-gray-700">
                     <FontAwesomeIcon icon={faChevronLeft} />
                 </Link>
             </div>
-
             <h1 className="mb-4 text-center text-2xl font-bold"> Registrar Nuevo Equipo</h1>
             <p className="mb-6 text-center text-gray-600">Complete la información del equipo</p>
-
             <form onSubmit={submit} className="space-y-8 border-t pt-7">
                 <div className="grid grid-cols-1 gap-9 gap-y-8 md:grid-cols-2">
                     {/* Campos individuales */}
@@ -79,7 +79,7 @@ export default function EquipmentForm({ equipment_type, locations, technical_loc
                             placeholder="Ej: Aire acondicionado"
                             value={data.brand}
                             onChange={(e) => handleInputChange('brand', e.target.value)}
-                            className="rounded-xl py-7 text-[#8b8b8b] shadow-sm rounded-[8px] border border-zinc-200 bg-white text-base text-neutral-900 placeholder:text-neutral-500 focus-visible:ring-2 focus-visible:ring-teal-500 focus-visible:outline-none"
+                            className="rounded-[8px] border border-zinc-200 bg-white py-7 text-base text-neutral-900 shadow-sm placeholder:text-neutral-500 focus-visible:ring-2 focus-visible:ring-teal-500 focus-visible:outline-none"
                         />
                         <InputError message={errors.brand} />
                     </div>
@@ -93,7 +93,7 @@ export default function EquipmentForm({ equipment_type, locations, technical_loc
                             placeholder="Ej: Aire acondicionado"
                             value={data.model}
                             onChange={(e) => handleInputChange('model', e.target.value)}
-                            className="rounded-xl py-7 text-[#8b8b8b] shadow-sm rounded-[8px] border border-zinc-200 bg-white text-base text-neutral-900 placeholder:text-neutral-500 focus-visible:ring-2 focus-visible:ring-teal-500 focus-visible:outline-none"
+                            className="rounded-[8px] border border-zinc-200 bg-white py-7 text-base text-neutral-900 shadow-sm placeholder:text-neutral-500 focus-visible:ring-2 focus-visible:ring-teal-500 focus-visible:outline-none"
                         />
                         <InputError message={errors.model} />
                     </div>
@@ -107,7 +107,7 @@ export default function EquipmentForm({ equipment_type, locations, technical_loc
                             placeholder="Número de Serial"
                             value={data.serial}
                             onChange={(e) => handleInputChange('serial', e.target.value)}
-                            className="rounded-xl py-7 text-[#8b8b8b] shadow-sm rounded-[8px] border border-zinc-200 bg-white text-base text-neutral-900 placeholder:text-neutral-500 focus-visible:ring-2 focus-visible:ring-teal-500 focus-visible:outline-none"
+                            className="rounded-[8px] border border-zinc-200 bg-white py-7 text-base text-neutral-900 shadow-sm placeholder:text-neutral-500 focus-visible:ring-2 focus-visible:ring-teal-500 focus-visible:outline-none"
                         />
                         <InputError message={errors.serial} />
                     </div>
@@ -164,8 +164,8 @@ export default function EquipmentForm({ equipment_type, locations, technical_loc
 
                 <div className="mt-5 mb-4">
                     <p className="mb-5 text-center text-neutral-700">Coloca la ubicación técnica</p>
-                    <div className="grid grid-cols-5 gap-4 mb-15">
-                         <Select value={queryBuilding} onValueChange={(value) => handleFilter(value, setQueryBuilding)}>
+                    <div className="mb-15 grid grid-cols-5 gap-4">
+                        <Select value={queryBuilding} onValueChange={(value) => handleFilter(value, setQueryBuilding)}>
                             <SelectTrigger className="mt-1 w-[200px] rounded-xl border border-gray-300 py-7 shadow-sm hover:text-black focus-visible:border-gray-300 focus-visible:ring-2 focus-visible:ring-teal-500 focus-visible:ring-offset-0">
                                 <SelectValue placeholder="Seleccione un edificio" className="text-[#8b8b8b]" />
                             </SelectTrigger>
@@ -216,7 +216,7 @@ export default function EquipmentForm({ equipment_type, locations, technical_loc
                         <button
                             type="button"
                             onClick={() => clearFilter([setQueryBuilding, setQueryEquipment, setQueryFloor, setQueryOffice])}
-                            className="h-12 rounded-xl bg-[#1e9483] px-10 mt-2 text-base text-white transition hover:bg-[#1e9483]/90"
+                            className="mt-2 h-12 rounded-xl bg-[#1e9483] px-10 text-base text-white transition hover:bg-[#1e9483]/90"
                         >
                             Limpiar filtros
                         </button>
