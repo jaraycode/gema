@@ -76,7 +76,7 @@ export default function EquipmentForm({ equipment_type, locations, technical_loc
                         </label>
                         <Input
                             type="text"
-                            placeholder="Ej: Aire acondicionado"
+                            placeholder="Ej: Samsung"
                             value={data.brand}
                             onChange={(e) => handleInputChange('brand', e.target.value)}
                             className="rounded-[8px] border border-zinc-200 bg-white py-7 text-base text-neutral-900 shadow-sm placeholder:text-neutral-500 focus-visible:ring-2 focus-visible:ring-teal-500 focus-visible:outline-none"
@@ -132,7 +132,9 @@ export default function EquipmentForm({ equipment_type, locations, technical_loc
                     </div>
 
                     <div>
-                        <label className="mb-2 block text-sm font-medium text-neutral-900">Descripción</label>
+                        <label className="mb-2 block text-sm font-medium text-neutral-900">
+                            Descripción <span className="text-red-500">*</span>
+                        </label>
                         <textarea
                             placeholder="Descripción"
                             value={data.description}
@@ -143,7 +145,9 @@ export default function EquipmentForm({ equipment_type, locations, technical_loc
                     </div>
                 </div>
                 <div>
-                    <label className="mb-2 block text-sm font-medium text-neutral-900">Estado</label>
+                    <label className="mb-2 block text-sm font-medium text-neutral-900">
+                        Estado <span className="text-red-500">*</span>
+                    </label>
                     <div className="flex items-center gap-4">
                         {statusOptions.map((statusOption, index) => (
                             <label key={index} className="flex items-center gap-2">
