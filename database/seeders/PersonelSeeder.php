@@ -17,13 +17,27 @@ class PersonelSeeder extends Seeder
     {
         Personel::insert([
             [
-                'email' => 'jonas@gmail.com',
-                'username' => 'jonas',
-                'password' => Hash::make('yovita12345'),
-                'dni' => 'V-29008765',
+                'email' => 'jearay.20@est.ucab.edu.ve',
+                'username' => 'jearay.20',
+                'password' => Hash::make('administrador'),
+                'dni' => 'V-29611454',
                 'phone_number' => '04121164027',
-                'first_name' => 'Jonas',
+                'first_name' => 'Jonás',
+                'second_name' => 'Enrique',
                 'last_name' => 'Aray',
+                'second_last_name' => 'Pérez',
+                'avatar' => '/avatars/shadcn.jpg',
+                'created_at' => now(),
+                'updated_at' => now()
+            ],
+            [
+                'email' => 'jortiz.20@est.ucab.edu.ve',
+                'username' => 'jortiz.20',
+                'password' => Hash::make('administrador'),
+                'dni' => 'V-29611454',
+                'phone_number' => '04121164027',
+                'first_name' => 'Jesús',
+                'last_name' => 'Ortiz',
                 'avatar' => '/avatars/shadcn.jpg',
                 'created_at' => now(),
                 'updated_at' => now()
@@ -36,5 +50,6 @@ class PersonelSeeder extends Seeder
 
         DB::table('personel_department')->insert(['personel_id' => 1, 'department_id' => 2]);
         DB::table('personnel_role')->insert(['personnel_id' => 1, 'role_id' => 1]);
+        DB::table('personnel_role')->insert(['personnel_id' => 2, 'role_id' => 1]);
     }
 }
