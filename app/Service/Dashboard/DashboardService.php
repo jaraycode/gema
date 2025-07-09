@@ -25,7 +25,7 @@ class DashboardService
             "registeredEquipment"=> Equipment::count(),
             "technicalLocations" => TechnicalLocation::count(),
             "registeredPersonnel" => Personel::count(),
-            "Departaments" => Department::count(),
+            "Departments" => Department::count(),
         ];
 
     }
