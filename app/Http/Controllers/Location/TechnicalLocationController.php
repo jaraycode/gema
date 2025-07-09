@@ -70,6 +70,6 @@ class TechnicalLocationController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        return $this->technicalLocationService->softDeleteTechnicalLocation(intval($id));
     }
 }

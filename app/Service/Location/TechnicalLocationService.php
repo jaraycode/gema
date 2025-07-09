@@ -129,4 +129,22 @@ class TechnicalLocationService
             throw new Exception('Desde Ubicación técnica: ' . $e->getMessage());
         }
     }
+
+    public function softDeleteTechnicalLocation(int $id): RedirectResponse
+    {
+        DB::beginTransaction();
+        try {
+            $technical_location = TechnicalLocation::where(column: 'id', operator: '=', value: $id)->get('id');
+            if (!empty($technical_location)) $this->equipmentService->softDeleteEquipmentByTechnicalLocation(ids: $technical_location->toArray());
+            $response = TechnicalLocation::where(column: 'id', operator: '=', value: $id)->update(['delete_at' => now()]);
+            if ($response > 0) {
+                DB::commit();
+                return redirect()->route(route: 'technical-location.index')->with(key: 'success', value: 'Ubicación técnica inhabilitada exitosamente');
+            }
+            throw new Exception('No he sido posible inhabilitar registro');
+        } catch (Exception $e) {
+            DB::rollBack();
+            return redirect()->back()->with(key: 'error', value: 'Desde Ubicación técnica: ' . $e->getMessage());
+        }
+    }
 }

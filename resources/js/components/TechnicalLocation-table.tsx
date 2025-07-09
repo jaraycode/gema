@@ -36,7 +36,13 @@ export const columns: ColumnDef<TechnicalLocationModel>[] = [
         header: () => <div className="text-center">Acciones</div>,
         cell: ({ row }) => (
             <div className="text-center">
-                <FontAwesomeIcon icon={faTrash} />
+                <Link
+                    href={route('technical-location.destroy', { id: row.getValue('id') })}
+                    method="delete"
+                    className="text-center hover:cursor-pointer"
+                >
+                    <FontAwesomeIcon icon={faTrash} />
+                </Link>
             </div>
         ),
     },
@@ -115,9 +121,7 @@ export function TechnicalLocationTable({ data }: { data: TechnicalLocationModel[
                             table.getRowModel().rows.map((row) => (
                                 <TableRow key={row.id} className="border-b border-gray-200">
                                     {row.getVisibleCells().map((cell) => (
-                                        <TableCell  key={cell.id}>
-                                            {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                                        </TableCell>
+                                        <TableCell key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</TableCell>
                                     ))}
                                 </TableRow>
                             ))
