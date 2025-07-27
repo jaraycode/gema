@@ -1,14 +1,20 @@
- 'use client';
+'use client';
+import { Card } from '@/components/ui/card'; // Importar Card
 import Combobox from '@/components/ui/combobox';
 import { TechnicalLocationFormData, TechnicalLocationObject } from '@/types';
 import { faChevronLeft, faQuestion } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Link, useForm } from '@inertiajs/react';
-import { FormEventHandler } from 'react';
+import { FormEventHandler, useState } from 'react';
 import InputError from '../input-error';
 import { Button } from '../ui/button';
 import { HoverCard, HoverCardContent, HoverCardTrigger } from '../ui/hover-card';
-import { Card } from '@/components/ui/card'; // Importar Card
+
+interface ComboVerification {
+    level5: boolean;
+    level6: boolean;
+    level7: boolean;
+}
 
 export default function TechnicalLocationForm({ props }: { props: TechnicalLocationObject }) {
     const { data, setData, post, processing, errors } = useForm<Required<TechnicalLocationFormData>>({
@@ -21,13 +27,21 @@ export default function TechnicalLocationForm({ props }: { props: TechnicalLocat
         level7: '',
     });
 
+    const [comboEnabled, setComboEnabled] = useState<ComboVerification>({
+        level5: true,
+        level6: true,
+        level7: true,
+    });
+
     const submit: FormEventHandler = (e) => {
         e.preventDefault();
         post(route('technical-location.store'));
     };
 
     return (
-        <Card className="mx-auto rounded-xl bg-white px-14 py-7 pb-10 shadow-md"> {/* Usar Card */}
+        <Card className="mx-auto rounded-xl bg-white px-14 py-7 pb-10 shadow-md">
+            {' '}
+            {/* Usar Card */}
             {/* Header */}
             <div className="mb-4 flex items-start justify-between">
                 <Link href={route('technical-location.index')} className="mb-4 inline-block text-sm text-gray-500 hover:text-gray-700">
@@ -51,10 +65,8 @@ export default function TechnicalLocationForm({ props }: { props: TechnicalLocat
                     </HoverCardContent>
                 </HoverCard>
             </div>
-
             <h1 className="mb-4 text-center text-2xl font-bold">Registrar nueva ubicación técnica</h1>
             <p className="mb-6 text-center text-gray-600">Complete la información de la ubicación técnica</p>
-
             <form onSubmit={submit} className="space-y-8 border-t pt-7">
                 <div className="grid grid-cols-1 gap-9 gap-y-8 md:grid-cols-2">
                     {/* Campos individuales */}
@@ -62,7 +74,7 @@ export default function TechnicalLocationForm({ props }: { props: TechnicalLocat
                         <label className="mb-2 block text-sm font-medium text-neutral-900">
                             Edificio <span className="text-red-500">*</span>
                         </label>
-                        <Combobox data={data.level1} setData={setData} locationList={props.module} label={'level1'} />
+                        <Combobox data={data.level1} setData={setData} locationList={props.module} label={'level1'} disable={false} />
                         <InputError message={errors.level1} />
                     </div>
 
@@ -70,7 +82,7 @@ export default function TechnicalLocationForm({ props }: { props: TechnicalLocat
                         <label className="mb-2 block text-sm font-medium text-neutral-900">
                             Piso <span className="text-red-500">*</span>
                         </label>
-                        <Combobox data={data.level2} setData={setData} locationList={props.floor} label={'level2'} />
+                        <Combobox data={data.level2} setData={setData} locationList={props.floor.sort()} label={'level2'} disable={false} />
                         <InputError message={errors.level2} />
                     </div>
 
@@ -78,7 +90,7 @@ export default function TechnicalLocationForm({ props }: { props: TechnicalLocat
                         <label className="mb-2 block text-sm font-medium text-neutral-900">
                             Área <span className="text-red-500">*</span>
                         </label>
-                        <Combobox data={data.level3} setData={setData} locationList={props.area} label={'level3'} />
+                        <Combobox data={data.level3} setData={setData} locationList={props.area} label={'level3'} disable={false} />
                         <InputError message={errors.level3} />
                     </div>
 
@@ -86,25 +98,57 @@ export default function TechnicalLocationForm({ props }: { props: TechnicalLocat
                         <label className="mb-2 block text-sm font-medium text-neutral-900">
                             Salón/Oficina/Equipo <span className="text-red-500">*</span>
                         </label>
-                        <Combobox data={data.level4} setData={setData} locationList={[...props.area, ...props.equipment]} label={'level4'} />
+                        <Combobox
+                            data={data.level4}
+                            setData={setData}
+                            locationList={[...props.area, ...props.equipment]}
+                            equipmentList={props.equipment}
+                            label={'level4'}
+                            disable={false}
+                            setComboEnabled={setComboEnabled}
+                        />
                         <InputError message={errors.level4} />
                     </div>
 
                     <div>
                         <label className="mb-2 block text-sm font-medium text-neutral-900">Salón/Oficina/Equipo</label>
-                        <Combobox data={data.level5} setData={setData} locationList={[...props.area, ...props.equipment]} label={'level5'} />
+                        <Combobox
+                            data={data.level5}
+                            setData={setData}
+                            locationList={[...props.area, ...props.equipment]}
+                            equipmentList={props.equipment}
+                            label={'level5'}
+                            disable={comboEnabled.level5}
+                            setComboEnabled={setComboEnabled}
+                        />
                         <InputError message={errors.level5} />
                     </div>
 
                     <div>
                         <label className="mb-2 block text-sm font-medium text-neutral-900">Salón/Oficina/Equipo</label>
-                        <Combobox data={data.level6} setData={setData} locationList={[...props.area, ...props.equipment]} label={'level6'} />
+                        <Combobox
+                            data={data.level6}
+                            setData={setData}
+                            locationList={[...props.area, ...props.equipment]}
+                            equipmentList={props.equipment}
+                            label={'level6'}
+                            disable={comboEnabled.level6}
+                            setComboEnabled={setComboEnabled}
+                        />
                         <InputError message={errors.level6} />
                     </div>
 
                     <div>
-                        <label className="mb-2 block text-sm font-medium text-neutral-900">Salón/Oficina/Equipo</label>
-                        <Combobox data={data.level7} setData={setData} locationList={[...props.area, ...props.equipment]} label={'level7'} />
+                        <label className="mb-2 block text-sm font-medium text-neutral-900">Equipo</label>
+                        <Combobox
+                            data={data.level7}
+                            setData={setData}
+                            locationList={[...props.area, ...props.equipment]}
+                            equipmentList={props.equipment}
+                            label={'level7'}
+                            disable={comboEnabled.level7}
+                            setComboEnabled={setComboEnabled}
+                        />
                         <InputError message={errors.level7} />
                     </div>
                 </div>
@@ -128,4 +172,4 @@ export default function TechnicalLocationForm({ props }: { props: TechnicalLocat
             </form>
         </Card>
     );
-}   
+}
