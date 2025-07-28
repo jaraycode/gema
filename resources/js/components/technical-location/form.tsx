@@ -33,6 +33,8 @@ export default function TechnicalLocationForm({ props }: { props: TechnicalLocat
         level7: true,
     });
 
+    const sortByName = (a: { name: string }, b: { name: string }) => a.name.localeCompare(b.name);
+
     const submit: FormEventHandler = (e) => {
         e.preventDefault();
         post(route('technical-location.store'));
@@ -40,8 +42,6 @@ export default function TechnicalLocationForm({ props }: { props: TechnicalLocat
 
     return (
         <Card className="mx-auto rounded-xl bg-white px-14 py-7 pb-10 shadow-md">
-            {' '}
-            {/* Usar Card */}
             {/* Header */}
             <div className="mb-4 flex items-start justify-between">
                 <Link href={route('technical-location.index')} className="mb-4 inline-block text-sm text-gray-500 hover:text-gray-700">
@@ -74,7 +74,13 @@ export default function TechnicalLocationForm({ props }: { props: TechnicalLocat
                         <label className="mb-2 block text-sm font-medium text-neutral-900">
                             Edificio <span className="text-red-500">*</span>
                         </label>
-                        <Combobox data={data.level1} setData={setData} locationList={props.module} label={'level1'} disable={false} />
+                        <Combobox
+                            data={data.level1}
+                            setData={setData}
+                            locationList={[...props.module].sort(sortByName)}
+                            label={'level1'}
+                            disable={false}
+                        />
                         <InputError message={errors.level1} />
                     </div>
 
@@ -82,7 +88,13 @@ export default function TechnicalLocationForm({ props }: { props: TechnicalLocat
                         <label className="mb-2 block text-sm font-medium text-neutral-900">
                             Piso <span className="text-red-500">*</span>
                         </label>
-                        <Combobox data={data.level2} setData={setData} locationList={props.floor.sort()} label={'level2'} disable={false} />
+                        <Combobox
+                            data={data.level2}
+                            setData={setData}
+                            locationList={[...props.floor].sort(sortByName)}
+                            label={'level2'}
+                            disable={false}
+                        />
                         <InputError message={errors.level2} />
                     </div>
 
@@ -90,7 +102,13 @@ export default function TechnicalLocationForm({ props }: { props: TechnicalLocat
                         <label className="mb-2 block text-sm font-medium text-neutral-900">
                             Área <span className="text-red-500">*</span>
                         </label>
-                        <Combobox data={data.level3} setData={setData} locationList={props.area} label={'level3'} disable={false} />
+                        <Combobox
+                            data={data.level3}
+                            setData={setData}
+                            locationList={[...props.area].sort(sortByName)}
+                            label={'level3'}
+                            disable={false}
+                        />
                         <InputError message={errors.level3} />
                     </div>
 
@@ -101,8 +119,8 @@ export default function TechnicalLocationForm({ props }: { props: TechnicalLocat
                         <Combobox
                             data={data.level4}
                             setData={setData}
-                            locationList={[...props.area, ...props.equipment]}
-                            equipmentList={props.equipment}
+                            locationList={[...props.area, ...props.equipment].sort(sortByName)}
+                            equipmentList={[...props.equipment].sort(sortByName)}
                             label={'level4'}
                             disable={false}
                             setComboEnabled={setComboEnabled}
@@ -115,8 +133,8 @@ export default function TechnicalLocationForm({ props }: { props: TechnicalLocat
                         <Combobox
                             data={data.level5}
                             setData={setData}
-                            locationList={[...props.area, ...props.equipment]}
-                            equipmentList={props.equipment}
+                            locationList={[...props.area, ...props.equipment].sort(sortByName)}
+                            equipmentList={[...props.equipment].sort(sortByName)}
                             label={'level5'}
                             disable={comboEnabled.level5}
                             setComboEnabled={setComboEnabled}
@@ -129,8 +147,8 @@ export default function TechnicalLocationForm({ props }: { props: TechnicalLocat
                         <Combobox
                             data={data.level6}
                             setData={setData}
-                            locationList={[...props.area, ...props.equipment]}
-                            equipmentList={props.equipment}
+                            locationList={[...props.area, ...props.equipment].sort(sortByName)}
+                            equipmentList={[...props.equipment].sort(sortByName)}
                             label={'level6'}
                             disable={comboEnabled.level6}
                             setComboEnabled={setComboEnabled}
@@ -143,8 +161,8 @@ export default function TechnicalLocationForm({ props }: { props: TechnicalLocat
                         <Combobox
                             data={data.level7}
                             setData={setData}
-                            locationList={[...props.area, ...props.equipment]}
-                            equipmentList={props.equipment}
+                            locationList={[...props.area, ...props.equipment].sort(sortByName)}
+                            equipmentList={[...props.equipment].sort(sortByName)}
                             label={'level7'}
                             disable={comboEnabled.level7}
                             setComboEnabled={setComboEnabled}

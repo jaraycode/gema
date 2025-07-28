@@ -198,23 +198,28 @@ export default function EquipmentForm({ equipment_type, locations, technical_loc
                                 <SelectValue placeholder="Seleccione un área" className="text-[#8b8b8b]" />
                             </SelectTrigger>
                             <SelectContent className="rounded-xl bg-white shadow-sm">
-                                {locations.area.map((value, key) => (
-                                    <SelectItem value={value.code} key={key}>
-                                        {value.name}
-                                    </SelectItem>
-                                ))}
+                                {[...locations.area]
+                                    .sort((a, b) => a.name.localeCompare(b.name))
+                                    .map((value, key) => (
+                                        <SelectItem value={value.code} key={key}>
+                                            {value.name}
+                                        </SelectItem>
+                                    ))}
                             </SelectContent>
                         </Select>
+
                         <Select value={queryEquipment} onValueChange={(value) => handleFilter(value, setQueryEquipment)}>
                             <SelectTrigger className="mt-1 w-[200px] rounded-xl border border-gray-300 py-7 shadow-sm hover:text-black focus-visible:border-gray-300 focus-visible:ring-2 focus-visible:ring-teal-500 focus-visible:ring-offset-0">
                                 <SelectValue placeholder="Seleccione un equipo" className="text-[#8b8b8b]" />
                             </SelectTrigger>
                             <SelectContent className="rounded-xl bg-white shadow-sm">
-                                {locations.equipment.map((value, key) => (
-                                    <SelectItem value={value.code} key={key}>
-                                        {value.name}
-                                    </SelectItem>
-                                ))}
+                                {[...locations.equipment]
+                                    .sort((a, b) => a.name.localeCompare(b.name))
+                                    .map((value, key) => (
+                                        <SelectItem value={value.code} key={key}>
+                                            {value.name}
+                                        </SelectItem>
+                                    ))}
                             </SelectContent>
                         </Select>
                         <button
